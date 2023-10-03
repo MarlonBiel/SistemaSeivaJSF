@@ -1,6 +1,6 @@
     package br.edu.ifpr.irati.ads.util;
 
-import br.edu.ifpr.irati.ads.modelo.Curso;
+import br.edu.ifpr.irati.ads.modelo.Usuarios;
 import java.util.HashMap;
 import java.util.Map;
 import org.hibernate.SessionFactory;
@@ -20,7 +20,7 @@ public class HibernateUtil {
             settings.put("connection.driver_class", "com.mysql.cj.jdbc.Driver");
             settings.put("dialect", "org.hibernate.dialect.MySQLDialect");
             settings.put("hibernate.connection.url",
-                    "jdbc:mysql://localhost:3306/eapjsfhibernate");
+                    "jdbc:mysql://localhost:3306/SistemaSeiva");
             settings.put("hibernate.connection.username", "root");
             settings.put("hibernate.hbm2ddl.auto", "update");
             settings.put("hibernate.connection.password", "root");
@@ -32,7 +32,7 @@ public class HibernateUtil {
             
             
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
-            metadataSources.addAnnotatedClass(Curso.class);
+            metadataSources.addAnnotatedClass(Usuarios.class);
             
             Metadata metadata = metadataSources.buildMetadata();
 

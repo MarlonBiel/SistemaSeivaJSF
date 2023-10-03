@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity(name = "curso")
-public class Curso {
+public class Usuarios {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
@@ -22,13 +22,13 @@ public class Curso {
     @Column(name = "turno", nullable = true, length = 40)
     private String turno;
 
-    public Curso() {
+    public Usuarios() {
         id = 0;
         nome = "";
         turno = "";
     }
 
-    public Curso(int id, String nome, String turno) {
+    public Usuarios(int id, String nome, String turno) {
         this.id = id;
         this.nome = nome;
         this.turno = turno;
