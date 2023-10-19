@@ -9,7 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 import java.util.Date;
 
 @Entity(name = "caixa")
-public class Caixa {
+public class Estoque {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
@@ -32,7 +32,7 @@ public class Caixa {
     @Column(name = "formaPagamento", nullable = true, length = 14)
     private String formaPagamento;
 
-    public Caixa() {
+    public Estoque() {
         id = 0;
         nome = "";
         data = new Date();
@@ -42,7 +42,7 @@ public class Caixa {
         
     }
 
-    public Caixa(int id, String nome, Date data, String descricao, String tipo, String formaPagamento) {
+    public Estoque(int id, String nome, Date data, String descricao, String tipo, String formaPagamento) {
         this.id = id;
         this.nome = nome;
         this.data = data;

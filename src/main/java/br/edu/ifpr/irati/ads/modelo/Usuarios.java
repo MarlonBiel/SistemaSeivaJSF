@@ -6,10 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "curso")
-public class Usuarios {
+public class Usuarios implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
@@ -38,7 +39,7 @@ public class Usuarios {
     @Column(name = "cpf", nullable = true, length = 14)
     private String cpf;
     
-    @Column(name = "senha", nullable = true, length = 20)
+    @Column(name = "senha", nullable = true, length = 255)
     private String senha;
     
     @Column(name = "funcao", nullable = true, length = 20)

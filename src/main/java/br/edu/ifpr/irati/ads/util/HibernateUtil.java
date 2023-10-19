@@ -20,7 +20,7 @@ public class HibernateUtil {
             settings.put("connection.driver_class", "com.mysql.cj.jdbc.Driver");
             settings.put("dialect", "org.hibernate.dialect.MySQLDialect");
             settings.put("hibernate.connection.url",
-                    "jdbc:mysql://localhost:3306/SistemaSeiva");
+                    "jdbc:mysql://localhost:3306/jdbc:mysql://localhost:3306/sistemaseiva?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
             settings.put("hibernate.connection.username", "root");
             settings.put("hibernate.hbm2ddl.auto", "update");
             settings.put("hibernate.connection.password", "root");
