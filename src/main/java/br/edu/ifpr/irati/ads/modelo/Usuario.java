@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "usuario")
-public class Usuarios implements Serializable{
+public class Usuario implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
@@ -47,7 +47,7 @@ public class Usuarios implements Serializable{
     @Column(name = "funcao", nullable = true, length = 20)
     private String funcao;
 
-    public Usuarios() {
+    public Usuario() {
         id = 0;
         nome = "";
         dataNascimento = new Date();
@@ -59,7 +59,7 @@ public class Usuarios implements Serializable{
         funcao = "";
     }
 
-    public Usuarios(int id, String nome, Date dataNascimento, String endereco, String cep, String email, String cpf, String senha, String funcao) {
+    public Usuario(int id, String nome, Date dataNascimento, String endereco, String cep, String email, String cpf, String senha, String funcao) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;

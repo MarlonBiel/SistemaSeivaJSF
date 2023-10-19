@@ -2,7 +2,7 @@
 
 import br.edu.ifpr.irati.ads.modelo.Caixa;
 import br.edu.ifpr.irati.ads.modelo.Produto;
-import br.edu.ifpr.irati.ads.modelo.Usuarios;
+import br.edu.ifpr.irati.ads.modelo.Usuario;
 import java.util.HashMap;
 import java.util.Map;
 import org.hibernate.SessionFactory;
@@ -22,6 +22,7 @@ public class HibernateUtil {
             settings.put("connection.driver_class", "com.mysql.cj.jdbc.Driver");
             settings.put("dialect", "org.hibernate.dialect.MySQLDialect");
             settings.put("hibernate.connection.url","jdbc:mysql://localhost:3306/conjexemplosjsfhibernate?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
+            settings.put("hibernate.connection.url","jdbc:mysql://localhost:3306/sistemaseiva?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
             settings.put("hibernate.connection.username", "root");
             settings.put("hibernate.hbm2ddl.auto", "update");
             settings.put("hibernate.connection.password", "root");
@@ -33,7 +34,7 @@ public class HibernateUtil {
             
             
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
-            metadataSources.addAnnotatedClass(Usuarios.class);
+            metadataSources.addAnnotatedClass(Usuario.class);
             metadataSources.addAnnotatedClass(Produto.class);
             metadataSources.addAnnotatedClass(Caixa.class);
             

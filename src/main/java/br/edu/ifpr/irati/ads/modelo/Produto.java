@@ -13,7 +13,6 @@ import java.util.Date;
 
 @Entity(name = "produto")
 public class Produto implements Serializable{
-    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
     @SequenceGenerator(name = "seq-curso", 
