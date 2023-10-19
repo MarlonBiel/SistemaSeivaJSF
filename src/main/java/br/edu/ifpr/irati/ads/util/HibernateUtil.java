@@ -1,6 +1,6 @@
     package br.edu.ifpr.irati.ads.util;
 
-import br.edu.ifpr.irati.ads.modelo.Usuarios;
+import br.edu.ifpr.irati.ads.modelo.Usuario;
 import java.util.HashMap;
 import java.util.Map;
 import org.hibernate.SessionFactory;
@@ -32,7 +32,7 @@ public class HibernateUtil {
             
             
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
-            metadataSources.addAnnotatedClass(Usuarios.class);
+            metadataSources.addAnnotatedClass(Usuario.class);
             
             Metadata metadata = metadataSources.buildMetadata();
 
