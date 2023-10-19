@@ -8,8 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
 import java.util.Date;
 
-@Entity(name = "caixa")
-public class Estoque {
+@Entity(name = "produto")
+public class Produto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
@@ -17,8 +17,8 @@ public class Estoque {
             sequenceName = "CURSO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
     
-    @Column(name = "nome", nullable = true, length = 80)
-    private String nome;
+    @Column(name = "produto", nullable = true, length = 80)
+    private String produto;
     
     @Column(name = "data", nullable = true, length = 40)
     private Date data;
@@ -26,29 +26,25 @@ public class Estoque {
     @Column(name = "descricao", nullable = true, length = 100)
     private String descricao;
     
-    @Column(name = "tipo", nullable = true, length = 9)
-    private String tipo;
-    
-    @Column(name = "formaPagamento", nullable = true, length = 14)
-    private String formaPagamento;
+    @Column(name = "valor", nullable = true, length = 9)
+    private String valor;
+   
 
-    public Estoque() {
+    public Produto() {
         id = 0;
-        nome = "";
+        produto = "";
         data = new Date();
         descricao = "";
-        tipo = "";
-        formaPagamento = "";
+        valor = "";
         
     }
 
-    public Estoque(int id, String nome, Date data, String descricao, String tipo, String formaPagamento) {
+    public Produto(int id, String produto, Date data, String descricao, String valor) {
         this.id = id;
-        this.nome = nome;
+        this.produto = produto;
         this.data = data;
         this.descricao = descricao;
-        this.tipo = tipo;
-        this.formaPagamento = formaPagamento;
+        this.valor = valor;
     }
     
     
@@ -61,12 +57,12 @@ public class Estoque {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getProduto() {
+        return produto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setProduto(String produto) {
+        this.produto = produto;
     }
 
     public Date getData() {
@@ -85,21 +81,12 @@ public class Estoque {
         this.descricao = descrição;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getValor() {
+        return valor;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
-
-    public String getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(String formaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-    
     
 }
