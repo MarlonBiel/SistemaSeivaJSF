@@ -3,7 +3,7 @@ package br.edu.ifpr.irati.ads.mb;
 import br.edu.ifpr.irati.ads.dao.Dao;
 import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
-import br.edu.ifpr.irati.ads.modelo.Curso;
+import br.edu.ifpr.irati.ads.modelo.Usuarios;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -16,18 +16,18 @@ import org.hibernate.Session;
 @SessionScoped
 public class CursoMB implements Serializable{
     
-    private List<Curso> cursos;
-    private Curso curso;
+    private List<Usuarios> cursos;
+    private Usuarios curso;
     private Session session;
-    private Dao<Curso> cursoDAO;
+    private Dao<Usuarios> cursoDAO;
 
     public CursoMB() {
         try {
             //poderia buscar no banco de dados
             session = HibernateUtil.getSessionFactory().openSession();
-            cursoDAO = new GenericDAO<>(Curso.class, session);
+            cursoDAO = new GenericDAO<>(Usuarios.class, session);
             cursos = cursoDAO.buscarTodos();
-            curso = new Curso();
+            curso = new Usuarios();
             session.close();
         } catch (PersistenceException ex) {
             ex.printStackTrace();
@@ -37,7 +37,7 @@ public class CursoMB implements Serializable{
     public void salvar(){
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            cursoDAO = new GenericDAO<>(Curso.class, session);
+            cursoDAO = new GenericDAO<>(Usuarios.class, session);
             this.cursos.add(curso);
             cursoDAO.salvar(curso);
             session.close();
@@ -48,22 +48,22 @@ public class CursoMB implements Serializable{
     }
     
     public void limparTela(){
-        this.curso = new Curso();
+        this.curso = new Usuarios();
     }
         
-    public List<Curso> getCursos() {
+    public List<Usuarios> getCursos() {
         return cursos;
     }
 
-    public void setCursos(List<Curso> cursos) {
+    public void setCursos(List<Usuarios> cursos) {
         this.cursos = cursos;
     }
 
-    public Curso getCurso() {
+    public Usuarios getCurso() {
         return curso;
     }
 
-    public void setCurso(Curso curso) {
+    public void setCurso(Usuarios curso) {
         this.curso = curso;
     }
     
