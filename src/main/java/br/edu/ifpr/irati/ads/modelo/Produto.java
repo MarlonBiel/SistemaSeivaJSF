@@ -6,10 +6,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "produto")
-public class Produto {
+public class Produto implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
@@ -20,7 +23,7 @@ public class Produto {
     @Column(name = "produto", nullable = true, length = 80)
     private String produto;
     
-    @Column(name = "data", nullable = true, length = 40)
+    @Temporal(value = TemporalType.DATE)
     private Date data;
     
     @Column(name = "descricao", nullable = true, length = 100)

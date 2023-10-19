@@ -1,0 +1,11 @@
+br\edu\ifpr\irati\ads\dao\Dao.class
+br\edu\ifpr\irati\ads\dao\GenericDAO.class
+br\edu\ifpr\irati\ads\modelo\Usuarios.class
+br\edu\ifpr\irati\ads\util\HibernateUtil.class
+br\edu\ifpr\irati\ads\exception\PersistenceException.class
+br\edu\ifpr\irati\ads\modelo\Produto.class
+br\edu\ifpr\irati\ads\modelo\Caixa.class
+br\edu\ifpr\irati\ads\exemplojsfmaven\JakartaRestConfiguration.class
+br\edu\ifpr\irati\ads\exemplojsfmaven\resources\JakartaEE8Resource.class
+br\edu\ifpr\irati\ads\filters\CharacterEncodingFilter.class
+br\edu\ifpr\irati\ads\mb\CursoMB.class

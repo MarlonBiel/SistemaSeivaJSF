@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,7 +23,7 @@ public class Usuarios implements Serializable{
     @Column(name = "nome", nullable = true, length = 80)
     private String nome;
     
-    @Column(name = "dataNascimento", nullable = true, length = 40)
+    @Temporal(value = TemporalType.DATE)
     private Date dataNascimento;
     
     @Column(name = "endereco", nullable = true, length = 100)
