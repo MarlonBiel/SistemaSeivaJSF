@@ -59,6 +59,7 @@ public class UsuarioMB implements Serializable{
     
     
     public void entrar(String login, String senha){
+                System.out.println(login);
         boolean flag=consulta(login, senha);
         if(flag){
             System.out.println("entremo");
@@ -69,6 +70,7 @@ public class UsuarioMB implements Serializable{
         
     }
     protected boolean consulta(String login, String senha){
+        System.out.println(login);
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
