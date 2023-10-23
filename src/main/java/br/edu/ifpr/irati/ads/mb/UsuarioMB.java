@@ -44,7 +44,7 @@ public class UsuarioMB implements Serializable{
     }
     public void salvar(){
         try {      
-            usuario.setNome("caio");
+            //usuario.setNome("caio");
             Session session = HibernateUtil.getSessionFactory().openSession();
             Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);            
             usuarioDAO.alterar(usuario);
