@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import org.hibernate.Session;
 
 /**
@@ -21,7 +22,8 @@ import org.hibernate.Session;
  * @author Caio
  */
 @ManagedBean
-@RequestScoped
+//@RequestScoped
+@ViewScoped
 public class UsuarioMB implements Serializable{
     private List<Usuario> usuarios;
     private Usuario usuario;
