@@ -38,7 +38,18 @@ public class CaixaMB implements Serializable{
     public void limparTela(){
         this.setCaixa(new Caixa());
     }
-
+    public void salvar(){
+        try {      
+            //usuario.setNome("caio");
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Dao<Caixa> caixaDAO = new GenericDAO<>(Caixa.class, session);            
+            caixaDAO.alterar(caixa);
+            session.close();
+            caixa = new Caixa();
+        } catch (PersistenceException ex) {
+            ex.printStackTrace();
+        }
+    }   
     /**
      * @return the caixas
      */
