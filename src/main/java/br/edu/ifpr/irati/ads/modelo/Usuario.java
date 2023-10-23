@@ -9,7 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "curso")
+@Entity(name = "usuario")
 public class Usuario implements Serializable{
     
     @Id

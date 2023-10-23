@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
 import java.util.Date;
 
-@Entity(name = "caixa")
+@Entity(name = "estoque")
 public class Estoque {
     
     @Id
