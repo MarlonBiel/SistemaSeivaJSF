@@ -11,13 +11,13 @@ import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "curso")
+@Entity(name = "usuario")
 public class Usuario implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
-    @SequenceGenerator(name = "seq-curso", 
-            sequenceName = "CURSO_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-user")
+    @SequenceGenerator(name = "seq-user", 
+            sequenceName = "USER_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
     
     @Column(name = "nome", nullable = true, length = 80)

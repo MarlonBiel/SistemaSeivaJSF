@@ -10,8 +10,11 @@ import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import org.hibernate.Session;
 
 /**
@@ -19,6 +22,8 @@ import org.hibernate.Session;
  * @author Caio
  */
 @ManagedBean
+//@RequestScoped
+@ViewScoped
 public class UsuarioMB implements Serializable{
     private List<Usuario> usuarios;
     private Usuario usuario;
@@ -39,7 +44,22 @@ public class UsuarioMB implements Serializable{
     public void limparTela(){
         this.setUsuario(new Usuario());
     }
+    public void salvar(){
+        try {      
+            //usuario.setNome("caio");
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);            
+            usuarioDAO.alterar(usuario);
+            session.close();
+            usuario = new Usuario();
+        } catch (PersistenceException ex) {
+            ex.printStackTrace();
+        }
+    }    
+    
+    
     public void entrar(String login, String senha){
+                System.out.println(login);
         boolean flag=consulta(login, senha);
         if(flag){
             System.out.println("entremo");
@@ -50,6 +70,7 @@ public class UsuarioMB implements Serializable{
         
     }
     protected boolean consulta(String login, String senha){
+        System.out.println(login);
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
