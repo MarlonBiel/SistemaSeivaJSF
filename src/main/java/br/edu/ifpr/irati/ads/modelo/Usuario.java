@@ -15,9 +15,9 @@ import java.util.Date;
 public class Usuario implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
-    @SequenceGenerator(name = "seq-curso", 
-            sequenceName = "CURSO_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-user")
+    @SequenceGenerator(name = "seq-user", 
+            sequenceName = "USER_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
     
     @Column(name = "nome", nullable = true, length = 80)

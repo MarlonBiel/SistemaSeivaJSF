@@ -11,12 +11,13 @@ import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "produto")
-public class Produto implements Serializable{
+@Entity(name = "estoque")
+public class Estoque implements Serializable{
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-curso")
-    @SequenceGenerator(name = "seq-curso", 
-            sequenceName = "CURSO_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-estoque")
+    @SequenceGenerator(name = "seq-estoque", 
+            sequenceName = "ESTOQUE_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
     
     @Column(name = "produto", nullable = true, length = 80)
@@ -32,7 +33,7 @@ public class Produto implements Serializable{
     private String valor;
    
 
-    public Produto() {
+    public Estoque() {
         id = 0;
         produto = "";
         data = new Date();
@@ -41,7 +42,7 @@ public class Produto implements Serializable{
         
     }
 
-    public Produto(int id, String produto, Date data, String descricao, String valor) {
+    public Estoque(int id, String produto, Date data, String descricao, String valor) {
         this.id = id;
         this.produto = produto;
         this.data = data;
