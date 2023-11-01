@@ -1,6 +1,14 @@
     package br.edu.ifpr.irati.ads.util;
 
 
+import br.edu.ifpr.irati.ads.modelo.Contribuicao;
+import br.edu.ifpr.irati.ads.modelo.Despesa;
+import br.edu.ifpr.irati.ads.modelo.Evento;
+import br.edu.ifpr.irati.ads.modelo.Funcao;
+import br.edu.ifpr.irati.ads.modelo.Produto;
+import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
+import br.edu.ifpr.irati.ads.modelo.Usuario;
+import br.edu.ifpr.irati.ads.modelo.Venda;
 import java.util.HashMap;
 import java.util.Map;
 import org.hibernate.SessionFactory;
@@ -31,9 +39,14 @@ public class HibernateUtil {
             
             
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
-            //metadataSources.addAnnotatedClass(Usuario.class);
-            //metadataSources.addAnnotatedClass(Estoque.class);
-            //metadataSources.addAnnotatedClass(Caixa.class);
+            metadataSources.addAnnotatedClass(Contribuicao.class);
+            metadataSources.addAnnotatedClass(Despesa.class);
+            metadataSources.addAnnotatedClass(Evento.class);
+            metadataSources.addAnnotatedClass(Funcao.class);
+            metadataSources.addAnnotatedClass(Produto.class);
+            metadataSources.addAnnotatedClass(ProdutoVenda.class);
+            metadataSources.addAnnotatedClass(Usuario.class);
+            metadataSources.addAnnotatedClass(Venda.class);
             Metadata metadata = metadataSources.buildMetadata();
 
             sessionFactory = metadata.getSessionFactoryBuilder().build();
