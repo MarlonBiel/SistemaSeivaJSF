@@ -5,6 +5,8 @@
 package br.edu.ifpr.irati.ads.modelo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Date;
 
