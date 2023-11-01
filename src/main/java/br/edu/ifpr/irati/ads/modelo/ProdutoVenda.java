@@ -4,7 +4,10 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 
 /**
@@ -13,7 +16,10 @@ import java.io.Serializable;
  */
 @Entity (name="produtovenda")
 public class ProdutoVenda implements Serializable{
+    @OneToOne
+    @JoinColumn(name = "produto_id", referencedColumnName = "id", nullable = false)
     private Produto produto;
+    @Column(name = "quantVenda")
     private int quantVenda;
 
     public ProdutoVenda() {
