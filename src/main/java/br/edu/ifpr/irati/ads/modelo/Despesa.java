@@ -4,10 +4,18 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author Caio
  */
 public class Despesa {
-    
+    int id;
+    String descriminacao;
+    Date data;
+    double valor;
+    String formaPagamento;
+    String observacao;
+    String Anexos; //alterar
 }
