@@ -11,11 +11,132 @@ import java.util.Date;
  * @author Caio
  */
 public class Despesa {
-    int id;
-    String descriminacao;
-    Date data;
-    double valor;
-    String formaPagamento;
-    String observacao;
-    String Anexos; //alterar
+    private int id;
+    private String descriminacao;
+    private Date data;
+    private double valor;
+    private String formaPagamento;
+    private String observacao;
+    private String Anexos; //alterar
+
+    public Despesa() {
+        this.id = 0;
+        this.descriminacao = "";
+        this.data = new Date();
+        this.valor = 0;
+        this.formaPagamento = "";
+        this.observacao = "";
+        this.Anexos = "";
+    }
+
+    public Despesa(int id, String descriminacao, Date data, double valor, String formaPagamento, String observacao, String Anexos) {
+        this.id = id;
+        this.descriminacao = descriminacao;
+        this.data = data;
+        this.valor = valor;
+        this.formaPagamento = formaPagamento;
+        this.observacao = observacao;
+        this.Anexos = Anexos;
+    }
+
+    
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the descriminacao
+     */
+    public String getDescriminacao() {
+        return descriminacao;
+    }
+
+    /**
+     * @param descriminacao the descriminacao to set
+     */
+    public void setDescriminacao(String descriminacao) {
+        this.descriminacao = descriminacao;
+    }
+
+    /**
+     * @return the data
+     */
+    public Date getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    /**
+     * @return the valor
+     */
+    public double getValor() {
+        return valor;
+    }
+
+    /**
+     * @param valor the valor to set
+     */
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    /**
+     * @return the formaPagamento
+     */
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    /**
+     * @param formaPagamento the formaPagamento to set
+     */
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    /**
+     * @return the observacao
+     */
+    public String getObservacao() {
+        return observacao;
+    }
+
+    /**
+     * @param observacao the observacao to set
+     */
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    /**
+     * @return the Anexos
+     */
+    public String getAnexos() {
+        return Anexos;
+    }
+
+    /**
+     * @param Anexos the Anexos to set
+     */
+    public void setAnexos(String Anexos) {
+        this.Anexos = Anexos;
+    }
+    
+    
 }
