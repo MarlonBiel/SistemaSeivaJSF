@@ -4,7 +4,12 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import java.io.Serializable;
 
 /**
@@ -13,11 +18,20 @@ import java.io.Serializable;
  */
 @Entity (name="produto")
 public class Produto implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-produto")
+    @SequenceGenerator(name = "seq-produto", 
+            sequenceName = "PRODUTO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
+    @Column(name="nome", nullable = false, length = 100)
     private String nome;
+    @Column(name = "quantEstoque")
     private int quantEstoque;
+    @Column(name = "valor")
     private double valor;
+    @Column(name = "ian")
     private int ian;
+    @Column(name = "valorVenda")
     private double valorVenda;
 
     public Produto() {
