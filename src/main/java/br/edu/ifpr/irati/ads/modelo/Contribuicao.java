@@ -4,7 +4,16 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,11 +23,21 @@ import java.util.Date;
  */
 @Entity (name="contribuicao")
 public class Contribuicao implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-contribuicao")
+    @SequenceGenerator(name = "seq-contribuicao", 
+            sequenceName = "CONTRIBUICAO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
+    @OneToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     private Usuario usuario;
+    @Column(name = "valor")
     private double valor;
+    @Temporal(value = TemporalType.DATE)
     private Date data;
+    @Column(name="formaContribuicao", nullable = false, length = 100)
     private String formaContribuicao;
+    @Column(name="tipo", nullable = false, length = 100)
     private String tipo;
 
     public Contribuicao() {

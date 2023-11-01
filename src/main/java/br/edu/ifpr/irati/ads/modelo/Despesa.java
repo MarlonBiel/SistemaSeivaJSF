@@ -4,7 +4,14 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,13 +21,23 @@ import java.util.Date;
  */
 @Entity (name="despesa")
 public class Despesa implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-despesa")
+    @SequenceGenerator(name = "seq-despesa", 
+            sequenceName = "DESPESA_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
+    @Column(name="descriminacao", nullable = false, length = 100)
     private String descriminacao;
+    @Temporal(value = TemporalType.DATE)
     private Date data;
+    @Column(name = "valor")
     private double valor;
+    @Column(name="formaPagamento", nullable = false, length = 100)
     private String formaPagamento;
+    @Column(name="observacao", nullable = false, length = 100)
     private String observacao;
-    private String Anexos; //alterar
+    @Column(name = "imagem", nullable = true, length = 250)
+    private String anexos; //alterar
 
     public Despesa() {
         this.id = 0;
@@ -29,7 +46,7 @@ public class Despesa implements Serializable{
         this.valor = 0;
         this.formaPagamento = "";
         this.observacao = "";
-        this.Anexos = "";
+        this.anexos = "";
     }
 
     public Despesa(int id, String descriminacao, Date data, double valor, String formaPagamento, String observacao, String Anexos) {
@@ -39,7 +56,7 @@ public class Despesa implements Serializable{
         this.valor = valor;
         this.formaPagamento = formaPagamento;
         this.observacao = observacao;
-        this.Anexos = Anexos;
+        this.anexos = Anexos;
     }
 
     
@@ -131,14 +148,14 @@ public class Despesa implements Serializable{
      * @return the Anexos
      */
     public String getAnexos() {
-        return Anexos;
+        return anexos;
     }
 
     /**
      * @param Anexos the Anexos to set
      */
     public void setAnexos(String Anexos) {
-        this.Anexos = Anexos;
+        this.anexos = Anexos;
     }
     
     
