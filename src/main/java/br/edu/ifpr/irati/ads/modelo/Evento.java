@@ -4,6 +4,8 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.List;
  *
  * @author Caio
  */
-public class Evento {
+@Entity (name="evento")
+public class Evento implements Serializable{
     private int id;
     private Date data;
     private String descricao;

@@ -4,6 +4,8 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,8 @@ import java.util.List;
  *
  * @author Caio
  */
-public class Venda {
+@Entity (name="venda")
+public class Venda implements Serializable{
     private int id;
     private ProdutoVenda vendaProduto;
     private List<ProdutoVenda> vendaAtual;

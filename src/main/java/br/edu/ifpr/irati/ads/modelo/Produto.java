@@ -4,11 +4,15 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Entity;
+import java.io.Serializable;
+
 /**
  *
  * @author Caio
  */
-public class Produto {
+@Entity (name="produto")
+public class Produto implements Serializable{
     private int id;
     private String nome;
     private int quantEstoque;

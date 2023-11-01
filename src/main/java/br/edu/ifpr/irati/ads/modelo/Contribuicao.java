@@ -4,13 +4,16 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Entity;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Caio
  */
-public class Contribuicao {
+@Entity (name="contribuicao")
+public class Contribuicao implements Serializable{
     private int id;
     private Usuario usuario;
     private double valor;
