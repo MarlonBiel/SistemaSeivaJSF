@@ -4,9 +4,16 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,15 +23,28 @@ import java.util.Date;
  */
 @Entity (name="usuario")
 public class Usuario implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-usuario")
+    @SequenceGenerator(name = "seq-usuario", 
+            sequenceName = "USUARIO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
+    @Column(name="nome", nullable = false, length = 100)
     private String nome;
+    @Column(name="cpf", nullable = false, length = 100)
     private int cpf;
+    @Temporal(value = TemporalType.DATE)
     private Date dataNascimento;
+    @Column(name="endereco", nullable = false, length = 100)
     private String endereco;
+    @Column(name="telefone", nullable = false, length = 100)
     private String telefone;
+    @Column(name="email", nullable = false, length = 100)
     private String email;
+    @Column(name="senha", nullable = false, length = 100)
     private String senha;
+    @Column(name = "matricula")
     private int matricula;
+    @Column(name = "funcao")
     private Funcao funcao;
 
     public Usuario() {
