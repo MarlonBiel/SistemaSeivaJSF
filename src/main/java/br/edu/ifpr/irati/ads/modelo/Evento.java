@@ -4,7 +4,17 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,11 +26,22 @@ import java.util.List;
  */
 @Entity (name="evento")
 public class Evento implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-evento")
+    @SequenceGenerator(name = "seq-evento", 
+            sequenceName = "EVENTO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
+    @Temporal(value = TemporalType.DATE)
     private Date data;
+    @Column(name="descricao", nullable = false, length = 100)
     private String descricao;
+    @Column(name="quantidadeFrequentantes", nullable = false)
     private int quantidadeFrequentantes;
+    @OneToMany
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     private List<Usuario> usuarios;
+    @OneToOne
+    @JoinColumn(name = "freqTrabalhadores_id", referencedColumnName = "id", nullable = false)
     private Usuario freqTrabalhadores;
 
     public Evento() {
