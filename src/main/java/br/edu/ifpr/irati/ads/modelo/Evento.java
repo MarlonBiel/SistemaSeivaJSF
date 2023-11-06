@@ -4,12 +4,14 @@
  */
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
@@ -37,7 +39,7 @@ public class Evento implements Serializable{
     private String descricao;
     @Column(name="quantidadeFrequentantes", nullable = false)
     private int quantidadeFrequentantes;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL) //onetomany
     @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     private List<Usuario> usuarios;
     @OneToOne
@@ -45,6 +47,7 @@ public class Evento implements Serializable{
     private Usuario freqTrabalhadores;
 
     public Evento() {
+        super();
         this.id = 0;
         this.data = new Date();
         this.descricao = "";

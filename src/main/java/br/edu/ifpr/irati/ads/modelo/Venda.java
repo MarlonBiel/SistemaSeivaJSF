@@ -5,6 +5,10 @@
 package br.edu.ifpr.irati.ads.modelo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +19,12 @@ import java.util.List;
  */
 @Entity (name="venda")
 public class Venda implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-venda")
+    @SequenceGenerator(name = "seq-venda", 
+            sequenceName = "VENDA_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
+    
     private ProdutoVenda vendaProduto;
     private List<ProdutoVenda> vendaAtual;
 
