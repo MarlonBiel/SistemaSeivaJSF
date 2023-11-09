@@ -1,153 +1,216 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package br.edu.ifpr.irati.ads.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "usuario")
+/**
+ *
+ * @author Caio
+ */
+@Entity (name="usuario")
 public class Usuario implements Serializable{
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-user")
-    @SequenceGenerator(name = "seq-user", 
-            sequenceName = "USER_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-usuario")
+    @SequenceGenerator(name = "seq-usuario", 
+            sequenceName = "USUARIO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
-    
-    @Column(name = "nome", nullable = true, length = 80)
+    @Column(name="nome", nullable = false, length = 100)
     private String nome;
-    
+    @Column(name="cpf", nullable = false, length = 100)
+    private int cpf;
     @Temporal(value = TemporalType.DATE)
     private Date dataNascimento;
-    
-    @Column(name = "endereco", nullable = true, length = 100)
+    @Column(name="endereco", nullable = false, length = 100)
     private String endereco;
-    
-    @Column(name = "cep", nullable = true, length = 9)
-    private String cep;
-    
-    @Column(name = "telefone", nullable = true, length = 14)
+    @Column(name="telefone", nullable = false, length = 100)
     private String telefone;
-    
-    @Column(name = "email", nullable = true, length = 40)
+    @Column(name="email", nullable = false, length = 100)
     private String email;
-    
-    @Column(name = "cpf", nullable = true, length = 14)
-    private String cpf;
-    
-    @Column(name = "senha", nullable = true, length = 255)
+    @Column(name="senha", nullable = false, length = 100)
     private String senha;
-    
-    @Column(name = "funcao", nullable = true, length = 20)
-    private String funcao;
+    @Column(name = "matricula")
+    private int matricula;
+    @Column(name = "funcao")
+    private Funcao funcao;
 
     public Usuario() {
-        id = 0;
-        nome = "";
-        dataNascimento = new Date();
-        endereco = "";
-        cep = "";
-        email = "";
-        cpf = "";
-        senha = "";
-        funcao = "";
+        this.id = 0;
+        this.nome = "";
+        this.cpf = 0;
+        this.dataNascimento = new Date();
+        this.endereco = "";
+        this.telefone = "";
+        this.email = "";
+        this.senha = "";
+        this.matricula = 0;
+        this.funcao = funcao.VAZIO;
     }
 
-    public Usuario(int id, String nome, Date dataNascimento, String endereco, String cep, String email, String cpf, String senha, String funcao) {
+    public Usuario(int id, String nome, int cpf, Date dataNascimento, String endereco, String telefone, String email, String senha, int matricula, Funcao funcao) {
         this.id = id;
         this.nome = nome;
+        this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.endereco = endereco;
-        this.cep = cep;
+        this.telefone = telefone;
         this.email = email;
-        this.cpf = cpf;
         this.senha = senha;
+        this.matricula = matricula;
         this.funcao = funcao;
     }
+
     
+    /**
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * @param nome the nome to set
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * @return the cpf
+     */
+    public int getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
+    }
+
+    /**
+     * @return the dataNascimento
+     */
     public Date getDataNascimento() {
         return dataNascimento;
     }
 
+    /**
+     * @param dataNascimento the dataNascimento to set
+     */
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
+    /**
+     * @return the endereco
+     */
     public String getEndereco() {
         return endereco;
     }
 
+    /**
+     * @param endereco the endereco to set
+     */
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
 
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
+    /**
+     * @return the telefone
+     */
     public String getTelefone() {
         return telefone;
     }
 
+    /**
+     * @param telefone the telefone to set
+     */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
+    /**
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @param email the email to set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
+    /**
+     * @return the senha
+     */
     public String getSenha() {
         return senha;
     }
 
+    /**
+     * @param senha the senha to set
+     */
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    public String getFuncao() {
+    /**
+     * @return the matricula
+     */
+    public int getMatricula() {
+        return matricula;
+    }
+
+    /**
+     * @param matricula the matricula to set
+     */
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+
+    /**
+     * @return the funcao
+     */
+    public Funcao getFuncao() {
         return funcao;
     }
 
-    public void setFuncao(String funcao) {
+    /**
+     * @param funcao the funcao to set
+     */
+    public void setFuncao(Funcao funcao) {
         this.funcao = funcao;
     }
     

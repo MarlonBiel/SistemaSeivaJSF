@@ -1,8 +1,14 @@
     package br.edu.ifpr.irati.ads.util;
 
-import br.edu.ifpr.irati.ads.modelo.Caixa;
-import br.edu.ifpr.irati.ads.modelo.Estoque;
+
+import br.edu.ifpr.irati.ads.modelo.Contribuicao;
+import br.edu.ifpr.irati.ads.modelo.Despesa;
+import br.edu.ifpr.irati.ads.modelo.Evento;
+import br.edu.ifpr.irati.ads.modelo.Funcao;
+import br.edu.ifpr.irati.ads.modelo.Produto;
+import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
+import br.edu.ifpr.irati.ads.modelo.Venda;
 import java.util.HashMap;
 import java.util.Map;
 import org.hibernate.SessionFactory;
@@ -21,7 +27,7 @@ public class HibernateUtil {
             Map<String, Object> settings = new HashMap<>();
             settings.put("connection.driver_class", "com.mysql.cj.jdbc.Driver");
             settings.put("dialect", "org.hibernate.dialect.MySQLDialect");
-            settings.put("hibernate.connection.url","jdbc:mysql://localhost:3306/sistemaseiva?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
+            settings.put("hibernate.connection.url","jdbc:mysql://localhost:3306/sistemaseiva?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");            
             settings.put("hibernate.connection.username", "root");
             settings.put("hibernate.hbm2ddl.auto", "update");
             settings.put("hibernate.connection.password", "");
@@ -34,8 +40,12 @@ public class HibernateUtil {
             
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
             metadataSources.addAnnotatedClass(Usuario.class);
-            metadataSources.addAnnotatedClass(Estoque.class);
-            metadataSources.addAnnotatedClass(Caixa.class);
+            metadataSources.addAnnotatedClass(Despesa.class);
+            metadataSources.addAnnotatedClass(Produto.class);
+            metadataSources.addAnnotatedClass(Contribuicao.class);
+            //metadataSources.addAnnotatedClass(Evento.class);
+            //metadataSources.addAnnotatedClass(ProdutoVenda.class);
+            //metadataSources.addAnnotatedClass(Venda.class);
             Metadata metadata = metadataSources.buildMetadata();
 
             sessionFactory = metadata.getSessionFactoryBuilder().build();
