@@ -12,6 +12,7 @@ br\edu\ifpr\irati\ads\mb\UsuarioMB.class
 br\edu\ifpr\irati\ads\util\HibernateUtil.class
 br\edu\ifpr\irati\ads\exception\PersistenceException.class
 br\edu\ifpr\irati\ads\modelo\Produto.class
+br\edu\ifpr\irati\ads\mb\ProdutoMB.class
 br\edu\ifpr\irati\ads\modelo\Usuario.class
 br\edu\ifpr\irati\ads\exemplojsfmaven\JakartaRestConfiguration.class
 br\edu\ifpr\irati\ads\mb\DespesaMB.class
