@@ -4,12 +4,114 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    <h:body>
+        <div>CONTROLE DE DESPESA</div>
+        <h:form>
+            <h:panelGroup>
+
+                <h:panelGrid columns="2">                            
+                    <h:outputText value="Id: " />
+                    <h:inputText value="#{despesaMB.despesa.id}" disabled="true" size="5"/>
+
+                    <h:outputText value="Descriminação: " />
+                    <h:inputText value="#{despesaMB.despesa.descriminacao}" size="30" />
+
+                    <h:outputText value="Data: " />
+                    <h:inputText value="#{despesaMB.despesa.data}" size="30" maxlength="14">
+                        <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
+                    </h:inputText>
+
+                    <h:outputText value="Valor:" />
+                    <h:inputText value="#{despesaMB.despesa.valor}" size="30" id="cpf" maxlength="14"/>
+
+                    <h:outputText value="Forma Pagamento: " />
+                    <h:inputText value="#{despesaMB.despesa.formaPagamento}" size="30" maxlength="14"/>
+
+                    <h:outputText value="Obs.: " />
+                    <h:inputText value="#{despesaMB.despesa.observacao}" size="30" maxlength="14"/>
+
+                    <h:outputText value="Anexos: " />
+                    <h:inputText value="#{despesaMB.despesa.anexos}" size="30" maxlength="14"/>
+
+                    <h:commandButton  action="#{despesaMB.salvar}" value="Incluir" />
+                    <h:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" />    
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{!despesaMB.despesas.isEmpty()}">
+                <h:dataTable var="despesa" value="#{despesaMB.despesas}" border="1" width="100" style="width: 100%">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{despesa.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Descriminação"/>
+                        </f:facet>
+                        <h:outputText value="#{despesa.descriminacao}" />
+                    </h:column>  
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Data"/>
+                        </f:facet>
+                        <h:outputText value="#{despesa.data}" />
+                    </h:column>  
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Valor"/>
+                        </f:facet>
+                        <h:outputText value="#{despesa.valor}" />
+                    </h:column>
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Forma Pgto"/>
+                        </f:facet>
+                        <h:outputText value="#{despesa.formaPagamento}" />
+                    </h:column> 
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Obs."/>
+                        </f:facet>
+                        <h:outputText value="#{despesa.observacao}" />
+                    </h:column> 
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Anexo"/>
+                        </f:facet>
+                        <h:outputText value="#{despesa.anexos}" />
+                    </h:column> 
+                    
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="Alterar"/>
+                        </f:facet>
+                        <h:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" immediate="true">
+                        </h:commandButton>
+                    </h:column>  
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Deletar"/>
+                        </f:facet>
+                        <h:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" immediate="true">
+                        </h:commandButton>
+                    </h:column>  
+
+                </h:dataTable>
+                <h:commandLink action="central.xhtml">
+                    <button class="ui-button ui-widget ui-corner-all">
+                        Voltar
+                    </button>
+                </h:commandLink>  
+            </h:panelGroup>
+        </h:form>
+    </h:body>
 </html>

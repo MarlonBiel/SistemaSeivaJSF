@@ -8,7 +8,6 @@ import br.edu.ifpr.irati.ads.dao.Dao;
 import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Despesa;
-import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -51,7 +50,7 @@ public class DespesaMB implements Serializable {
     public void salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            despesaDAO = new GenericDAO<>(Usuario.class, session);
+            despesaDAO = new GenericDAO<>(Despesa.class, session);
 
             if (inserir) {
                 //executar o método inserir do DAO
