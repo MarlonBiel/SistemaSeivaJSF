@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>CONTROLE DE USUARIO</div>
+        <h:form>
+            <h:panelGroup>
+
+                <h:panelGrid columns="2">                            
+                    <h:outputText value="Id: " />
+                    <h:inputText value="#{emprestimoMB.emprestimo.id}" disabled="true" size="5"/>
+                    
+                    <h:outputText value="Nome: " />
+                    <h:inputText value="#{emprestimoMB.emprestimo.espaco.nome}" size="30" />
+
+                    <h:outputText value="Servidor:" />
+                    <h:inputText value="#{emprestimoMB.emprestimo.servidorRetirada.nome}" size="30" id="cpf" maxlength="14"/>
+                    
+                    <h:outputText value="Codigo: " />
+                    <h:inputText value="#{emprestimoMB.emprestimo.horaEmp}" size="30" maxlength="14"/>
+                    
+                    <h:commandButton  action="#{emprestimoMB.salvar}" value="Incluir" />
+                    <h:commandButton  action="#{emprestimoMB.limparTela()}" value="Limpar" />    
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{!emprestimoMB.emprestimos.isEmpty()}">
+                <h:dataTable var="emprestimo" value="#{emprestimoMB.emprestimos}" border="1" width="100" style="width: 100%">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{emprestimo.id}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NomeEspaço"/>
+                                </f:facet>
+                                <h:outputText value="#{emprestimo.espaco.nome}" />
+                            </h:column>  
+                            <h:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="NomeServRetirada"/>
+                                </f:facet>
+                                <h:outputText value="#{emprestimo.servidorRetirada.nome}" />
+                            </h:column>  
+                            <h:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="NomeServDev"/>
+                                </f:facet>
+                                <h:outputText value="#{emprestimo.servidorDevolucao.nome}" />
+                            </h:column>
+                            <h:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="HoraEmp"/>
+                                </f:facet>
+                                <h:outputText value="#{emprestimo.horaEmp}" />
+                            </h:column> 
+                            <h:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="HoraDev"/>
+                                </f:facet>
+                                <h:outputText value="#{emprestimo.horaDev}" />
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Alterar"/>
+                                </f:facet>
+                                <h:commandButton action="#{emprestimoMB.botaoAlterar(emprestimo)}" value="Alterar" immediate="true">
+                                </h:commandButton>
+                            </h:column>  
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Deletar"/>
+                                </f:facet>
+                                <h:commandButton action="#{emprestimoMB.botaoExcluir(emprestimo)}" value="Deletar" immediate="true">
+                                </h:commandButton>
+                            </h:column>  
+                             
+                        </h:dataTable>
+                    </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
