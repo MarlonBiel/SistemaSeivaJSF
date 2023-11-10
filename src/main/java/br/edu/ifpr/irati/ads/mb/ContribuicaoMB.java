@@ -51,8 +51,9 @@ public class ContribuicaoMB implements Serializable{
         }
     }
     
-    public void limparTela() {
+    public void limparTela() throws PersistenceException {
         setContribuicao(new Contribuicao());
+        limparFiltroUsuario();
     }
     public void salvar() {
         try {
@@ -89,9 +90,7 @@ public class ContribuicaoMB implements Serializable{
 
     }
     public void botaoSelecionar(Usuario usuario) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         contribuicao.setUsuario(usuario);
-        session.close();
 
     }
     public String botaoAlterar(Contribuicao contribuicao) {
