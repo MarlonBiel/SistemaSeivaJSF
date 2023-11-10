@@ -34,6 +34,8 @@ public class UsuarioMB implements Serializable{
             Session session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
             usuarios = usuarioDAO.buscarTodos();
+            
+            
             inserir = true;
             session.close();
             limparTela();
@@ -77,6 +79,14 @@ public class UsuarioMB implements Serializable{
             ex.printStackTrace();
         }
     }
+    /*public void botaoExcluir(Usuario usuario) {
+        for(Usuario u: usuarios){
+            if(u.getId()==usuario.getId()){
+                usuarios.remove(u);
+            }
+        }
+    }*/
+    
     public String botaoAlterar(Usuario usuario) {
         System.out.println(usuario.getId());
         this.usuario = new Usuario(usuario.getId(), usuario.getNome(), usuario.getCpf(), usuario.getDataNascimento(), usuario.getEndereco(), usuario.getTelefone(), usuario.getEmail(), usuario.getSenha(), usuario.getMatricula(), usuario.getFuncao());
