@@ -52,44 +52,27 @@ public class Produto implements Serializable{
         this.valorVenda = valorVenda;
     }
     
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the nome
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    /**
-     * @return the quantEstoque
-     */
     public int getQuantEstoque() {
         return quantEstoque;
     }
 
-    /**
-     * @param quantEstoque the quantEstoque to set
-     */
     public void setQuantEstoque(int quantEstoque) {
         this.quantEstoque = quantEstoque;
     }
@@ -101,37 +84,24 @@ public class Produto implements Serializable{
         return valor;
     }
 
-    /**
-     * @param valor the valor to set
-     */
+
     public void setValor(double valor) {
         this.valor = valor;
     }
 
-    /**
-     * @return the ian
-     */
     public int getIan() {
         return ian;
     }
 
-    /**
-     * @param ian the ian to set
-     */
     public void setIan(int ian) {
         this.ian = ian;
     }
 
-    /**
-     * @return the valorVenda
-     */
     public double getValorVenda() {
         return valorVenda;
     }
 
-    /**
-     * @param valorVenda the valorVenda to set
-     */
+
     public void setValorVenda(double valorVenda) {
         this.valorVenda = valorVenda;
     }

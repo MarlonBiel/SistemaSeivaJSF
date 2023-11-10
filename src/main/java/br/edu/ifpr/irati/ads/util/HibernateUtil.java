@@ -30,7 +30,7 @@ public class HibernateUtil {
             settings.put("hibernate.connection.url","jdbc:mysql://localhost:3306/sistemaseiva?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");            
             settings.put("hibernate.connection.username", "root");
             settings.put("hibernate.hbm2ddl.auto", "update");
-            settings.put("hibernate.connection.password", "");
+            settings.put("hibernate.connection.password", "root");
             settings.put("hibernate.current_session_context_class", "thread");
             settings.put("hibernate.show_sql", "true");
             settings.put("hibernate.format_sql", "true");
@@ -43,9 +43,9 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(Despesa.class);
             metadataSources.addAnnotatedClass(Produto.class);
             metadataSources.addAnnotatedClass(Contribuicao.class);
-            //metadataSources.addAnnotatedClass(Evento.class);
-            //metadataSources.addAnnotatedClass(ProdutoVenda.class);
-            //metadataSources.addAnnotatedClass(Venda.class);
+            metadataSources.addAnnotatedClass(Evento.class);
+            metadataSources.addAnnotatedClass(ProdutoVenda.class);
+            metadataSources.addAnnotatedClass(Venda.class);
             Metadata metadata = metadataSources.buildMetadata();
 
             sessionFactory = metadata.getSessionFactoryBuilder().build();
