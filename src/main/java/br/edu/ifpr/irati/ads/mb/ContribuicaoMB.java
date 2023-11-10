@@ -108,7 +108,7 @@ public class ContribuicaoMB implements Serializable{
         }
     }
     public void limparFiltroUsuario() throws PersistenceException{
-        contribuicaos = contribuicaoDAO.buscarTodos();
+        listaUsuariosFiltro.clear();
     }
     /**
      * @return the contribuicao
