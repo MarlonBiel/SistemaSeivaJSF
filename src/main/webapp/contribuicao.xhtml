@@ -113,13 +113,95 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <h:commandButton  action="#{contribuicaoMB.salvar}" value="Incluir" />
                     <h:commandButton  action="#{contribuicaoMB.limparTela()}" value="Limpar" />    
-                </h:panelGrid>
+            </h:panelGrid>
             </h:panelGroup>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <h:panelGroup rendered="#{!contribuicaoMB.contribuicaos.isEmpty()}">
+                <h:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" border="1" width="100" style="width: 100%">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Usuario"/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.usuario.getNome()}" />
+                    </h:column> 
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Valor"/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.valor}" />
+                    </h:column>
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Data"/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.data}" />
+                    </h:column>  
+                    
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Forma Contribuição"/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.formaContribuicao}" />
+                    </h:column> 
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Tipo."/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.tipo}" />
+                    </h:column> 
+                                       
+                    <h:column>
+
+                        <f:facet name="header">
+                            <h:outputText value="Alterar"/>
+                        </f:facet>
+                        <h:commandButton action="#{contribuicaoMB.botaoAlterar(contribuicao)}" value="Alterar" immediate="true">
+                        </h:commandButton>
+                    </h:column>  
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Deletar"/>
+                        </f:facet>
+                        <h:commandButton action="#{contribuicaoMB.botaoExcluir(contribuicao)}" value="Deletar" immediate="true">
+                        </h:commandButton>
+                    </h:column>  
+                    
+                </h:dataTable>
+            </h:panelGroup>
+            
+            
+            
+            
+            
+            
+            
+            
             <h:commandLink action="central.xhtml">
                 <button class="ui-button ui-widget ui-corner-all">
                     Voltar
                 </button>
             </h:commandLink>  
+           
         </h:form>
     </h:body>
 </html>
