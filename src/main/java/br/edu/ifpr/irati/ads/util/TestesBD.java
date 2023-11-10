@@ -20,10 +20,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 
-/**
- *
- * @author Caio
- */
+
 public class TestesBD {
     public static void main(String[] args) throws PersistenceException {
         try {
@@ -51,7 +48,8 @@ public class TestesBD {
         
         
         Dao<Despesa> despesaDAO = new GenericDAO<>(Despesa.class, session);
-        Despesa d1 = new Despesa(0, "teste", new Date(), 0, "", "", "");
+        //IOUtils.toString(fileUploadEvent.getFile().getInputstream(), StandardCharsets.UTF_8); - Converte o arquivo PDF para String
+        Despesa d1 = new Despesa(0, "teste", new Date(), 100, "Boleto", "Compra de livros", "");
         despesaDAO.salvar(d1);
         
         Dao<Produto> produtoDAO = new GenericDAO<>(Produto.class, session);
