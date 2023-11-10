@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>CONTROLE DE USUARIO</div>
+        <h:form>
+            <h:panelGroup>
+
+                <h:panelGrid columns="2">                            
+                    <h:outputText value="Id: " />
+                    <h:inputText value="#{usuarioMB.usuario.id}" disabled="true" size="5"/>
+
+                    <h:outputText value="Nome: " />
+                    <h:inputText value="#{usuarioMB.usuario.nome}" size="30" />
+
+                    <h:outputText value="Cpf:" />
+                    <h:inputText value="#{usuarioMB.usuario.cpf}" size="30" id="cpf" maxlength="14"/>
+
+                    <h:outputText value="Nascimento: " />
+                    <h:inputText value="#{usuarioMB.usuario.dataNascimento}" size="30" maxlength="14">
+                    <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
+                    </h:inputText>
+
+                    <h:outputText value="Endereço: " />
+                    <h:inputText value="#{usuarioMB.usuario.endereco}" size="30" maxlength="14"/>
+
+                    <h:outputText value="Telefone: " />
+                    <h:inputText value="#{usuarioMB.usuario.telefone}" size="30" maxlength="14"/>
+
+                    <h:outputText value="Email: " />
+                    <h:inputText value="#{usuarioMB.usuario.email}" size="30" maxlength="14"/>
+
+                    <h:outputText value="Senha: " />
+                    <h:inputText value="#{usuarioMB.usuario.senha}" size="30" maxlength="14"/>
+
+                    <h:outputText value="Matricula: " />
+                    <h:inputText value="#{usuarioMB.usuario.matricula}" size="30" maxlength="14"/>
+
+                    <h:commandButton  action="#{usuarioMB.salvar}" value="Incluir" />
+                    <h:commandButton  action="#{usuarioMB.limparTela()}" value="Limpar" />    
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{!usuarioMB.usuarios.isEmpty()}">
+                <h:dataTable var="usuario" value="#{usuarioMB.usuarios}" border="1" width="100" style="width: 100%">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{usuario.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <h:outputText value="#{usuario.nome}" />
+                    </h:column>  
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Cpf"/>
+                        </f:facet>
+                        <h:outputText value="#{usuario.cpf}" />
+                    </h:column>  
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Nascimento"/>
+                        </f:facet>
+                        <h:outputText value="#{usuario.dataNascimento}" />
+                    </h:column>
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Endereco"/>
+                        </f:facet>
+                        <h:outputText value="#{usuario.endereco}" />
+                    </h:column> 
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Telefone"/>
+                        </f:facet>
+                        <h:outputText value="#{usuario.telefone}" />
+                    </h:column> 
+                    <h:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Email"/>
+                        </f:facet>
+                        <h:outputText value="#{usuario.email}" />
+                    </h:column> 
+                    <h:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="Matricula"/>
+                                </f:facet>
+                                <h:outputText value="#{usuario.matricula}" />
+                            </h:column> 
+                    <h:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="Funcao"/>
+                                </f:facet>
+                                <h:outputText value="#{usuario.funcao}" />
+                            </h:column> 
+                    <h:column>
+                        
+                        <f:facet name="header">
+                            <h:outputText value="Alterar"/>
+                        </f:facet>
+                        <h:commandButton action="#{usuarioMB.botaoAlterar(usuario)}" value="Alterar" immediate="true">
+                        </h:commandButton>
+                    </h:column>  
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Deletar"/>
+                        </f:facet>
+                        <h:commandButton action="#{usuarioMB.botaoExcluir(usuario)}" value="Deletar" immediate="true">
+                        </h:commandButton>
+                    </h:column>  
+
+                </h:dataTable>
+                <h:commandLink action="central.xhtml">
+                        <button class="ui-button ui-widget ui-corner-all">
+                            Voltar
+                        </button>
+                    </h:commandLink>  
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
