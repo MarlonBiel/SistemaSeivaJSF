@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>CONTROLE DE CONTRIBUICAO</div>
+        <h:form>
+            <h:panelGroup>
+
+                <h:panelGrid columns="2">                            
+                    <h:outputText value="Id: " />
+                    <h:inputText value="#{contribuicaoMB.contribuicao.id}" disabled="true" size="5"/>
+
+                    <h:outputText value="Usuario: " />
+                    <h:inputText value="#{contribuicaoMB.usuario}" size="30" />
+
+                    <h:commandButton action="#{contribuicaoMB.localizarUsuario(contribuicaoMB.usuario)}" value="Localizar Usuario" />
+                    <h:commandButton action="#{contribuicaoMB.limparFiltroUsuario()}" value="LimparFiltro" />
+                    
+                    <h:outputText value="Valor:" />
+                    <h:inputText value="#{contribuicaoMB.contribuicao.valor}" size="30" id="cpf" maxlength="14"/>
+
+                    <h:outputText value="Data: " />
+                    <h:inputText value="#{contribuicaoMB.contribuicao.data}" size="30" maxlength="14">
+                    <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
+                    </h:inputText>
+
+                    <h:outputText value="Forma Contribuição: " />
+                    <h:inputText value="#{contribuicaoMB.contribuicao.formaContribuicao}" size="30" maxlength="14"/>
+
+                    <h:outputText value="Tipo: " />
+                    <h:inputText value="#{contribuicaoMB.contribuicao.tipo}" size="30" maxlength="14"/>
+
+                    <h:commandButton  action="#{contribuicaoMB.salvar}" value="Incluir" />
+                    <h:commandButton  action="#{contribuicaoMB.limparTela()}" value="Limpar" />    
+                </h:panelGrid>
+            </h:panelGroup>
+            
+        </h:form>
+    </h:body>
+</html>
