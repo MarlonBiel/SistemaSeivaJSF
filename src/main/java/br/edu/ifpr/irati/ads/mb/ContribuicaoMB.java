@@ -11,6 +11,7 @@ import br.edu.ifpr.irati.ads.modelo.Contribuicao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,6 +34,7 @@ public class ContribuicaoMB implements Serializable{
     private List<Usuario> listaUsuarios;
     private List<Usuario> listaUsuariosFiltro;
     public ContribuicaoMB() throws PersistenceException{
+        this.listaUsuariosFiltro = new ArrayList<Usuario>();
         try {
             contribuicao = new Contribuicao();
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -84,6 +86,12 @@ public class ContribuicaoMB implements Serializable{
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
+
+    }
+    public void botaoSelecionar(Usuario usuario) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        contribuicao.setUsuario(usuario);
+        session.close();
 
     }
     public String botaoAlterar(Contribuicao contribuicao) {
