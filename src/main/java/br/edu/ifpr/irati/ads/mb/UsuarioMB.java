@@ -11,6 +11,7 @@ import br.edu.ifpr.irati.ads.modelo.Funcao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,20 +23,20 @@ import org.hibernate.Session;
  */
 @ManagedBean
 @SessionScoped
-public class UsuarioMB implements Serializable{
+public class UsuarioMB implements Serializable {
+
     private Usuario usuario = new Usuario();
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios = new ArrayList<Usuario>();
     private Dao<Usuario> usuarioDAO;
     private boolean inserir;
 
-    public UsuarioMB() throws PersistenceException{
+    public UsuarioMB() throws PersistenceException {
         try {
             usuario = new Usuario();
             Session session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
             usuarios = usuarioDAO.buscarTodos();
-            
-            
+
             inserir = true;
             session.close();
             limparTela();
@@ -43,9 +44,28 @@ public class UsuarioMB implements Serializable{
             ex.printStackTrace();
         }
     }
-    public void limparTela(){
+
+    public String conferirLogin(Usuario usuario) {
+        if (usuario.getNome().contains("") || usuario.getSenha().contains("")) {
+            return "-";
+        } else {
+            
+                for (Usuario u : usuarios) {
+                    if (u.getNome().contains(usuario.getNome())) {
+                        if (u.getSenha().contains(usuario.getSenha())) {
+                            return "central.xhtml";
+                        }
+
+                    }
+                }
+            }
+        return "-";
+    }
+
+    public void limparTela() {
         setUsuario(new Usuario());
     }
+
     public void salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -66,6 +86,7 @@ public class UsuarioMB implements Serializable{
             ex.printStackTrace();
         }
     }
+
     public void botaoExcluir(Usuario usuario) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -79,6 +100,7 @@ public class UsuarioMB implements Serializable{
             ex.printStackTrace();
         }
     }
+
     /*public void botaoExcluir(Usuario usuario) {
         for(Usuario u: usuarios){
             if(u.getId()==usuario.getId()){
@@ -86,13 +108,13 @@ public class UsuarioMB implements Serializable{
             }
         }
     }*/
-    
     public String botaoAlterar(Usuario usuario) {
         System.out.println(usuario.getId());
         this.usuario = new Usuario(usuario.getId(), usuario.getNome(), usuario.getCpf(), usuario.getDataNascimento(), usuario.getEndereco(), usuario.getTelefone(), usuario.getEmail(), usuario.getSenha(), usuario.getMatricula(), usuario.getFuncao());
         inserir = false;
         return "-";
     }
+
     /**
      * @return the usuario
      */
@@ -120,5 +142,5 @@ public class UsuarioMB implements Serializable{
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-    
+
 }
