@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.ifpr.irati.ads.mb;
 
 import br.edu.ifpr.irati.ads.dao.Dao;
@@ -15,10 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
-/**
- *
- * @author Caio
- */
 @ManagedBean
 @SessionScoped
 public class DespesaMB implements Serializable {
@@ -50,11 +43,13 @@ public class DespesaMB implements Serializable {
     public void salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
+            //converterParaByte(despesa.getAnexos());
             despesaDAO = new GenericDAO<>(Despesa.class, session);
 
             if (inserir) {
                 //executar o método inserir do DAO
-                despesaDAO.salvar(despesa);
+                //despesaDAO.salvar(despesa);
+                System.out.println(despesa.getAnexos());
             } else {
                 //executar o método alterar do DAO
                 despesaDAO.alterar(despesa);
@@ -88,32 +83,27 @@ public class DespesaMB implements Serializable {
         inserir = false;
         return "-";
     }
-    /**
-     * @return the despesa
-     */
+    
+    protected String converterParaByte(byte[] anexo){
+        return null;
+    }
+
     public Despesa getDespesa() {
         return despesa;
     }
 
-    /**
-     * @param despesa the despesa to set
-     */
     public void setDespesa(Despesa despesa) {
         this.despesa = despesa;
     }
 
-    /**
-     * @return the despesas
-     */
     public List<Despesa> getDespesas() {
         return despesas;
     }
 
-    /**
-     * @param despesas the despesas to set
-     */
     public void setDespesas(List<Despesa> despesas) {
         this.despesas = despesas;
     }
+    
+    
 
 }

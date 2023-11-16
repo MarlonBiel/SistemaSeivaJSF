@@ -38,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <h:inputText value="#{despesaMB.despesa.observacao}" size="30" maxlength="14"/>
 
                     <h:outputText value="Anexos: " />
-                    <h:inputText value="#{despesaMB.despesa.anexos}" size="30" maxlength="14"/>
+                    <h:inputFile id="anexo" value="#{despesaMB.despesa.anexos}" />
 
                     <h:commandButton  action="#{despesaMB.salvar}" value="Incluir" />
                     <h:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" />    

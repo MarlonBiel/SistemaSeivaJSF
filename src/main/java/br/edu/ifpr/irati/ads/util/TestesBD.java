@@ -49,8 +49,8 @@ public class TestesBD {
         
         Dao<Despesa> despesaDAO = new GenericDAO<>(Despesa.class, session);
         //IOUtils.toString(fileUploadEvent.getFile().getInputstream(), StandardCharsets.UTF_8); - Converte o arquivo PDF para String
-        Despesa d1 = new Despesa(0, "teste", new Date(), 100, "Boleto", "Compra de livros", "");
-        despesaDAO.salvar(d1);
+        //Despesa d1 = new Despesa(0, "teste", new Date(), 100, "Boleto", "Compra de livros", "");
+        //despesaDAO.salvar(d1);
         
         Dao<Produto> produtoDAO = new GenericDAO<>(Produto.class, session);
         Produto p1 = new Produto(0, "Livro1", 101, 51, 11, 51);

@@ -43,14 +43,14 @@ public class Despesa implements Serializable{
         this.anexos = "";
     }
 
-    public Despesa(int id, String descriminacao, Date data, double valor, String formaPagamento, String observacao, String anexos) {
+    public Despesa(int id, String descriminacao, Date data, double valor, String formaPagamento, String observacao, String Anexos) {
         this.id = id;
         this.descriminacao = descriminacao;
         this.data = data;
         this.valor = valor;
         this.formaPagamento = formaPagamento;
         this.observacao = observacao;
-        this.anexos = anexos;
+        this.anexos = Anexos;
     }
 
     public int getId() {
@@ -108,6 +108,11 @@ public class Despesa implements Serializable{
 
     public void setAnexos(String Anexos) {
         this.anexos = Anexos;
+    }
+
+    @Override
+    public String toString() {
+        return getAnexos();
     }
     
     

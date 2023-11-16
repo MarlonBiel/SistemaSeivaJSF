@@ -3,7 +3,6 @@ br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class
 br\edu\ifpr\irati\ads\modelo\Venda.class
 br\edu\ifpr\irati\ads\modelo\Despesa.class
 br\edu\ifpr\irati\ads\modelo\Contribuicao.class
-br\edu\ifpr\irati\ads\exemplojsfmaven\resources\JakartaEE8Resource.class
 br\edu\ifpr\irati\ads\modelo\Evento.class
 br\edu\ifpr\irati\ads\util\TestesBD.class
 br\edu\ifpr\irati\ads\dao\GenericDAO.class
@@ -14,5 +13,4 @@ br\edu\ifpr\irati\ads\exception\PersistenceException.class
 br\edu\ifpr\irati\ads\modelo\Produto.class
 br\edu\ifpr\irati\ads\mb\ProdutoMB.class
 br\edu\ifpr\irati\ads\modelo\Usuario.class
-br\edu\ifpr\irati\ads\exemplojsfmaven\JakartaRestConfiguration.class
 br\edu\ifpr\irati\ads\mb\DespesaMB.class
