@@ -15,99 +15,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <div>CONTROLE DE VENDA</div>
         <h:form>
             <h:panelGroup>
-
-                <h:panelGrid columns="2">                            
-                    <h:outputText value="Id: " />
-                    <h:inputText value="#{usuarioMB.usuario.id}" disabled="true" size="5"/>
-
-                    <h:outputText value="Nome: " />
-                    <h:inputText value="#{usuarioMB.usuario.nome}" size="30" />
-
-                    <h:outputText value="Cpf:" />
-                    <h:inputText value="#{usuarioMB.usuario.cpf}" size="30" id="cpf" maxlength="14"/>
-
-                    <h:outputText value="Nascimento: " />
-                    <h:inputText value="#{usuarioMB.usuario.dataNascimento}" size="30" maxlength="14">
-                    <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
-                    </h:inputText>
-
-                    <h:outputText value="Endereço: " />
-                    <h:inputText value="#{usuarioMB.usuario.endereco}" size="30" maxlength="14"/>
-
-                    <h:outputText value="Telefone: " />
-                    <h:inputText value="#{usuarioMB.usuario.telefone}" size="30" maxlength="14"/>
-
-                    <h:outputText value="Email: " />
-                    <h:inputText value="#{usuarioMB.usuario.email}" size="30" maxlength="14"/>
-
-                    <h:outputText value="Senha: " />
-                    <h:inputText value="#{usuarioMB.usuario.senha}" size="30" maxlength="14"/>
-
-                    <h:outputText value="Matricula: " />
-                    <h:inputText value="#{usuarioMB.usuario.matricula}" size="30" maxlength="14"/>
-
-                    <h:commandButton  action="#{usuarioMB.salvar}" value="Incluir" />
-                    <h:commandButton  action="#{usuarioMB.limparTela()}" value="Limpar" />    
-                </h:panelGrid>
+                <h:outputText value="Id: " />
+                    <h:inputText value="#{vendaMB.venda.id}" disabled="true" size="5"/>
+                    <br></br>
+                    <h:outputText value="Produto: " />
+                    <h:inputText value="#{vendaMB.pesquisaProduto}" size="30" />
+                    <h:commandButton action="#{vendaMB.localizarProduto(pesquisaProduto)}" value="Localizar Usuario" />
             </h:panelGroup>
-            <h:panelGroup rendered="#{!usuarioMB.usuarios.isEmpty()}">
-                <h:dataTable var="usuario" value="#{usuarioMB.usuarios}" border="1" width="100" style="width: 100%">
+            <h:panelGroup rendered="#{!vendaMB.produtos.isEmpty()}">
+                <h:dataTable var="produto" value="#{vendaMB.produtos}" border="1" width="100" style="width: 100%">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
                         </f:facet>
-                        <h:outputText value="#{usuario.id}" />
+                        <h:outputText value="#{produto.nome}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Nome"/>
+                            <h:outputText value="quantEstoque"/>
                         </f:facet>
-                        <h:outputText value="#{usuario.nome}" />
+                        <h:outputText value="#{produto.quantEstoque}" />
                     </h:column>  
                     <h:column>                        
                         <f:facet name="header">
-                            <h:outputText value="Cpf"/>
+                            <h:outputText value="Valor"/>
                         </f:facet>
-                        <h:outputText value="#{usuario.cpf}" />
+                        <h:outputText value="#{produto.valorVenda}" />
                     </h:column>  
-                    <h:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Nascimento"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.dataNascimento}" />
-                    </h:column>
-                    <h:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Endereco"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.endereco}" />
-                    </h:column> 
-                    <h:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Telefone"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.telefone}" />
-                    </h:column> 
-                    <h:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.email}" />
-                    </h:column> 
-                    <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Matricula"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.matricula}" />
-                            </h:column> 
-                    <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Funcao"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.funcao}" />
-                            </h:column> 
-                    <h:column>
-                        
+                    <h:column>     
                         <f:facet name="header">
                             <h:outputText value="Alterar"/>
                         </f:facet>
