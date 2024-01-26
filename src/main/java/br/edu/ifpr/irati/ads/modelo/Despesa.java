@@ -31,7 +31,7 @@ public class Despesa implements Serializable{
     @Column(name="observacao", nullable = false, length = 100)
     private String observacao;
     @Column(name = "anexos", nullable = true)
-    private String anexos; //se for arquivo de pdf garnde tem que ser byte
+    private byte[] anexos; //se for arquivo de pdf garnde tem que ser byte
 
     public Despesa() {
         this.id = 0;
@@ -40,10 +40,10 @@ public class Despesa implements Serializable{
         this.valor = 0;
         this.formaPagamento = "";
         this.observacao = "";
-        this.anexos = "";
+        this.anexos = new byte[0];
     }
 
-    public Despesa(int id, String descriminacao, Date data, double valor, String formaPagamento, String observacao, String Anexos) {
+    public Despesa(int id, String descriminacao, Date data, double valor, String formaPagamento, String observacao, byte[] Anexos) {
         this.id = id;
         this.descriminacao = descriminacao;
         this.data = data;
@@ -101,18 +101,13 @@ public class Despesa implements Serializable{
         this.observacao = observacao;
     }
 
-    public String getAnexos() {
+    public byte[] getAnexos() {
         return anexos;
     }
 
 
-    public void setAnexos(String Anexos) {
+    public void setAnexos(byte[] Anexos) {
         this.anexos = Anexos;
-    }
-
-    @Override
-    public String toString() {
-        return getAnexos();
     }
     
     

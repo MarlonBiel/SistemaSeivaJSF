@@ -6,112 +6,117 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>SEIVA SYSTEM</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div>CONTROLE DE DESPESA</div>
-        <h:form>
+        <ui:include src="/menus.xhtml" />
+        <h2>CONTROLE DE DESPESA</h2>
+        <h:form enctype="multipart/form-data">
             <h:panelGroup>
-
-                <h:panelGrid columns="2">                            
-                    <h:outputText value="Id: " />
-                    <h:inputText value="#{despesaMB.despesa.id}" disabled="true" size="5"/>
+                <p:inputText value="#{despesaMB.despesa.id}" disabled="true" size="5" type="hidden"/>
+                <p:panelGrid columns="6">                            
 
                     <h:outputText value="Descriminação: " />
-                    <h:inputText value="#{despesaMB.despesa.descriminacao}" size="30" />
+                    <p:inputText value="#{despesaMB.despesa.descriminacao}" size="30" id="descriminacao"/>
+                    <h:message style="color:red" for="descriminacao"/>
 
                     <h:outputText value="Data: " />
-                    <h:inputText value="#{despesaMB.despesa.data}" size="30" maxlength="14">
-                        <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
-                    </h:inputText>
+                    <p:calendar value="#{despesaMB.despesa.data}" size="30" maxlength="14" id="data">
+                        <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                    </p:calendar>
+                    <h:message style="color:red" for="data"/>
 
                     <h:outputText value="Valor:" />
-                    <h:inputText value="#{despesaMB.despesa.valor}" size="30" id="cpf" maxlength="14"/>
+                    <p:inputText value="#{despesaMB.despesa.valor}" size="30" id="valor" maxlength="14"/> 
+                    <h:message style="color:red" for="valor"/>
 
                     <h:outputText value="Forma Pagamento: " />
-                    <h:inputText value="#{despesaMB.despesa.formaPagamento}" size="30" maxlength="14"/>
+                    <p:inputText value="#{despesaMB.despesa.formaPagamento}" size="30" maxlength="14" id="formapgto"/>
+                    <h:message style="color:red" for="formapgto"/>
 
                     <h:outputText value="Obs.: " />
-                    <h:inputText value="#{despesaMB.despesa.observacao}" size="30" maxlength="14"/>
+                    <p:inputText value="#{despesaMB.despesa.observacao}" size="30" maxlength="14" id="obs"/>
+                    <h:message style="color:red" for="obs"/>
 
                     <h:outputText value="Anexos: " />
-                    <h:inputFile id="anexo" value="#{despesaMB.despesa.anexos}" />
+                    <p:fileUpload value="#{despesaMB.despesa.anexos}" mode="simple" skinSimple="true" id="anexo"/>
+                    <h:message style="color:red" for="anexo"/>
 
-                    <h:commandButton  action="#{despesaMB.salvar}" value="Incluir" />
-                    <h:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" />    
-                </h:panelGrid>
+                </p:panelGrid>
+                <p:commandButton  action="#{despesaMB.salvar}" value="Incluir" update="@form"/>
+                <p:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" update="@form"/>   
             </h:panelGroup>
             <h:panelGroup rendered="#{!despesaMB.despesas.isEmpty()}">
-                <h:dataTable var="despesa" value="#{despesaMB.despesas}" border="1" width="100" style="width: 100%">
-                    <h:column>
+                <p:dataTable var="despesa" value="#{despesaMB.despesas}" style="width: 100%">
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
                         </f:facet>
                         <h:outputText value="#{despesa.id}" />
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Descriminação"/>
                         </f:facet>
                         <h:outputText value="#{despesa.descriminacao}" />
-                    </h:column>  
-                    <h:column>                        
+                    </p:column>  
+                    <p:column>                        
                         <f:facet name="header">
                             <h:outputText value="Data"/>
                         </f:facet>
                         <h:outputText value="#{despesa.data}" />
-                    </h:column>  
-                    <h:column>                        
+                    </p:column>  
+                    <p:column>                        
                         <f:facet name="header">
                             <h:outputText value="Valor"/>
                         </f:facet>
                         <h:outputText value="#{despesa.valor}" />
-                    </h:column>
-                    <h:column>                        
+                    </p:column>
+                    <p:column>                        
                         <f:facet name="header">
                             <h:outputText value="Forma Pgto"/>
                         </f:facet>
                         <h:outputText value="#{despesa.formaPagamento}" />
-                    </h:column> 
-                    <h:column>                        
+                    </p:column> 
+                    <p:column>                        
                         <f:facet name="header">
                             <h:outputText value="Obs."/>
                         </f:facet>
                         <h:outputText value="#{despesa.observacao}" />
-                    </h:column> 
-                    <h:column>                        
+                    </p:column> 
+                    <p:column>                        
                         <f:facet name="header">
                             <h:outputText value="Anexo"/>
                         </f:facet>
                         <h:outputText value="#{despesa.anexos}" />
-                    </h:column> 
-                    
-                    <h:column>
+                    </p:column> 
 
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Alterar"/>
                         </f:facet>
-                        <h:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" immediate="true">
-                        </h:commandButton>
-                    </h:column>  
-                    <h:column>
+                        <p:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" immediate="true">
+                        </p:commandButton>
+                    </p:column>  
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Deletar"/>
                         </f:facet>
                         <h:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" immediate="true">
                         </h:commandButton>
-                    </h:column>  
+                    </p:column>  
 
-                </h:dataTable>
-                <h:commandLink action="central.xhtml">
-                    <button class="ui-button ui-widget ui-corner-all">
-                        Voltar
-                    </button>
-                </h:commandLink>  
+                </p:dataTable>
+
             </h:panelGroup>
         </h:form>
+        <p:commandLink action="central.xhtml">
+            <p:commandButton value="Voltar"/>
+        </p:commandLink>   
     </h:body>
 </html>

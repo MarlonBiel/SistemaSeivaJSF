@@ -16,10 +16,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
-/**
- *
- * @author Caio
- */
 @ManagedBean
 @SessionScoped
 public class UsuarioMB implements Serializable{
@@ -27,6 +23,7 @@ public class UsuarioMB implements Serializable{
     private List<Usuario> usuarios;
     private Dao<Usuario> usuarioDAO;
     private boolean inserir;
+    private Funcao funcoes;
 
     public UsuarioMB() throws PersistenceException{
         try {
@@ -34,8 +31,7 @@ public class UsuarioMB implements Serializable{
             Session session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
             usuarios = usuarioDAO.buscarTodos();
-            
-            
+
             inserir = true;
             session.close();
             limparTela();
@@ -79,13 +75,6 @@ public class UsuarioMB implements Serializable{
             ex.printStackTrace();
         }
     }
-    /*public void botaoExcluir(Usuario usuario) {
-        for(Usuario u: usuarios){
-            if(u.getId()==usuario.getId()){
-                usuarios.remove(u);
-            }
-        }
-    }*/
     
     public String botaoAlterar(Usuario usuario) {
         System.out.println(usuario.getId());
@@ -93,32 +82,24 @@ public class UsuarioMB implements Serializable{
         inserir = false;
         return "-";
     }
-    /**
-     * @return the usuario
-     */
+
     public Usuario getUsuario() {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return the usuarios
-     */
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
-    /**
-     * @param usuarios the usuarios to set
-     */
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
     
+    public Funcao[] getFuncoes (){
+        return Funcao.values();
+    }
 }

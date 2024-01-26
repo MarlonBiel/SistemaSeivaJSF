@@ -9,8 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -31,7 +29,7 @@ public class Usuario implements Serializable{
     @Column(name="nome", nullable = false, length = 100)
     private String nome;
     @Column(name="cpf", nullable = false, length = 100)
-    private int cpf;
+    private String cpf;
     @Temporal(value = TemporalType.DATE)
     private Date dataNascimento;
     @Column(name="endereco", nullable = false, length = 100)
@@ -50,7 +48,7 @@ public class Usuario implements Serializable{
     public Usuario() {
         this.id = 0;
         this.nome = "";
-        this.cpf = 0;
+        this.cpf = "";
         this.dataNascimento = new Date();
         this.endereco = "";
         this.telefone = "";
@@ -60,7 +58,7 @@ public class Usuario implements Serializable{
         this.funcao = funcao.VAZIO;
     }
 
-    public Usuario(int id, String nome, int cpf, Date dataNascimento, String endereco, String telefone, String email, String senha, int matricula, Funcao funcao) {
+    public Usuario(int id, String nome, String cpf, Date dataNascimento, String endereco, String telefone, String email, String senha, int matricula, Funcao funcao) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -73,143 +71,84 @@ public class Usuario implements Serializable{
         this.funcao = funcao;
     }
 
-    
-    /**
-     * @return the id
-     */
+
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the nome
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    /**
-     * @return the cpf
-     */
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    /**
-     * @param cpf the cpf to set
-     */
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    /**
-     * @return the dataNascimento
-     */
     public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    /**
-     * @param dataNascimento the dataNascimento to set
-     */
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    /**
-     * @return the endereco
-     */
     public String getEndereco() {
         return endereco;
     }
 
-    /**
-     * @param endereco the endereco to set
-     */
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
 
-    /**
-     * @return the telefone
-     */
+
     public String getTelefone() {
         return telefone;
     }
 
-    /**
-     * @param telefone the telefone to set
-     */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return the senha
-     */
     public String getSenha() {
         return senha;
     }
 
-    /**
-     * @param senha the senha to set
-     */
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    /**
-     * @return the matricula
-     */
     public int getMatricula() {
         return matricula;
     }
 
-    /**
-     * @param matricula the matricula to set
-     */
     public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
 
-    /**
-     * @return the funcao
-     */
     public Funcao getFuncao() {
         return funcao;
     }
 
-    /**
-     * @param funcao the funcao to set
-     */
     public void setFuncao(Funcao funcao) {
         this.funcao = funcao;
     }

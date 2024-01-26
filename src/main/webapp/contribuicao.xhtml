@@ -6,119 +6,120 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>SEIVA SYSTEM</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        <ui:include src="/menus.xhtml" />
         <div>CONTROLE DE CONTRIBUICAO</div>
         <h:form>
             <h:panelGroup>
 
-                <h:panelGrid columns="2">                            
+                <p:panelGrid columns="2">                            
                     <h:outputText value="Id: " />
-                    <h:inputText value="#{contribuicaoMB.contribuicao.id}" disabled="true" size="5"/>
+                    <p:inputText value="#{contribuicaoMB.contribuicao.id}" disabled="true" size="5"/>
 
                     <h:outputText value="Usuario: " />
-                    <h:inputText value="#{contribuicaoMB.usuario}" size="30" />
+                    <p:inputText value="#{contribuicaoMB.usuario}" size="30" />
 
-                    <h:commandButton action="#{contribuicaoMB.localizarUsuario(contribuicaoMB.usuario)}" value="Localizar Usuario" />
-                    <h:commandButton action="#{contribuicaoMB.limparFiltroUsuario()}" value="LimparFiltro" />
-                    </h:panelGrid>
-                    <h:panelGroup rendered="#{!contribuicaoMB.listaUsuariosFiltro.isEmpty()}">
-                        <h:dataTable var="usuario" value="#{contribuicaoMB.listaUsuariosFiltro}" border="1" width="100" style="width: 100%">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Id"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.id}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Nome"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.nome}" />
-                            </h:column>  
-                            <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Cpf"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.cpf}" />
-                            </h:column>  
-                            <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Nascimento"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.dataNascimento}" />
-                            </h:column>
-                            <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Endereco"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.endereco}" />
-                            </h:column> 
-                            <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Telefone"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.telefone}" />
-                            </h:column> 
-                            <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Email"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.email}" />
-                            </h:column> 
-                            <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Matricula"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.matricula}" />
-                            </h:column> 
-                            <h:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Funcao"/>
-                                </f:facet>
-                                <h:outputText value="#{usuario.funcao}" />
-                            </h:column> 
-                            <h:column>
+                    <p:commandButton action="#{contribuicaoMB.localizarUsuario(contribuicaoMB.usuario)}" value="Localizar Usuario" />
+                    <p:commandButton action="#{contribuicaoMB.limparFiltroUsuario()}" value="LimparFiltro" />
+                </p:panelGrid>
+                <h:panelGroup rendered="#{!contribuicaoMB.listaUsuariosFiltro.isEmpty()}">
+                    <p:dataTable var="usuario" value="#{contribuicaoMB.listaUsuariosFiltro}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.id}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nome"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.nome}" />
+                        </p:column>  
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Cpf"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.cpf}" />
+                        </p:column>  
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Nascimento"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.dataNascimento}" />
+                        </p:column>
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Endereco"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.endereco}" />
+                        </p:column> 
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Telefone"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.telefone}" />
+                        </p:column> 
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.email}" />
+                        </p:column> 
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Matricula"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.matricula}" />
+                        </p:column> 
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Funcao"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.funcao}" />
+                        </p:column> 
+                        <p:column>
 
-                                <f:facet name="header">
-                                    <h:outputText value="Selecionar"/>
-                                </f:facet>
-                                <h:commandButton action="#{usuarioMB.botaoSelecionar(usuario)}" value="Selecionar Usuario" immediate="true">
-                                </h:commandButton>
-                            </h:column>  
-                            
+                            <f:facet name="header">
+                                <h:outputText value="Selecionar"/>
+                            </f:facet>
+                            <h:commandButton action="#{usuarioMB.botaoSelecionar(usuario)}" value="Selecionar Usuario" immediate="true">
+                            </h:commandButton>
+                        </p:column>  
 
-                        </h:dataTable>
-                        
-                    </h:panelGroup>
 
-            <h:panelGrid>
+                    </p:dataTable>
+
+                </h:panelGroup>
+
+                <h:panelGrid>
                     <h:outputText value="Valor:" />
-                    <h:inputText value="#{contribuicaoMB.contribuicao.valor}" size="30" id="cpf" maxlength="14"/>
+                    <p:inputText value="#{contribuicaoMB.contribuicao.valor}" size="30" id="cpf" maxlength="14"/>
 
                     <h:outputText value="Data: " />
-                    <h:inputText value="#{contribuicaoMB.contribuicao.data}" size="30" maxlength="14">
-                        <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" timeZone="GMT-3"/>
-                    </h:inputText>
+                    <p:calendar value="#{contribuicaoMB.contribuicao.data}" size="30" maxlength="14">
+                        <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                    </p:calendar>
 
                     <h:outputText value="Forma Contribuição: " />
-                    <h:inputText value="#{contribuicaoMB.contribuicao.formaContribuicao}" size="30" maxlength="14"/>
+                    <p:inputText value="#{contribuicaoMB.contribuicao.formaContribuicao}" size="30" maxlength="14"/>
 
                     <h:outputText value="Tipo: " />
-                    <h:inputText value="#{contribuicaoMB.contribuicao.tipo}" size="30" maxlength="14"/>
+                    <p:inputText value="#{contribuicaoMB.contribuicao.tipo}" size="30" maxlength="14"/>
 
-                    <h:commandButton  action="#{contribuicaoMB.salvar}" value="Incluir" />
-                    <h:commandButton  action="#{contribuicaoMB.limparTela()}" value="Limpar" />    
+                    <p:commandButton  action="#{contribuicaoMB.salvar}" value="Incluir" />
+                    <p:commandButton  action="#{contribuicaoMB.limparTela()}" value="Limpar" />    
                 </h:panelGrid>
             </h:panelGroup>
             <h:commandLink action="central.xhtml">
-                <button class="ui-button ui-widget ui-corner-all">
-                    Voltar
-                </button>
+                <p:commandButton value="Voltar"/>
             </h:commandLink>  
         </h:form>
     </h:body>

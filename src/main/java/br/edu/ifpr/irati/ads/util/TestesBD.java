@@ -33,9 +33,9 @@ public class TestesBD {
     }
     public static void criar(Session session) throws PersistenceException {
         Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);
-        Usuario a1 = new Usuario(0, "caio", 0, null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
-        Usuario a2 = new Usuario(0, "caio", 0, null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
-        Usuario a3 = new Usuario(0, "caio", 0, null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
+        Usuario a1 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
+        Usuario a2 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
+        Usuario a3 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
         
         usuarioDAO.salvar(a1);
         usuarioDAO.salvar(a2);

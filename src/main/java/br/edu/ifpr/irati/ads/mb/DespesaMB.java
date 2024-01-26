@@ -5,12 +5,22 @@ import br.edu.ifpr.irati.ads.dao.Dao;
 import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Despesa;
+import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import org.hibernate.Session;
+import javax.servlet.http.Part;
+import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean
 @SessionScoped
@@ -20,6 +30,8 @@ public class DespesaMB implements Serializable {
     private List<Despesa> despesas;
     private Dao<Despesa> despesaDAO;
     private boolean inserir;
+    private Part anexo;
+    private String pathArquivos = "";
 
     public DespesaMB() throws PersistenceException {
         try {
@@ -27,10 +39,14 @@ public class DespesaMB implements Serializable {
             Session session = HibernateUtil.getSessionFactory().openSession();
             despesaDAO = new GenericDAO<>(Despesa.class, session);
             despesas = despesaDAO.buscarTodos();
-
             inserir = true;
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+            String pathRel = servletContext.getRealPath(".");
+            pathRel = pathRel.substring(0, pathRel.length());
+            pathRel += "D:/NetBeans/arquivos";
+            pathArquivos = pathRel;
             session.close();
-            limparTela();
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
@@ -40,21 +56,19 @@ public class DespesaMB implements Serializable {
         setDespesa(new Despesa());
     }
 
-    public void salvar() {
+    public void salvar(FileUploadEvent event) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            //converterParaByte(despesa.getAnexos());
             despesaDAO = new GenericDAO<>(Despesa.class, session);
-
+            this.despesa.setAnexos(event.getFile().getContent());
             if (inserir) {
                 //executar o método inserir do DAO
-                //despesaDAO.salvar(despesa);
-                System.out.println(despesa.getAnexos());
+                despesaDAO.salvar(despesa);
             } else {
                 //executar o método alterar do DAO
                 despesaDAO.alterar(despesa);
             }
-            inserir = true;
+            inserir =true;
             despesa = new Despesa();
             despesas = despesaDAO.buscarTodos();
             session.close();
@@ -84,8 +98,18 @@ public class DespesaMB implements Serializable {
         return "-";
     }
     
-    protected String converterParaByte(byte[] anexo){
-        return null;
+    public void upload(String novoNome) {
+        String nomeArquivoSaida = pathArquivos + novoNome;
+        try (InputStream is = anexo.getInputStream(); OutputStream out = new FileOutputStream(nomeArquivoSaida)) {
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = is.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Despesa getDespesa() {
@@ -103,7 +127,19 @@ public class DespesaMB implements Serializable {
     public void setDespesas(List<Despesa> despesas) {
         this.despesas = despesas;
     }
-    
+
+    public Part getAnexo() {
+        return anexo;
+    }
+
+    public void setAnexo(Part anexo) {
+        this.anexo = anexo;
+    }
+
+   public String getImagemProduto(Produto produto) {
+        return "D:/NetBeans/arquivos" + despesa.getAnexos();
+    }
+ 
     
 
 }

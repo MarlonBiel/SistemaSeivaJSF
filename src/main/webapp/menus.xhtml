@@ -1,0 +1,43 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <div id="navBar">
+            <p:menubar styleClass="menubar-custom">
+                <p:menuitem icon="pi pi-bars" onclick="PF('sidebar').show();" />
+                <p:menuitem value="Controle de produtos"/>
+            </p:menubar>
+
+            <p:sidebar id="sidebar" widgetVar="sidebar">
+                <h2>Opções</h2>
+                <h:form>
+                    <div>
+                        <h:commandLink action="usuario.xhtml">
+                            <p:commandButton value="Usuarios" style="background-color: forestgreen; border: forestgreen"/>
+                        </h:commandLink>
+                    </div>
+                    <div>
+                        <h:commandLink action="despesa.xhtml">
+                            <p:commandButton value="Despesa" style="background-color: forestgreen; border: forestgreen"/>
+                        </h:commandLink>
+                    </div>
+                    <div>
+                        <h:commandLink action="produto.xhtml">
+                            <p:commandButton value="Produto" style="background-color: forestgreen; border: forestgreen"/>
+                        </h:commandLink>
+                    </div>
+                    <div>
+                        <h:commandLink action="contribuicao.xhtml">
+                            <p:commandButton value="Contribuicao" style="background-color: forestgreen; border: forestgreen"/>
+                        </h:commandLink>
+                    </div>
+                </h:form>    
+            </p:sidebar>
+
+        </div>
+    </h:body>
+</ui:composition>
+
