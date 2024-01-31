@@ -48,14 +48,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:inputMask value="#{usuarioMB.usuario.matricula}" size="30" maxlength="20" mask="9999999"/>
                     
                     <h:outputText value="Função: " />
-                    <p:selectOneMenu value="#{usuarioMB.funcoes}" id="funcao">  
-                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{usuarioMB.funcoes}" />
-                        <p:ajax event="valueChange" listener="#{usuarioMB.usuario.funcao}" />
+                    <p:selectOneMenu value="#{usuarioMB.usuario.funcao}" id="funcao" converter="funcaoConverter">
+                        <f:selectItems value="#{usuarioMB.funcoes}" var="funcao" itemLabel="#{funcao.funcao}" itemValue="#{funcao}" />
                     </p:selectOneMenu>
-                    <h:message style="color:red" for="funcao"/>
-                    
-                    
+                                       
                 </p:panelGrid>
                 
                 <p:commandButton  action="#{usuarioMB.salvar}" value="Cadastrar" style="margin: 5px 5px 5px 0px" update="@form" />
@@ -118,7 +114,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:facet name="header">
                             <h:outputText value="Funcao"/>
                         </f:facet>
-                        <h:outputText value="#{usuario.funcao}" />
+                        <h:outputText value="#{usuario.funcao.funcao}" />
                     </p:column> 
                     <p:column> 
                         <f:facet name="header">

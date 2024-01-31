@@ -5,10 +5,11 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <div id="navBar">
+        <div class="layout-wrapper" id="navBar">
             <p:menubar styleClass="menubar-custom">
                 <p:menuitem icon="pi pi-bars" onclick="PF('sidebar').show();" />
                 <p:menuitem value="Controle de produtos"/>
+                <p:menuitem value="#{loginMB.usuario.nome}"/>
             </p:menubar>
 
             <p:sidebar id="sidebar" widgetVar="sidebar">

@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -19,36 +15,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <h:form enctype="multipart/form-data">
             <h:panelGroup>
                 <p:inputText value="#{despesaMB.despesa.id}" disabled="true" size="5" type="hidden"/>
-                <p:panelGrid columns="6">                            
+                <p:panelGrid columns="4">                            
 
                     <h:outputText value="Descriminação: " />
                     <p:inputText value="#{despesaMB.despesa.descriminacao}" size="30" id="descriminacao"/>
-                    <h:message style="color:red" for="descriminacao"/>
 
                     <h:outputText value="Data: " />
-                    <p:calendar value="#{despesaMB.despesa.data}" size="30" maxlength="14" id="data">
+                    <p:calendar value="#{despesaMB.despesa.data}" size="30" maxlength="10" mask="99/99/9999">
                         <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
                     </p:calendar>
-                    <h:message style="color:red" for="data"/>
 
                     <h:outputText value="Valor:" />
                     <p:inputText value="#{despesaMB.despesa.valor}" size="30" id="valor" maxlength="14"/> 
-                    <h:message style="color:red" for="valor"/>
 
-                    <h:outputText value="Forma Pagamento: " />
-                    <p:inputText value="#{despesaMB.despesa.formaPagamento}" size="30" maxlength="14" id="formapgto"/>
-                    <h:message style="color:red" for="formapgto"/>
-
+                    <h:outputText value="Forma de pagamento: " />
+                    <p:selectOneMenu value="#{despesaMB.despesa.formaPagamento}" id="formapgto" converter="formaPgtoConverter">
+                        <f:selectItems value="#{despesaMB.formasPgto}" var="formas" itemLabel="#{formas.formaPgto}" itemValue="#{formas}" />
+                    </p:selectOneMenu>
+                    
                     <h:outputText value="Obs.: " />
-                    <p:inputText value="#{despesaMB.despesa.observacao}" size="30" maxlength="14" id="obs"/>
-                    <h:message style="color:red" for="obs"/>
+                    <p:inputText value="#{despesaMB.despesa.observacao}" size="30" id="obs"/>
 
                     <h:outputText value="Anexos: " />
-                    <p:fileUpload value="#{despesaMB.despesa.anexos}" mode="simple" skinSimple="true" id="anexo"/>
-                    <h:message style="color:red" for="anexo"/>
+                    <h:inputFile value="#{despesaMB.anexo}" id="anexo"/>
 
                 </p:panelGrid>
-                <p:commandButton  action="#{despesaMB.salvar}" value="Incluir" update="@form"/>
+                <p:commandButton  action="#{despesaMB.salvar()}" value="Incluir" update="@form"/>
                 <p:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" update="@form"/>   
             </h:panelGroup>
             <h:panelGroup rendered="#{!despesaMB.despesas.isEmpty()}">
@@ -81,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:facet name="header">
                             <h:outputText value="Forma Pgto"/>
                         </f:facet>
-                        <h:outputText value="#{despesa.formaPagamento}" />
+                        <h:outputText value="#{despesa.formaPagamento.formaPgto}" />
                     </p:column> 
                     <p:column>                        
                         <f:facet name="header">
@@ -100,17 +92,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:facet name="header">
                             <h:outputText value="Alterar"/>
                         </f:facet>
-                        <p:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" immediate="true">
-                        </p:commandButton>
+                        <p:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" update="@form" />
                     </p:column>  
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Deletar"/>
                         </f:facet>
-                        <h:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" immediate="true">
-                        </h:commandButton>
+                        <p:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" update="@form" />
                     </p:column>  
-
+                    
                 </p:dataTable>
 
             </h:panelGroup>

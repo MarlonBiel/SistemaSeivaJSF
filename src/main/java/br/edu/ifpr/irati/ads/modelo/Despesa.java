@@ -6,14 +6,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
 
-@Entity (name="despesa")
+@Entity
+@Table(name="despesa")
 public class Despesa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-despesa")
@@ -26,24 +29,24 @@ public class Despesa implements Serializable{
     private Date data;
     @Column(name = "valor")
     private double valor;
-    @Column(name="formaPagamento", nullable = false, length = 100)
-    private String formaPagamento;
+    @ManyToOne
+    private FormaPgto formaPagamento;
     @Column(name="observacao", nullable = false, length = 100)
     private String observacao;
     @Column(name = "anexos", nullable = true)
-    private byte[] anexos; //se for arquivo de pdf garnde tem que ser byte
+    private String anexos; //se for arquivo de pdf garnde tem que ser byte
 
     public Despesa() {
         this.id = 0;
         this.descriminacao = "";
         this.data = new Date();
         this.valor = 0;
-        this.formaPagamento = "";
+        this.formaPagamento = new FormaPgto();
         this.observacao = "";
-        this.anexos = new byte[0];
+        this.anexos = "";
     }
 
-    public Despesa(int id, String descriminacao, Date data, double valor, String formaPagamento, String observacao, byte[] Anexos) {
+    public Despesa(int id, String descriminacao, Date data, double valor, FormaPgto formaPagamento, String observacao, String Anexos) {
         this.id = id;
         this.descriminacao = descriminacao;
         this.data = data;
@@ -85,11 +88,11 @@ public class Despesa implements Serializable{
         this.valor = valor;
     }
 
-    public String getFormaPagamento() {
+    public FormaPgto getFormaPagamento() {
         return formaPagamento;
     }
 
-    public void setFormaPagamento(String formaPagamento) {
+    public void setFormaPagamento(FormaPgto formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
 
@@ -101,12 +104,12 @@ public class Despesa implements Serializable{
         this.observacao = observacao;
     }
 
-    public byte[] getAnexos() {
+    public String getAnexos() {
         return anexos;
     }
 
 
-    public void setAnexos(byte[] Anexos) {
+    public void setAnexos(String Anexos) {
         this.anexos = Anexos;
     }
     

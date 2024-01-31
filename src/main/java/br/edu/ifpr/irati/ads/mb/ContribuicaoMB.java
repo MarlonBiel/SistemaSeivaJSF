@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifpr.irati.ads.mb;
 
 import br.edu.ifpr.irati.ads.dao.Dao;
@@ -14,15 +10,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.hibernate.Session;
 
-/**
- *
- * @author Caio
- */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ContribuicaoMB implements Serializable{
     private Contribuicao contribuicao = new Contribuicao();
     private List<Contribuicao> contribuicaos;
@@ -110,86 +102,51 @@ public class ContribuicaoMB implements Serializable{
     public void limparFiltroUsuario() throws PersistenceException{
         listaUsuariosFiltro.clear();
     }
-    /**
-     * @return the contribuicao
-     */
+
     public Contribuicao getContribuicao() {
         return contribuicao;
     }
     
-    /**
-     * @param contribuicao the contribuicao to set
-     */
     public void setContribuicao(Contribuicao contribuicao) {
         this.contribuicao = contribuicao;
     }
 
-    /**
-     * @return the contribuicaos
-     */
     public List<Contribuicao> getContribuicaos() {
         return contribuicaos;
     }
 
-    /**
-     * @param contribuicaos the contribuicaos to set
-     */
     public void setContribuicaos(List<Contribuicao> contribuicaos) {
         this.contribuicaos = contribuicaos;
     }
 
-    /**
-     * @return the usuario
-     */
     public String getUsuario() {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return the listaUsuarios
-     */
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    /**
-     * @param listaUsuarios the listaUsuarios to set
-     */
     public void setListaUsuarios(List<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
 
-    /**
-     * @return the usuarioDAO
-     */
     public Dao<Usuario> getUsuarioDAO() {
         return usuarioDAO;
     }
 
-    /**
-     * @param usuarioDAO the usuarioDAO to set
-     */
     public void setUsuarioDAO(Dao<Usuario> usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
 
-    /**
-     * @return the listaUsuariosFiltro
-     */
     public List<Usuario> getListaUsuariosFiltro() {
         return listaUsuariosFiltro;
     }
 
-    /**
-     * @param listaUsuariosFiltro the listaUsuariosFiltro to set
-     */
     public void setListaUsuariosFiltro(List<Usuario> listaUsuariosFiltro) {
         this.listaUsuariosFiltro = listaUsuariosFiltro;
     }

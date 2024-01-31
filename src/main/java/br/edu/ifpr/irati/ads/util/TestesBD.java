@@ -10,7 +10,6 @@ import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Contribuicao;
 import br.edu.ifpr.irati.ads.modelo.Despesa;
 import br.edu.ifpr.irati.ads.modelo.Evento;
-import br.edu.ifpr.irati.ads.modelo.Funcao;
 import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
@@ -33,9 +32,9 @@ public class TestesBD {
     }
     public static void criar(Session session) throws PersistenceException {
         Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);
-        Usuario a1 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
-        Usuario a2 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
-        Usuario a3 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, Funcao.VAZIO);
+        Usuario a1 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, null);
+        Usuario a2 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, null);
+        Usuario a3 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, null);
         
         usuarioDAO.salvar(a1);
         usuarioDAO.salvar(a2);

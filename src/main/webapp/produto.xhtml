@@ -12,29 +12,34 @@
     </h:head>
     <h:body>
         <ui:include src="/menus.xhtml" />
-        <h:form>
-            <h:panelGroup>
+        
+        <h2>CONTROLE DE ESTOQUE</h2>
+        
+        <h:form id="formulario">
+            <h:panelGroup id="inserir">
                 <p:inputText value="#{produtoMB.produto.id}" disabled="true" size="5" type="hidden"/>
-                <p:panelGrid columns="2">                            
-
+                <p:panelGrid columns="4">                            
+                    
                     <h:outputText value="Nome " />
                     <p:inputText value="#{produtoMB.produto.nome}" size="30" />
 
                     <h:outputText value="QuantidadeEstoque: " />
-                    <p:inputText value="#{produtoMB.produto.quantEstoque}" size="30" maxlength="14"/>
+                    <p:inputText value="#{produtoMB.produto.quantEstoque}" size="30"/>
 
                     <h:outputText value="Valor:" />
-                    <p:inputText value="#{produtoMB.produto.valor}" size="30" id="cpf" maxlength="14"/>
+                    <p:inputText value="#{produtoMB.produto.valor}" size="30" onkeypress="mascara(this, valor);"/>
 
                     <h:outputText value="Ian: " />
-                    <p:inputText value="#{produtoMB.produto.ian}" size="30" maxlength="14"/>
+                    <p:inputText value="#{produtoMB.produto.ian}" size="30"/>
 
                     <h:outputText value="Valor Venda: " />
-                    <p:inputText value="#{produtoMB.produto.valorVenda}" size="30" maxlength="14"/>
+                    <p:inputText value="#{produtoMB.produto.valorVenda}" size="30" maxlength="14" onkeypress="mascara(this, valor);"/>
 
-                    <p:commandButton  action="#{produtoMB.salvar}" value="Incluir" />
-                    <p:commandButton  action="#{produtoMB.limparTela()}" value="Limpar" />    
                 </p:panelGrid>
+
+                <p:commandButton  action="#{produtoMB.salvar}" style="margin: 5px 5px 5px 0px" value="Incluir" update="@form"/>
+                <p:commandButton  action="#{produtoMB.limparTela()}" value="Limpar" update="@form"/> 
+
             </h:panelGroup>
             <h:panelGroup rendered="#{!produtoMB.produtos.isEmpty()}">
                 <p:dataTable var="produto" value="#{produtoMB.produtos}">
@@ -78,20 +83,45 @@
                         <f:facet name="header">
                             <h:outputText value="Alterar"/>
                         </f:facet>
-                        <p:commandButton action="#{produtoMB.botaoAlterar(produto)}" value="Alterar" immediate="true"/>
+                        <p:commandButton action="#{produtoMB.botaoAlterar(produto)}" value="Alterar" update="@form"/>
                     </p:column>  
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Deletar"/>
                         </f:facet>
-                        <p:commandButton action="#{produtoMB.botaoExcluir(produto)}" value="Deletar" immediate="true"/>
+                        <p:commandButton action="#{produtoMB.botaoExcluir(produto)}" value="Deletar" update="@form"/>
                     </p:column>  
 
                 </p:dataTable>
-                <p:commandLink action="central.xhtml">
-                    <p:commandButton value="Voltar" action="#{produtoMB.limparTela()}"/>
-                </p:commandLink>  
+
             </h:panelGroup>
         </h:form>
+
+        <p:commandLink action="central.xhtml">
+            <p:commandButton value="Voltar"/>
+        </p:commandLink>  
+
+
+        <script>
+            function mascara(o, f) {
+                v_obj = o;
+                v_fun = f;
+                setTimeout("execmascara()", 1);
+            }
+
+            function execmascara() {
+                v_obj.value = v_fun(v_obj.value);
+            }
+
+            function valor(v) {
+                v = v.replace(/\D/g, "");
+
+                v = v.replace(/(\d{1})(\d{1,2})$/, "$1.$2"); // coloca virgula antes dos
+                // Ãºltimos 2 digitos
+                return v;
+            }
+        </script>
+
+
     </h:body>
 </html>

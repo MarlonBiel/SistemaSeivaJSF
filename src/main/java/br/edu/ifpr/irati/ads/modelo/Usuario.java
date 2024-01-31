@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.ifpr.irati.ads.modelo;
 
 import jakarta.persistence.Column;
@@ -9,17 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- *
- * @author Caio
- */
-@Entity (name="usuario")
+@Entity
+@Table(name="usuario")
 public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-usuario")
@@ -42,7 +38,7 @@ public class Usuario implements Serializable{
     private String senha;
     @Column(name = "matricula")
     private int matricula;
-    @Column(name = "funcao")
+    @ManyToOne
     private Funcao funcao;
 
     public Usuario() {
@@ -55,7 +51,7 @@ public class Usuario implements Serializable{
         this.email = "";
         this.senha = "";
         this.matricula = 0;
-        this.funcao = funcao.VAZIO;
+        this.funcao = new Funcao();
     }
 
     public Usuario(int id, String nome, String cpf, Date dataNascimento, String endereco, String telefone, String email, String senha, int matricula, Funcao funcao) {

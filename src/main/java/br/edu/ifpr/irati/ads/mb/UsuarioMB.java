@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifpr.irati.ads.mb;
 
 import br.edu.ifpr.irati.ads.dao.Dao;
@@ -13,17 +9,18 @@ import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.hibernate.Session;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped 
 public class UsuarioMB implements Serializable{
     private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
     private Dao<Usuario> usuarioDAO;
     private boolean inserir;
-    private Funcao funcoes;
+    private Dao<Funcao> funcaoDAO;
+    private List<Funcao> funcoes;
 
     public UsuarioMB() throws PersistenceException{
         try {
@@ -99,7 +96,15 @@ public class UsuarioMB implements Serializable{
         this.usuarios = usuarios;
     }
     
-    public Funcao[] getFuncoes (){
-        return Funcao.values();
+
+    public List<Funcao> getFuncoes() throws PersistenceException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        funcaoDAO = new GenericDAO<>(Funcao.class, session);
+        setFuncoes(funcaoDAO.buscarTodos());
+        return funcoes;
+    }
+
+    public void setFuncoes(List<Funcao> funcoes) {
+        this.funcoes = funcoes;
     }
 }
