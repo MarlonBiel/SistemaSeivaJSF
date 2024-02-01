@@ -109,6 +109,11 @@ public class Despesa implements Serializable{
     public void setAnexos(String Anexos) {
         this.anexos = Anexos;
     }
+
+    @Override
+    public String toString() {
+        return getAnexos();
+    }
     
     
 }

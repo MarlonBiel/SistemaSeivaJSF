@@ -30,7 +30,7 @@ public class HibernateUtil {
             settings.put("hibernate.connection.url","jdbc:mysql://localhost:3306/sistemaseiva?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");            
             settings.put("hibernate.connection.username", "root");
             settings.put("hibernate.hbm2ddl.auto", "update");
-            settings.put("hibernate.connection.password", "");
+            settings.put("hibernate.connection.password", "root");
             settings.put("hibernate.current_session_context_class", "thread");
             settings.put("hibernate.show_sql", "true");
             settings.put("hibernate.format_sql", "true");
