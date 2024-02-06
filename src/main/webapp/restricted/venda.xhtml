@@ -18,22 +18,24 @@
                 <p:panelGrid columns="2">                            
                     <p:autoUpdate />
                     <h:outputText value="Produtos: " />
-                    <p:selectOneMenu value="#{vendaMB.produtoVenda.produto}" onchange="#{vendaMB.updateQuantidadeEmEstoque()}" id="produtos" converter="produtoConverter"  filter="true" filterMatchMode="startsWith" >
-                        <f:selectItems value="#{vendaMB.produtos}" var="produtos" itemLabel="#{produtos.nome}" itemValue="#{produtos}" />
+                    <p:selectOneMenu value="#{vendaMB.produtoVenda.produto}" id="produtos" converter="produtoConverter"  filter="true" filterMatchMode="startsWith" >
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione um produto" />
+                        <f:selectItems value="#{vendaMB.produtos}" var="produtos" itemLabel="#{produtos.nome} | Em estoque #{produtos.quantEstoque}" itemValue="#{produtos}"/>
                     </p:selectOneMenu>
-                    
-                    <p:outputLabel value="#{vendaMB.estoque}" />
-                    
+
                     <h:outputText value="Quantidade: " />
                     <p:inputNumber value="#{vendaMB.produtoVenda.quantVenda}" size="30" id="quantidade"/>
-                    
+
                 </p:panelGrid>
-                
+
                 <p:commandButton  action="#{vendaMB.adicionarProdutoNaVenda()}" value="Incluir" update="@form"/>
-                <p:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" update="@form"/>   
             </h:panelGroup>
             <h:panelGroup rendered="#{!vendaMB.produtosVendas.isEmpty()}">
                 <p:dataTable var="venda" value="#{vendaMB.produtosVendas}" style="width: 100%">
+                    <f:facet name="header">
+                        <h:outputText value="Lista de compras"/>
+                        <p:commandButton action="#{vendaMB.realziarVenda()}" value="Finalizar Venda" update="@form" />
+                   </f:facet>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
@@ -52,7 +54,7 @@
                         </f:facet>
                         <h:outputText value="#{venda.quantVenda}" />
                     </p:column>  
-                    
+
 
                     <p:column>
                         <f:facet name="header">
@@ -66,7 +68,7 @@
                         </f:facet>
                         <p:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" update="@form" />
                     </p:column>  
-                    
+
                 </p:dataTable>
 
             </h:panelGroup>

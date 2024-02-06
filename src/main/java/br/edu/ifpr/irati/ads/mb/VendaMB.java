@@ -15,8 +15,9 @@ import javax.faces.bean.ViewScoped;
 import org.hibernate.Session;
 
 @ManagedBean
-@ViewScoped 
-public class VendaMB implements Serializable{
+@ViewScoped
+public class VendaMB implements Serializable {
+
     private Venda venda = new Venda();
     private ProdutoVenda produtoVenda = new ProdutoVenda();
     private List<Venda> vendas;
@@ -28,7 +29,7 @@ public class VendaMB implements Serializable{
     private List<ProdutoVenda> produtosVendas;
     private int estoque;
 
-    public VendaMB() throws PersistenceException{
+    public VendaMB() throws PersistenceException {
         try {
             venda = new Venda();
             produtoVenda = new ProdutoVenda();
@@ -44,16 +45,17 @@ public class VendaMB implements Serializable{
             ex.printStackTrace();
         }
     }
-    public void limparTela(){
+
+    public void limparTela() {
         produtoVenda = new ProdutoVenda();
     }
-    
-    
+
     public void realziarVenda() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             vendaDAO = new GenericDAO<>(Venda.class, session);
-
+            venda.setVendaAtual(produtosVendas);
+            baixarEstoque();
             if (inserir) {
                 //executar o método inserir do DAO
                 vendaDAO.salvar(venda);
@@ -62,22 +64,40 @@ public class VendaMB implements Serializable{
                 vendaDAO.alterar(venda);
             }
             inserir = true;
-            venda = new Venda();
+            //venda = new Venda();
             session.close();
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
     }
-    
-    public void adicionarProdutoNaVenda(){
+
+    public void baixarEstoque() throws PersistenceException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        produtoDAO = new GenericDAO<>(Produto.class, session);
+        produtos = produtoDAO.buscarTodos();
+        for(ProdutoVenda pv : produtosVendas){
+            for(Produto p : produtos){
+                if(pv.getProduto().getNome().contains(p.getNome())){
+                    p.setQuantEstoque(p.getQuantEstoque()- pv.getQuantVenda());
+                    produtoDAO.alterar(p);
+                    break;
+                }
+            }
+        }
+        
+        
+    }
+
+    public void adicionarProdutoNaVenda() {
         produtosVendas.add(produtoVenda);
+        produtoVenda = new ProdutoVenda();
     }
-    
-    
-    public void updateQuantidadeEmEstoque(){
+
+    public void updateQuantidadeEmEstoque() {
         this.setEstoque(produtoVenda.getProduto().getQuantEstoque());
+        System.out.println("ele chega até aqui");
     }
-    
+
     public void botaoExcluir(ProdutoVenda produtoVenda) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -89,13 +109,13 @@ public class VendaMB implements Serializable{
             ex.printStackTrace();
         }
     }
-    
+
     public String botaoAlterar(ProdutoVenda produtoVenda) {
         this.produtoVenda = new ProdutoVenda(produtoVenda.getId(), produtoVenda.getProduto(), produtoVenda.getQuantVenda());
         inserir = false;
         return "-";
     }
-    
+
     public Venda getVenda() {
         return venda;
     }
