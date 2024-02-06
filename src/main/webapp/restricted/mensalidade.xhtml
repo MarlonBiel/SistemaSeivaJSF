@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/restricted/menus.xhtml" />
+        
+        <h2>CONTROLE DE MENSALIDADE</h2>
+        
+        <h:form id="formulario">
+            <h:panelGroup id="inserir">
+                <p:selectOneMenu value="#{mensalidadeMB.mensalidade.usuario}" id="usuarios"   filter="true" filterMatchMode="startsWith" >
+                        <f:selectItems value="#{mensalidadeMB.usuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}" />
+                </p:selectOneMenu>
+                
+                
+                <p>mes</p>
+                <p:selectCheckboxMenu id="menu"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Cities"
+                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
+                              value="#{checkboxView.selectedCities}">
+            <f:selectItems value="#{checkboxView.cities}"/>
+
+            <f:facet name="footer">
+                <p:divider styleClass="mt-0" />
+                <h:outputText value="#{checkboxView.cities.size()} cities"
+                              styleClass="py-1 block font-bold"/>
+            </f:facet>
+        </p:selectCheckboxMenu>
+            </h:panelGroup>
+        </h:form>
+
+        <p:commandLink action="central.xhtml?faces-redirect=true">
+            <p:commandButton value="Voltar"/>
+        </p:commandLink>  
+    </h:body>
+</html>

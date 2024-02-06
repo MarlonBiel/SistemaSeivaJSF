@@ -10,6 +10,8 @@ import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Contribuicao;
 import br.edu.ifpr.irati.ads.modelo.Despesa;
 import br.edu.ifpr.irati.ads.modelo.Evento;
+import br.edu.ifpr.irati.ads.modelo.Funcao;
+import br.edu.ifpr.irati.ads.modelo.Mensalidade;
 import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
@@ -31,25 +33,20 @@ public class TestesBD {
         }
     }
     public static void criar(Session session) throws PersistenceException {
+        Dao<Funcao> funcaoDAO = new GenericDAO<>(Funcao.class, session);
+        Funcao f1= new Funcao(0, "Financeiro");
+        Funcao f2= new Funcao(0, "Organizador");
+        Funcao f3= new Funcao(0, "Cordenador");
+        Funcao f4= new Funcao(0, "Vazio");
+        
+        funcaoDAO.salvar(f1);
+        funcaoDAO.salvar(f2);
+        funcaoDAO.salvar(f3);
+        funcaoDAO.salvar(f4);
+        
         Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);
-        Usuario a1 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, null);
-        Usuario a2 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, null);
-        Usuario a3 = new Usuario(0, "caio", "", null, "rua", "123", "caio", "123", 0, null);
-        
+        Usuario a1 = new Usuario(0, "Admin", "000.000.000-00", null, "", "(00)00000-0000", "admin@seiva.com", "123", 0, f4);
         usuarioDAO.salvar(a1);
-        usuarioDAO.salvar(a2);
-        usuarioDAO.salvar(a3);
-        
-        List<Usuario> usuarios =new ArrayList<>();
-        usuarios.add(a1);
-        usuarios.add(a2);
-        usuarios.add(a3);
-        
-        
-        Dao<Despesa> despesaDAO = new GenericDAO<>(Despesa.class, session);
-        //IOUtils.toString(fileUploadEvent.getFile().getInputstream(), StandardCharsets.UTF_8); - Converte o arquivo PDF para String
-        //Despesa d1 = new Despesa(0, "teste", new Date(), 100, "Boleto", "Compra de livros", "");
-        //despesaDAO.salvar(d1);
         
         Dao<Produto> produtoDAO = new GenericDAO<>(Produto.class, session);
         Produto p1 = new Produto(0, "Livro1", 101, 51, 11, 51);
@@ -59,29 +56,5 @@ public class TestesBD {
         produtoDAO.salvar(p2);
         produtoDAO.salvar(p3);
         
-        Dao<Contribuicao> contribuicaoDAO = new GenericDAO<>(Contribuicao.class, session);
-        Contribuicao c1 = new Contribuicao(0, a1, 0, new Date(), "Picles", "Mensalidade");
-        contribuicaoDAO.salvar(c1);
-        
-        usuarios=usuarioDAO.buscarTodos();
-        Dao<Evento> eventoDAO = new GenericDAO<>(Evento.class, session);
-        Evento e1 = new Evento(0, new Date(), "Palestra", 0, usuarios, a1);
-        eventoDAO.salvar(e1);
-        
-        Produto produto1 = produtoDAO.buscarPorId(1);
-        Produto produto2 = produtoDAO.buscarPorId(2);
-        Produto produto3 = produtoDAO.buscarPorId(3);
-        Dao<ProdutoVenda> produtoVendaDAO = new GenericDAO<>(ProdutoVenda.class, session);
-        ProdutoVenda pv1 = new ProdutoVenda(0, produto1, 2);
-        ProdutoVenda pv2 = new ProdutoVenda(0, produto2, 3);
-        ProdutoVenda pv3 = new ProdutoVenda(0, produto3, 4);
-        produtoVendaDAO.salvar(pv1);
-        produtoVendaDAO.salvar(pv2);
-        produtoVendaDAO.salvar(pv3);
-        
-        List<ProdutoVenda> produtos = produtoVendaDAO.buscarTodos();
-        Dao<Venda> vendaDAO = new GenericDAO<>(Venda.class, session);
-        Venda v1 = new Venda(0, produtos);
-        vendaDAO.salvar(v1);
     }
 }
