@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/restricted/menus.xhtml" />
+        
+        <h2>CONTROLE DE ESTOQUE</h2>
+        
+        <h:form id="formulario">
+            <h:panelGroup id="inserir">
+                <p:inputText value="#{produtoMB.produto.id}" disabled="true" size="5" type="hidden"/>
+                <p:panelGrid columns="4">                            
+                    
+                    <h:outputText value="Nome " />
+                    <p:inputText value="#{produtoMB.produto.nome}" size="30" />
+
+                    <h:outputText value="QuantidadeEstoque: " />
+                    <p:inputText value="#{produtoMB.produto.quantEstoque}" size="30"/>
+
+                    <h:outputText value="Valor:" />
+                    <p:inputText value="#{produtoMB.produto.valor}" size="30" onkeypress="mascara(this, valor);"/>
+
+                    <h:outputText value="Ian: " />
+                    <p:inputText value="#{produtoMB.produto.ian}" size="30"/>
+
+                    <h:outputText value="Valor Venda: " />
+                    <p:inputText value="#{produtoMB.produto.valorVenda}" size="30" maxlength="14" onkeypress="mascara(this, valor);"/>
+
+                </p:panelGrid>
+
+                <p:commandButton  action="#{produtoMB.salvar}" style="margin: 5px 5px 5px 0px" value="Incluir" update="@form"/>
+                <p:commandButton  action="#{produtoMB.limparTela()}" value="Limpar" update="@form"/> 
+
+            </h:panelGroup>
+            <h:panelGroup rendered="#{!produtoMB.produtos.isEmpty()}">
+                <p:dataTable var="produto" value="#{produtoMB.produtos}">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{produto.id}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <h:outputText value="#{produto.nome}" />
+                    </p:column>  
+                    <p:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Qtd"/>
+                        </f:facet>
+                        <h:outputText value="#{produto.quantEstoque}" />
+                    </p:column>  
+                    <p:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Valor"/>
+                        </f:facet>
+                        <h:outputText value="#{produto.valor}" />
+                    </p:column>
+                    <p:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Ian"/>
+                        </f:facet>
+                        <h:outputText value="#{produto.ian}" />
+                    </p:column> 
+                    <p:column>                        
+                        <f:facet name="header">
+                            <h:outputText value="Valor Venda"/>
+                        </f:facet>
+                        <h:outputText value="#{produto.valorVenda}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Alterar"/>
+                        </f:facet>
+                        <p:commandButton action="#{produtoMB.botaoAlterar(produto)}" value="Alterar" update="@form"/>
+                    </p:column>  
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Deletar"/>
+                        </f:facet>
+                        <p:commandButton action="#{produtoMB.botaoExcluir(produto)}" value="Deletar" update="@form"/>
+                    </p:column>  
+
+                </p:dataTable>
+
+            </h:panelGroup>
+        </h:form>
+
+        <p:commandLink action="central.xhtml?faces-redirect=true">
+            <p:commandButton value="Voltar"/>
+        </p:commandLink>  
+
+
+        <script>
+            function mascara(o, f) {
+                v_obj = o;
+                v_fun = f;
+                setTimeout("execmascara()", 1);
+            }
+
+            function execmascara() {
+                v_obj.value = v_fun(v_obj.value);
+            }
+
+            function valor(v) {
+                v = v.replace(/\D/g, "");
+
+                v = v.replace(/(\d{1})(\d{1,2})$/, "$1.$2"); // coloca virgula antes dos
+                // Ãºltimos 2 digitos
+                return v;
+            }
+        </script>
+
+
+    </h:body>
+</html>

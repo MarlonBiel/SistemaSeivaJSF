@@ -1,0 +1,54 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <div class="layout-wrapper" id="navBar">
+            <p:menubar styleClass="menubar-custom">
+                <p:menuitem icon="pi pi-bars" onclick="PF('sidebar').show();" />
+                <p:menuitem value="Sistema Seiva"/>
+                <div class="ui-input-icon-left mr-2">
+                    <p:submenu label="#{loginMB.usuario.nome}" class="ui-input-icon-left mr-2">
+                        <p:menuitem value="Conta" icon="pi pi-fw pi-user"/>
+                        <p:menuitem value="Logout" icon="pi pi-fw pi-power-off" action="#{loginMB.logout()}"/>
+                    </p:submenu>
+                </div>
+            </p:menubar>
+
+            <p:sidebar id="sidebar" widgetVar="sidebar">
+                <h2>Opções</h2>
+                <h:form>
+                    <div>
+                        <h:commandLink action="/restricted/usuario.xhtml?faces-redirect=true">
+                            <p:commandButton value="Usuarios" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
+                        </h:commandLink>
+                    </div>
+                    <div>
+                        <h:commandLink action="/restricted/despesa.xhtml?faces-redirect=true">
+                            <p:commandButton value="Despesa" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
+                        </h:commandLink>
+                    </div>
+                    <div>
+                        <h:commandLink action="/restricted/produto.xhtml?faces-redirect=true">
+                            <p:commandButton value="Produto" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
+                        </h:commandLink>
+                    </div>
+                    <div>
+                        <h:commandLink action="/restricted/contribuicao.xhtml?faces-redirect=true">
+                            <p:commandButton value="Contribuicao" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
+                        </h:commandLink>
+                    </div>
+                    <div>
+                        <h:commandLink action="/restricted/venda.xhtml?faces-redirect=true">
+                            <p:commandButton value="Venda" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
+                        </h:commandLink>
+                    </div>
+                </h:form>    
+            </p:sidebar>
+
+        </div>
+    </h:body>
+</ui:composition>
+

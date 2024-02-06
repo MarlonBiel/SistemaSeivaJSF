@@ -1,14 +1,16 @@
-br\edu\ifpr\irati\ads\converters\FuncaoConverter.class
 br\edu\ifpr\irati\ads\dao\Dao.class
 br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class
 br\edu\ifpr\irati\ads\modelo\Venda.class
+br\edu\ifpr\irati\ads\converter\ProdutoConverter.class
 br\edu\ifpr\irati\ads\modelo\Despesa.class
 br\edu\ifpr\irati\ads\modelo\Contribuicao.class
-br\edu\ifpr\irati\ads\modelo\FuncaoEnum.class
 br\edu\ifpr\irati\ads\modelo\Evento.class
 br\edu\ifpr\irati\ads\util\TestesBD.class
+br\edu\ifpr\irati\ads\converter\FuncaoConverter.class
 br\edu\ifpr\irati\ads\dao\GenericDAO.class
+br\edu\ifpr\irati\ads\modelo\FormaPgto.class
 br\edu\ifpr\irati\ads\modelo\Funcao.class
+br\edu\ifpr\irati\ads\converter\FormaPgtoConverter.class
 br\edu\ifpr\irati\ads\mb\ContribuicaoMB.class
 br\edu\ifpr\irati\ads\mb\UsuarioMB.class
 br\edu\ifpr\irati\ads\util\HibernateUtil.class
@@ -18,3 +20,4 @@ br\edu\ifpr\irati\ads\modelo\Produto.class
 br\edu\ifpr\irati\ads\mb\ProdutoMB.class
 br\edu\ifpr\irati\ads\modelo\Usuario.class
 br\edu\ifpr\irati\ads\mb\DespesaMB.class
+br\edu\ifpr\irati\ads\mb\VendaMB.class

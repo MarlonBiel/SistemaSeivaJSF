@@ -12,12 +12,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+    
 import org.hibernate.Session;
 
-@ManagedBean
 @SessionScoped
+@ManagedBean
 public class LoginMB implements Serializable{
-
+    
     private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
     private Dao<Usuario> usuarioDAO;
@@ -32,10 +33,10 @@ public class LoginMB implements Serializable{
             usuarios = usuarioDAO.buscarTodos();
             
             for(Usuario u : usuarios){
-                if(getEmail().equalsIgnoreCase(u.getEmail())){
-                    if(getSenha().equals(u.getSenha())){
+                if(email.equalsIgnoreCase(u.getEmail())){
+                    if(senha.equals(u.getSenha())){
                         usuario = u;
-                        return "faces/central.xhtml";
+                        return "restricted/central.xhtml?faces-redirect=true";
                     }else{
                         FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha incorreta!","Senha Incorreta!"));
                         break;
@@ -50,6 +51,11 @@ public class LoginMB implements Serializable{
             ex.printStackTrace();
         }
         return "";
+    }
+    
+    public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index.xhtml?faces-redirect=true";
     }
     
     
