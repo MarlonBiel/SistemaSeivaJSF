@@ -8,9 +8,11 @@ import br.edu.ifpr.irati.ads.dao.Dao;
 import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Mensalidade;
+import br.edu.ifpr.irati.ads.modelo.Mes;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,23 +25,28 @@ import org.hibernate.Session;
 @ManagedBean
 @ViewScoped
 public class MensalidadeMB implements Serializable{
-    private Mensalidade mensalidade = new Mensalidade();
+    private Mensalidade mensalidade;
     private List<Mensalidade> mensalidades;
     private List<Usuario> usuarios;
+    private Usuario usuario;
     private Dao<Usuario> usuarioDAO;
     private Dao<Mensalidade> mensalidadeDAO;
     private boolean inserir;
-
+    private Mes mes;
+    private List<Mes> meses;
+    private Dao<Mes> mesDAO;
     public MensalidadeMB() throws PersistenceException{
         try {
+            mes = new Mes();
+           usuario=new Usuario();
             mensalidade = new Mensalidade();
             Session session = HibernateUtil.getSessionFactory().openSession();
             mensalidadeDAO = new GenericDAO<>(Mensalidade.class, session);
             mensalidades = mensalidadeDAO.buscarTodos();
-            
+            mesDAO = new GenericDAO<>(Mes.class, session);
+            meses = mesDAO.buscarTodos();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
             usuarios = usuarioDAO.buscarTodos();
-
             inserir = true;
             session.close();
             limparTela();
@@ -103,7 +110,7 @@ public class MensalidadeMB implements Serializable{
     public void setMensalidade(Mensalidade mensalidade) {
         this.mensalidade = mensalidade;
     }
-
+    
     /**
      * @return the mensalidades
      */
@@ -117,7 +124,7 @@ public class MensalidadeMB implements Serializable{
     public void setMensalidades(List<Mensalidade> mensalidades) {
         this.mensalidades = mensalidades;
     }
-
+    
     /**
      * @return the usuarios
      */
@@ -131,7 +138,49 @@ public class MensalidadeMB implements Serializable{
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-    
+    /**
+     * @return the meses
+     */
+    public List<Mes> getMeses() {
+        return meses;
+    }
+
+    /**
+     * @param meses the meses to set
+     */
+    public void setMeses(List<Mes> meses) {
+        this.meses = meses;
+    }
+
+    /**
+     * @return the mes
+     */
+    public Mes getMes() {
+        return mes;
+    }
+
+    /**
+     * @param mes the mes to set
+     */
+    public void setMes(Mes mes) {
+        this.mes = mes;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+   
     
     
 }

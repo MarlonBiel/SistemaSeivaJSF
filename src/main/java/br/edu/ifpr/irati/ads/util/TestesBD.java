@@ -12,6 +12,7 @@ import br.edu.ifpr.irati.ads.modelo.Despesa;
 import br.edu.ifpr.irati.ads.modelo.Evento;
 import br.edu.ifpr.irati.ads.modelo.Funcao;
 import br.edu.ifpr.irati.ads.modelo.Mensalidade;
+import br.edu.ifpr.irati.ads.modelo.Mes;
 import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
@@ -56,5 +57,31 @@ public class TestesBD {
         produtoDAO.salvar(p2);
         produtoDAO.salvar(p3);
         
+        Dao<Mes> mesDAO = new GenericDAO<>(Mes.class, session);
+        Mes m1 = new Mes(0,"JANEIRO");
+        Mes m2 = new Mes(0,"FEVEREIRO");
+        Mes m3 = new Mes(0,"MARCO");
+        Mes m4 = new Mes(0,"ABRIL");
+        Mes m5 = new Mes(0,"MAIO");
+        Mes m6 = new Mes(0,"JUNHO");
+        Mes m7 = new Mes(0,"JULHO");
+        Mes m8 = new Mes(0,"AGOSTO");
+        Mes m9 = new Mes(0,"SETEMBRO");
+        Mes m10 = new Mes(0,"OUTUBRO");
+        Mes m11 = new Mes(0,"NOVEMBRO");
+        Mes m12 = new Mes(0,"DEZEMBRO");
+        
+        mesDAO.salvar(m1);
+        mesDAO.salvar(m2);
+        mesDAO.salvar(m3);
+        mesDAO.salvar(m4);
+        mesDAO.salvar(m5);
+        mesDAO.salvar(m6);
+        mesDAO.salvar(m7);
+        mesDAO.salvar(m8);
+        mesDAO.salvar(m9);
+        mesDAO.salvar(m10);
+        mesDAO.salvar(m11);
+        mesDAO.salvar(m12);
     }
 }

@@ -7,6 +7,7 @@ import br.edu.ifpr.irati.ads.modelo.Evento;
 import br.edu.ifpr.irati.ads.modelo.FormaPgto;
 import br.edu.ifpr.irati.ads.modelo.Funcao;
 import br.edu.ifpr.irati.ads.modelo.Mensalidade;
+import br.edu.ifpr.irati.ads.modelo.Mes;
 import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
@@ -51,6 +52,7 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(Funcao.class);
             metadataSources.addAnnotatedClass(FormaPgto.class);
             metadataSources.addAnnotatedClass(Mensalidade.class);
+            metadataSources.addAnnotatedClass(Mes.class);
             Metadata metadata = metadataSources.buildMetadata();
 
             sessionFactory = metadata.getSessionFactoryBuilder().build();

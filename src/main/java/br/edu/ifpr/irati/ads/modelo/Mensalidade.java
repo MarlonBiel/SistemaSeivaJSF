@@ -42,7 +42,7 @@ public class Mensalidade implements Serializable{
         this.id = 0;
         this.usuario = new Usuario();
         this.mes = "";
-        this.ano = 2000;
+        this.ano = 2024;
         this.valor = 0.0;
     }
 

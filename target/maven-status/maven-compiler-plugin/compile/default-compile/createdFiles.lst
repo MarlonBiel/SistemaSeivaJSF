@@ -22,4 +22,5 @@ br\edu\ifpr\irati\ads\mb\ContribuicaoMB.class
 br\edu\ifpr\irati\ads\mb\UsuarioMB.class
 br\edu\ifpr\irati\ads\mb\LoginMB.class
 br\edu\ifpr\irati\ads\mb\ProdutoMB.class
+br\edu\ifpr\irati\ads\modelo\Mes.class
 br\edu\ifpr\irati\ads\mb\VendaMB.class
