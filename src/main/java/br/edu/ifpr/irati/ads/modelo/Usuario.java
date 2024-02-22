@@ -148,5 +148,24 @@ public class Usuario implements Serializable{
     public void setFuncao(Funcao funcao) {
         this.funcao = funcao;
     }
-    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        return this.id == other.id;
+    }
 }

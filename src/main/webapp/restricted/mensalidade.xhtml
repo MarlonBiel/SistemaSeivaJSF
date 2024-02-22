@@ -22,7 +22,7 @@
             <p:panelGrid columns="5">                            
 
                     <h:outputText value="Usuario: " />
-                    <p:selectOneMenu value="#{mensalidadeMB.usuario.nome}" id="usuarios"   filter="true" filterMatchMode="startsWith" >
+                    <p:selectOneMenu value="#{mensalidadeMB.usuario.nome}" id="usuarios"   filter="true" converter="usuarioConverter" filterMatchMode="startsWith" >
                     <f:selectItems value="#{mensalidadeMB.usuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}" />
                     </p:selectOneMenu>
                     
@@ -32,13 +32,14 @@
                     </p:selectOneMenu>
                     
                     <p:commandButton action="#{mensalidadeMB.salvar()}" value="Registrar Mensalidade" immediate="true"/>
-                    
+                
                     <h:outputText value="Ano " />
                     <p:inputText value="#{mensalidadeMB.mensalidade.ano}" size="30" />
                     
                     <h:outputText value="Valor " />
                     <p:inputText value="#{mensalidadeMB.mensalidade.valor}" size="30" />
-                </p:panelGrid>
+                    
+            </p:panelGrid>
             </h:panelGroup>
         </h:form>
 

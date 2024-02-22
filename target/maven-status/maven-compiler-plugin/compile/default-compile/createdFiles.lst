@@ -2,6 +2,7 @@ br\edu\ifpr\irati\ads\modelo\Venda.class
 br\edu\ifpr\irati\ads\mb\MensalidadeMB.class
 br\edu\ifpr\irati\ads\modelo\Despesa.class
 br\edu\ifpr\irati\ads\util\TestesBD.class
+br\edu\ifpr\irati\ads\converter\UsuarioConverter.class
 br\edu\ifpr\irati\ads\util\HibernateUtil.class
 br\edu\ifpr\irati\ads\exception\PersistenceException.class
 br\edu\ifpr\irati\ads\modelo\Produto.class

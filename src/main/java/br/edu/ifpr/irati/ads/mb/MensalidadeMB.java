@@ -38,7 +38,7 @@ public class MensalidadeMB implements Serializable{
     public MensalidadeMB() throws PersistenceException{
         try {
             mes = new Mes();
-           usuario=new Usuario();
+            usuario=new Usuario();
             mensalidade = new Mensalidade();
             Session session = HibernateUtil.getSessionFactory().openSession();
             mensalidadeDAO = new GenericDAO<>(Mensalidade.class, session);
@@ -62,6 +62,7 @@ public class MensalidadeMB implements Serializable{
             if (inserir) {
                 //executar o método inserir do DAO
                 mensalidadeDAO.salvar(mensalidade);
+                System.out.println(mensalidade.getUsuario().getNome());
             } else {
                 //executar o método alterar do DAO
                 mensalidadeDAO.alterar(mensalidade);

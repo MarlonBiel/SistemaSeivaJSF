@@ -13,7 +13,7 @@ import org.hibernate.Transaction;
  * @author Valter Estevam
  * @param <T>
  */
-public class GenericDAO<T> implements Dao<T> {
+public class GenericDAO<T> implements Dao<T>, Serializable {
 
     private final Class classePersistente;
     private Session session;
