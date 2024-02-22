@@ -1,4 +1,3 @@
-
 package br.edu.ifpr.irati.ads.modelo;
 
 import jakarta.persistence.Column;
@@ -15,26 +14,27 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="usuario")
-public class Usuario implements Serializable{
+@Table(name = "usuario")
+public class Usuario implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-usuario")
-    @SequenceGenerator(name = "seq-usuario", 
+    @SequenceGenerator(name = "seq-usuario",
             sequenceName = "USUARIO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
-    @Column(name="nome", nullable = false, length = 100)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-    @Column(name="cpf", nullable = false, length = 100)
+    @Column(name = "cpf", nullable = false, length = 100)
     private String cpf;
     @Temporal(value = TemporalType.DATE)
     private Date dataNascimento;
-    @Column(name="endereco", nullable = false, length = 100)
+    @Column(name = "endereco", nullable = false, length = 100)
     private String endereco;
-    @Column(name="telefone", nullable = false, length = 100)
+    @Column(name = "telefone", nullable = false, length = 100)
     private String telefone;
-    @Column(name="email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
-    @Column(name="senha", nullable = false, length = 100)
+    @Column(name = "senha", nullable = false, length = 100)
     private String senha;
     @Column(name = "matricula")
     private int matricula;
@@ -66,7 +66,6 @@ public class Usuario implements Serializable{
         this.matricula = matricula;
         this.funcao = funcao;
     }
-
 
     public int getId() {
         return id;
@@ -108,7 +107,6 @@ public class Usuario implements Serializable{
         this.endereco = endereco;
     }
 
-
     public String getTelefone() {
         return telefone;
     }
@@ -148,5 +146,26 @@ public class Usuario implements Serializable{
     public void setFuncao(Funcao funcao) {
         this.funcao = funcao;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        return this.id == other.id;
+    }
+
 }

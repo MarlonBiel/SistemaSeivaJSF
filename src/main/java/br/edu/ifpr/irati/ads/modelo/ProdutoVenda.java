@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -18,8 +18,7 @@ import java.io.Serializable;
 public class ProdutoVenda implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-vendaProduto")
-    @SequenceGenerator(name = "seq-vendaProduto", 
-            sequenceName = "VENDAPRODUTO_SEQ", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "seq-vendaProduto", sequenceName = "VENDAPRODUTO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
     
     @OneToOne
@@ -27,6 +26,8 @@ public class ProdutoVenda implements Serializable{
     private Produto produto;
     @Column(name = "quantVenda")
     private int quantVenda;
+    @ManyToOne
+    private Venda venda;
 
     public ProdutoVenda() {
         this.id = 0;
@@ -62,6 +63,14 @@ public class ProdutoVenda implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
     
     

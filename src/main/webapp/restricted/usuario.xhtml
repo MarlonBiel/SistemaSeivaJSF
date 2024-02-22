@@ -17,49 +17,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <ui:include src="/restricted/menus.xhtml" />
         <h2>CONTROLE DE USUARIO</h2>
         <h:form>
-            <h:panelGroup id="Dados">
-                <p:inputText value="#{usuarioMB.usuario.id}" disabled="true" size="5" type="hidden"/>
-                <p:panelGrid columns="6">                            
-                    
-
-                    <h:outputText value="Nome: " />
-                    <p:inputText value="#{usuarioMB.usuario.nome}" size="30" />
-
-                    <h:outputText value="CPF:" />
-                    <p:inputMask value="#{usuarioMB.usuario.cpf}" size="30" id="cpf" mask="999.999.999-99"/>
-                    
-                    <h:outputText value="Nascimento: " />
-                    <p:calendar value="#{usuarioMB.usuario.dataNascimento}" size="30" maxlength="10" mask="99/99/9999">
-                    </p:calendar>
-
-                    <h:outputText value="Endereço: " />
-                    <p:inputText value="#{usuarioMB.usuario.endereco}" size="30" maxlength="50"/>
-
-                    <h:outputText value="Telefone: " />
-                    <p:inputMask value="#{usuarioMB.usuario.telefone}" size="30" maxlength="16" mask="(99) 99999-9999"/>
-
-                    <h:outputText value="Email: " />
-                    <p:inputText value="#{usuarioMB.usuario.email}" size="30" maxlength="30"/>
-
-                    <h:outputText value="Senha: " />
-                    <p:password value="#{usuarioMB.usuario.senha}" size="30" maxlength="15"/>
-
-                    <h:outputText value="Matricula: " />
-                    <p:inputMask value="#{usuarioMB.usuario.matricula}" size="30" maxlength="20" mask="9999999"/>
-                    
-                    <h:outputText value="Função: " />
-                    <p:selectOneMenu value="#{usuarioMB.usuario.funcao}" id="funcao" converter="funcaoConverter">
-                        <f:selectItems value="#{usuarioMB.funcoes}" var="funcao" itemLabel="#{funcao.funcao}" itemValue="#{funcao}" />
-                    </p:selectOneMenu>
-                                       
-                </p:panelGrid>
-                
-                <p:commandButton  action="#{usuarioMB.salvar}" value="Cadastrar" style="margin: 5px 5px 5px 0px" update="@form" />
-                <p:commandButton  action="#{usuarioMB.limparTela()}" value="Limpar" update="@form"/>  
-                
-            </h:panelGroup>
             <h:panelGroup rendered="#{!usuarioMB.usuarios.isEmpty()}">
                 <p:dataTable id="tabelaUsuarios" var="usuario" value="#{usuarioMB.usuarios}" style="width: 100%">
+                    <f:facet name="header">
+                        <h:outputText value="Usuarios"/>
+                        <p:commandButton value="cadastrar usuarios" action="/restricted/usuario_edit.xhtml?faces-redirect=true"/>
+                    </f:facet>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
@@ -130,7 +93,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </p:column>  
 
                 </p:dataTable>
-                
+
             </h:panelGroup>
         </h:form>
         <p:commandLink action="central.xhtml?faces-redirect=true">

@@ -30,8 +30,8 @@ public class Contribuicao implements Serializable{
     private double valor;
     @Temporal(value = TemporalType.DATE)
     private Date data;
-    @Column(name="formaContribuicao", nullable = false, length = 100)
-    private String formaContribuicao;
+    @OneToOne
+    private FormaPgto formaContribuicao;
     @Column(name="tipo", nullable = false, length = 100)
     private String tipo;
 
@@ -40,11 +40,11 @@ public class Contribuicao implements Serializable{
         this.usuario = new Usuario();
         this.valor = 0;
         this.data = new Date();
-        this.formaContribuicao = "";
+        this.formaContribuicao = new FormaPgto();
         this.tipo = "";
     }
 
-    public Contribuicao(int id, Usuario usuario, double valor, Date data, String formaContribuicao, String tipo) {
+    public Contribuicao(int id, Usuario usuario, double valor, Date data, FormaPgto formaContribuicao, String tipo) {
         this.id = id;
         this.usuario = usuario;
         this.valor = valor;
@@ -53,87 +53,50 @@ public class Contribuicao implements Serializable{
         this.tipo = tipo;
     }
 
-    
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the usuario
-     */
     public Usuario getUsuario() {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return the valor
-     */
     public double getValor() {
         return valor;
     }
 
-    /**
-     * @param valor the valor to set
-     */
     public void setValor(double valor) {
         this.valor = valor;
     }
 
-    /**
-     * @return the data
-     */
     public Date getData() {
         return data;
     }
 
-    /**
-     * @param data the data to set
-     */
     public void setData(Date data) {
         this.data = data;
     }
-
-    /**
-     * @return the formaContribuicao
-     */
-    public String getFormaContribuicao() {
+    
+    public FormaPgto getFormaContribuicao() {
         return formaContribuicao;
     }
 
-    /**
-     * @param formaContribuicao the formaContribuicao to set
-     */
-    public void setFormaContribuicao(String formaContribuicao) {
+    public void setFormaContribuicao(FormaPgto formaContribuicao) {
         this.formaContribuicao = formaContribuicao;
     }
 
-    /**
-     * @return the tipo
-     */
     public String getTipo() {
         return tipo;
     }
 
-    /**
-     * @param tipo the tipo to set
-     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

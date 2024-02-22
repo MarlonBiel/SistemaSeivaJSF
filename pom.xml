@@ -48,9 +48,20 @@
             <artifactId>primefaces</artifactId>
             <version>12.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+            <version>2.3.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss</groupId>
+            <artifactId>jandex</artifactId>
+            <version>2.1.1.Final</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     
-     <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

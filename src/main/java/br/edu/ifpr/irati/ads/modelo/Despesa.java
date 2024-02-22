@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -29,7 +30,7 @@ public class Despesa implements Serializable{
     private Date data;
     @Column(name = "valor")
     private double valor;
-    @ManyToOne
+    @OneToOne
     private FormaPgto formaPagamento;
     @Column(name="observacao", nullable = false, length = 100)
     private String observacao;

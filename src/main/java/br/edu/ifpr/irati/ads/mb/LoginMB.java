@@ -1,4 +1,3 @@
-
 package br.edu.ifpr.irati.ads.mb;
 
 import br.edu.ifpr.irati.ads.dao.Dao;
@@ -8,59 +7,53 @@ import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-    
+import javax.inject.Named;
 import org.hibernate.Session;
 
+@Named
 @SessionScoped
-@ManagedBean
-public class LoginMB implements Serializable{
-    
-    private Usuario usuario = new Usuario();
-    private List<Usuario> usuarios;
-    private Dao<Usuario> usuarioDAO;
+public class LoginMB implements Serializable {
+
     private String email;
     private String senha;
-    
-    public String login() throws PersistenceException{
-        try {
-            usuario = new Usuario();
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            usuarioDAO = new GenericDAO<>(Usuario.class, session);
-            usuarios = usuarioDAO.buscarTodos();
-            
-            for(Usuario u : usuarios){
-                if(email.equalsIgnoreCase(u.getEmail())){
-                    if(senha.equals(u.getSenha())){
-                        usuario = u;
-                        return "restricted/central.xhtml?faces-redirect=true";
-                    }else{
-                        FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha incorreta!","Senha Incorreta!"));
-                        break;
-                    }
-                }else{
-                    FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email incorreta!","Email Incorreta!"));
-                    break;
-                }
+    private Usuario usuario;
+    private List<Usuario> usuarios;
+    private Dao<Usuario> usuarioDAO;
+
+    public String logar() throws PersistenceException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        usuarioDAO = new GenericDAO<>(Usuario.class, session);
+        usuarios = usuarioDAO.buscarTodos();
+        for (Usuario u : usuarios) {
+            if (email.equals(u.getEmail()) && senha.equals(u.getSenha())) {
+                usuario = u;
+                return "/restricted/central.xhtml?faces-redirect=true";
             }
-            
-        } catch (PersistenceException ex) {
-            ex.printStackTrace();
         }
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario e/ou senha incorreto", ""));
         return "";
     }
-    
-    public String logout(){
+
+    public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        setUsuario(null);
         return "/index.xhtml?faces-redirect=true";
     }
-    
-    
+
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public void setSenha(String senha) {
@@ -71,12 +64,7 @@ public class LoginMB implements Serializable{
         return usuario;
     }
 
-    public String getEmail() {
-        return email;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-
-    public String getSenha() {
-        return senha;
-    }
-    
 }

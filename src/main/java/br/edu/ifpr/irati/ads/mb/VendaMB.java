@@ -18,43 +18,62 @@ import org.hibernate.Session;
 @ViewScoped
 public class VendaMB implements Serializable {
 
-    private Venda venda = new Venda();
-    private ProdutoVenda produtoVenda = new ProdutoVenda();
-    private List<Venda> vendas;
-    private Dao<Venda> vendaDAO;
     private boolean inserir;
-    private Dao<Produto> produtoDAO;
-    private List<Produto> produtos;
+    private int estoque;
+    private double valorTotal;
+
+    private ProdutoVenda produtoVenda = new ProdutoVenda();
     private Dao<ProdutoVenda> produtoVendaDAO;
     private List<ProdutoVenda> produtosVendas;
-    private int estoque;
+    private List<ProdutoVenda> listaFiltrada = new ArrayList<>();
+    private String nomeProduto = "";
+
+    private Venda venda = new Venda();
+    private List<Venda> vendas;
+    private Dao<Venda> vendaDAO;
+
+    private Produto produto = new Produto();
+    private Dao<Produto> produtoDAO;
+    private List<Produto> produtos;
 
     public VendaMB() throws PersistenceException {
         try {
             venda = new Venda();
             produtoVenda = new ProdutoVenda();
             produtosVendas = new ArrayList<>();
+            atualizaLista();
             Session session = HibernateUtil.getSessionFactory().openSession();
             produtoDAO = new GenericDAO<>(Produto.class, session);
             produtos = produtoDAO.buscarTodos();
 
             inserir = true;
             session.close();
-            limparTela();
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void limparTela() {
-        produtoVenda = new ProdutoVenda();
+    public void atualizaLista() throws PersistenceException {
+        listaFiltrada = new ArrayList<>();
+        getListaProdutosVendasFiltrada();
+    }
+    
+    public double valorTotalVenda() throws PersistenceException {
+        listaFiltrada = new ArrayList<>();
+        valorTotal = 0;
+        getListaProdutosVendasFiltrada();
+        for(ProdutoVenda pv : listaFiltrada){
+            valorTotal = valorTotal + (pv.getProduto().getValorVenda() * pv.getQuantVenda());
+        }
+        return valorTotal;
     }
 
     public void realziarVenda() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             vendaDAO = new GenericDAO<>(Venda.class, session);
-            venda.setVendaAtual(produtosVendas);
+            venda.setVendaAtual(getListaFiltrada());
+            produtosVendas = new ArrayList<>();
             baixarEstoque();
             if (inserir) {
                 //executar o método inserir do DAO
@@ -63,8 +82,8 @@ public class VendaMB implements Serializable {
                 //executar o método alterar do DAO
                 vendaDAO.alterar(venda);
             }
+            atualizaLista();
             inserir = true;
-            //venda = new Venda();
             session.close();
         } catch (PersistenceException ex) {
             ex.printStackTrace();
@@ -75,27 +94,19 @@ public class VendaMB implements Serializable {
         Session session = HibernateUtil.getSessionFactory().openSession();
         produtoDAO = new GenericDAO<>(Produto.class, session);
         produtos = produtoDAO.buscarTodos();
-        for(ProdutoVenda pv : produtosVendas){
-            for(Produto p : produtos){
-                if(pv.getProduto().getNome().contains(p.getNome())){
-                    p.setQuantEstoque(p.getQuantEstoque()- pv.getQuantVenda());
-                    produtoDAO.alterar(p);
-                    break;
-                }
-            }
+        for (ProdutoVenda pv : listaFiltrada) {
+            pv.getProduto().setQuantEstoque(pv.getProduto().getQuantEstoque() - pv.getQuantVenda());
+            produtoDAO.alterar(pv.getProduto());
         }
-        
-        
+
     }
 
-    public void adicionarProdutoNaVenda() {
-        produtosVendas.add(produtoVenda);
+    public void adicionarProdutoNaVenda() throws PersistenceException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        produtoVendaDAO = new GenericDAO<>(ProdutoVenda.class, session);
+        produtoVendaDAO.salvar(produtoVenda);
         produtoVenda = new ProdutoVenda();
-    }
-
-    public void updateQuantidadeEmEstoque() {
-        this.setEstoque(produtoVenda.getProduto().getQuantEstoque());
-        System.out.println("ele chega até aqui");
+        atualizaLista();
     }
 
     public void botaoExcluir(ProdutoVenda produtoVenda) {
@@ -104,6 +115,7 @@ public class VendaMB implements Serializable {
             produtoVendaDAO = new GenericDAO<>(ProdutoVenda.class, session);
             produtoVendaDAO.excluir(produtoVenda);
             inserir = true;
+            atualizaLista();
             session.close();
         } catch (PersistenceException ex) {
             ex.printStackTrace();
@@ -143,8 +155,21 @@ public class VendaMB implements Serializable {
         this.produtos = produtos;
     }
 
-    public List<ProdutoVenda> getProdutosVendas() {
-        return produtosVendas;
+    public List<ProdutoVenda> getProdutosVendas() throws PersistenceException {
+        return listaFiltrada;
+    }
+    
+    public void getListaProdutosVendasFiltrada() throws PersistenceException{
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        produtoVendaDAO = new GenericDAO<>(ProdutoVenda.class, session);
+        produtosVendas = produtoVendaDAO.buscarTodos();
+        for(ProdutoVenda pv : produtosVendas){
+            if(pv.getVenda() == null){
+                listaFiltrada.add(pv);
+                nomeProduto = pv.getProduto().toString();
+                System.out.println(pv.getProduto().getNome());
+            }
+        }
     }
 
     public void setProdutosVendas(List<ProdutoVenda> produtosVendas) {
@@ -165,6 +190,30 @@ public class VendaMB implements Serializable {
 
     public void setEstoque(int estoque) {
         this.estoque = estoque;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public List<ProdutoVenda> getListaFiltrada() {
+        return listaFiltrada;
+    }
+
+    public void setListaFiltrada(List<ProdutoVenda> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
 }

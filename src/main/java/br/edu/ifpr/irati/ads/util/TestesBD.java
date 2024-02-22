@@ -59,9 +59,7 @@ public class TestesBD {
         produtoDAO.salvar(p2);
         produtoDAO.salvar(p3);
         
-        Dao<Contribuicao> contribuicaoDAO = new GenericDAO<>(Contribuicao.class, session);
-        Contribuicao c1 = new Contribuicao(0, a1, 0, new Date(), "Picles", "Mensalidade");
-        contribuicaoDAO.salvar(c1);
+
         
         usuarios=usuarioDAO.buscarTodos();
         Dao<Evento> eventoDAO = new GenericDAO<>(Evento.class, session);

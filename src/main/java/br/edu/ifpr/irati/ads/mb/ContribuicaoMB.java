@@ -4,6 +4,7 @@ import br.edu.ifpr.irati.ads.dao.Dao;
 import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Contribuicao;
+import br.edu.ifpr.irati.ads.modelo.FormaPgto;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
@@ -22,6 +23,9 @@ public class ContribuicaoMB implements Serializable{
     private Dao<Usuario> usuarioDAO;
     private boolean inserir;
     private String usuario;
+    
+    private Dao<FormaPgto> formaPgtoDAO;
+    private List<FormaPgto> formasPgto;
     
     private List<Usuario> listaUsuarios;
     private List<Usuario> listaUsuariosFiltro;
@@ -44,7 +48,8 @@ public class ContribuicaoMB implements Serializable{
     }
     
     public void limparTela() {
-        setContribuicao(new Contribuicao());
+        //setContribuicao(new Contribuicao());
+        System.out.println(contribuicao.getTipo());
     }
     public void salvar() {
         try {
@@ -149,6 +154,17 @@ public class ContribuicaoMB implements Serializable{
 
     public void setListaUsuariosFiltro(List<Usuario> listaUsuariosFiltro) {
         this.listaUsuariosFiltro = listaUsuariosFiltro;
+    }
+
+    public List<FormaPgto> getFormasPgto() throws PersistenceException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        formaPgtoDAO = new GenericDAO<>(FormaPgto.class, session);
+        setFormasPgto(formaPgtoDAO.buscarTodos());
+        return formasPgto;
+    }
+
+    public void setFormasPgto(List<FormaPgto> formasPgto) {
+        this.formasPgto = formasPgto;
     }
     
     

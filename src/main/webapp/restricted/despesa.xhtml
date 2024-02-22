@@ -26,10 +26,11 @@
                     </p:calendar>
 
                     <h:outputText value="Valor:" />
-                    <p:inputText value="#{despesaMB.despesa.valor}" size="30" id="valor" maxlength="14"/> 
+                    <p:inputNumber value="#{despesaMB.despesa.valor}" size="30" id="valor" maxlength="14"/> 
 
                     <h:outputText value="Forma de pagamento: " />
                     <p:selectOneMenu value="#{despesaMB.despesa.formaPagamento}" id="formapgto" converter="formaPgtoConverter">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma forma de pagamento" />
                         <f:selectItems value="#{despesaMB.formasPgto}" var="formas" itemLabel="#{formas.formaPgto}" itemValue="#{formas}" />
                     </p:selectOneMenu>
                     
@@ -61,7 +62,9 @@
                         <f:facet name="header">
                             <h:outputText value="Data"/>
                         </f:facet>
-                        <h:outputText value="#{despesa.data}" />
+                        <h:outputText value="#{despesa.data}" >
+                            <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                        </h:outputText>
                     </p:column>  
                     <p:column>                        
                         <f:facet name="header">

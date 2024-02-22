@@ -9,11 +9,12 @@ import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.hibernate.Session;
 
 @ManagedBean
-@ViewScoped 
+@SessionScoped 
 public class UsuarioMB implements Serializable{
     private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
@@ -39,7 +40,7 @@ public class UsuarioMB implements Serializable{
     public void limparTela(){
         setUsuario(new Usuario());
     }
-    public void salvar() {
+    public String salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
@@ -55,9 +56,11 @@ public class UsuarioMB implements Serializable{
             usuario = new Usuario();
             usuarios = usuarioDAO.buscarTodos();
             session.close();
+            return "/restricted/usuario.xhtml?faces-redirect=true";
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
+        return "";
     }
     public void botaoExcluir(Usuario usuario) {
         try {
@@ -77,8 +80,9 @@ public class UsuarioMB implements Serializable{
         System.out.println(usuario.getId());
         this.usuario = new Usuario(usuario.getId(), usuario.getNome(), usuario.getCpf(), usuario.getDataNascimento(), usuario.getEndereco(), usuario.getTelefone(), usuario.getEmail(), usuario.getSenha(), usuario.getMatricula(), usuario.getFuncao());
         inserir = false;
-        return "-";
+        return "/restricted/usuario_edit.xhtml?faces-redirect=true";
     }
+    
 
     public Usuario getUsuario() {
         return usuario;
