@@ -1,10 +1,14 @@
 package br.edu.ifpr.irati.ads.converter;
+
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import java.util.Map;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+
+
 
 @FacesConverter(forClass = Usuario.class, value = "usuarioConverter")
 public class UsuarioConverter implements Converter {
@@ -20,9 +24,9 @@ public class UsuarioConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent component, Object value) {
 		if (value != null) {
-			Usuario p = (Usuario) value;
-			adicionarAtributo(component, p);
-			String chave = String.valueOf(p.getId());
+			Usuario u = (Usuario) value;
+			adicionarAtributo(component, u);
+			String chave = String.valueOf(u.getId());
 			return chave;
 		}
 		return (String) value;
@@ -36,4 +40,5 @@ public class UsuarioConverter implements Converter {
 		String chave = String.valueOf(usuario.getId());
 		getMapaObjetos(component).put(chave, usuario);
 	}
+
 }

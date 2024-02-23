@@ -1,6 +1,7 @@
 
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,17 +28,20 @@ public class Venda implements Serializable{
     @OneToMany
     @JoinColumn(name = "Venda_id", referencedColumnName = "id")
     private List<ProdutoVenda> vendaAtual;
+    @Column(name = "valorTotal", nullable = false)
+    private double valorTotal;
 
     public Venda() {
         this.id = 0;
         this.vendaAtual = new ArrayList<>();
+        this.valorTotal = 0;
     }
 
-    public Venda(int id, List<ProdutoVenda> vendaAtual) {
+    public Venda(int id, List<ProdutoVenda> vendaAtual, double valorTotal) {
         this.id = id;
         this.vendaAtual = vendaAtual;
+        this.valorTotal = valorTotal;
     }
-
 
     public int getId() {
         return id;
@@ -53,6 +57,14 @@ public class Venda implements Serializable{
 
     public void setVendaAtual(List<ProdutoVenda> vendaAtual) {
         this.vendaAtual = vendaAtual;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
     
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/restricted/menus.xhtml" />
+        <h2>CONTROLE DE CONTRIBUICAO</h2>
+        <h:form>
+            <h:panelGroup>
+                <p:inputText value="#{contribuicaoMB.contribuicao.id}" type="hidden" disabled="true" size="5"/>
+
+                <p:panelGrid columns="4">                            
+
+                    <h:outputText value="Usuario: " />
+                    <p:selectOneMenu value="#{contribuicaoMB.contribuicao.usuario}" id="usuario" converter="usuarioConverter"  filter="true" filterMatchMode="startsWith" >
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione um usuario" />
+                        <f:selectItems value="#{contribuicaoMB.listaUsuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Valor:" />
+                    <p:inputText value="#{contribuicaoMB.contribuicao.valor}" size="30" id="cpf" maxlength="14"/>
+
+                    <h:outputText value="Data: " />
+                    <p:calendar value="#{contribuicaoMB.contribuicao.data}" size="30" maxlength="14">
+                        <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                    </p:calendar>
+
+                    <h:outputText value="Forma de pagamento: " />
+                    <p:selectOneMenu value="#{contribuicaoMB.contribuicao.formaContribuicao}" id="formapgto" converter="formaPgtoConverter">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma forma de pagamento" />
+                        <f:selectItems value="#{contribuicaoMB.formasPgto}" var="formas" itemLabel="#{formas.formaPgto}" itemValue="#{formas}" />
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Tipo: " />
+                    <p:selectOneRadio id="tipo" value="#{contribuicaoMB.contribuicao.tipo}" layout="lineDirection">
+                        <f:selectItem itemLabel="Mensalidade" itemValue="Mensalidade"/>
+                        <f:selectItem itemLabel="Contribuição" itemValue="Contribuicao"/>
+                    </p:selectOneRadio>
+
+                    <p:commandButton  action="#{contribuicaoMB.salvar}" value="Incluir" update="@form"/>
+                    <p:commandButton  action="#{contribuicaoMB.limparTela()}" value="Limpar" update="@form"/>    
+                </p:panelGrid>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{!contribuicaoMB.contribuicaos.isEmpty()}">
+                <p:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" style="width: 100%">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Data"/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.data}">
+                            <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column>                        
+                        <f:facet name="header">
+                            <h:outputText value=""/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.usuario.nome}" />
+                    </p:column> 
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Valor"/>
+                        </f:facet>
+                        <h:outputText value="#{contribuicao.valor}" />
+                    </p:column>  
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Alterar"/>
+                        </f:facet>
+                        <p:commandButton action="#{contribuicaoMB.botaoAlterar(contribuicao)}" value="Alterar" update="@form" />
+                    </p:column>  
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Deletar"/>
+                        </f:facet>
+                        <p:commandButton action="#{contribuicaoMB.botaoExcluir(contribuicao)}" value="Deletar" update="@form" />
+                    </p:column>  
+
+                </p:dataTable>
+
+            </h:panelGroup>
+
+            <p:commandLink action="central.xhtml?faces-redirect=true">
+                <p:commandButton value="Voltar"/>
+            </p:commandLink>  
+        </h:form>
+
+
+    </h:body>
+</html>

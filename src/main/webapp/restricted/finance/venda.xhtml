@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/restricted/menus.xhtml" />
+        <center>
+            <h2>VENDAS</h2>
+            <p:growl id="mensagem"/>
+            <h:form enctype="multipart/form-data">
+
+                <h:panelGroup>
+                    <p:inputText value="#{vendaMB.venda.id}" disabled="true" size="5" type="hidden"/>
+                    <p:panelGrid columns="2">                            
+                        <p:autoUpdate />
+                        <h:outputText value="Produtos: " />
+                        <p:selectOneMenu value="#{vendaMB.produtoVenda.produto}" id="produtos" converter="produtoConverter"  filter="true" filterMatchMode="startsWith" >
+                            <f:selectItem noSelectionOption="true" itemLabel="Selecione um produto" />
+                            <f:selectItems value="#{vendaMB.produtos}" var="produtos" itemLabel="#{produtos.nome} | Em estoque #{produtos.quantEstoque}" itemValue="#{produtos}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Quantidade: " />
+                        <p:inputNumber value="#{vendaMB.produtoVenda.quantVenda}" size="30" id="quantidade"/>
+
+                    </p:panelGrid>
+
+                    <p:commandButton  action="#{vendaMB.adicionarProdutoNaVenda()}" value="Adicionar a lista de compras" update="@form" style="margin: 5px"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{!vendaMB.produtosVendas.isEmpty()}">
+                    <p:dataTable var="venda" value="#{vendaMB.produtosVendas}" style="width: 100%">
+                        <f:facet name="header">
+                            <h:outputText value="Lista de compras"/>
+                            <p:commandButton action="#{vendaMB.realziarVenda()}" value="Finalizar Venda" update="@form" style="margin-left: 68%"/>
+                        </f:facet>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{venda.id}" />
+                        </p:column>
+                        <p:column>                        
+                            <f:facet name="header">
+                                <h:outputText value="Produto"/>
+                            </f:facet>
+                            <h:outputText value="#{venda.produto.nome}" />
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantidade"/>
+                            </f:facet>
+                            <h:outputText value="#{venda.quantVenda}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Valor"/>
+                            </f:facet>
+                            <h:outputText value="#{venda.produto.valorVenda * venda.quantVenda}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Deletar"/>
+                            </f:facet>
+                            <p:commandButton action="#{vendaMB.botaoExcluir(venda)}" value="Deletar" update="@form" />
+                        </p:column>  
+
+                        <f:facet name="footer">
+                            <h:outputText value="Valor de venda = #{vendaMB.valorTotalVenda()}"/>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:panelGroup>
+                <p:commandLink action="central.xhtml?faces-redirect=true">
+                    <p:commandButton value="Voltar"/>
+                </p:commandLink>  
+            </h:form>
+
+        </center>
+    </h:body>
+</html>
