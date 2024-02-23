@@ -56,7 +56,7 @@ public class UsuarioMB implements Serializable{
             usuario = new Usuario();
             usuarios = usuarioDAO.buscarTodos();
             session.close();
-            return "/restricted/usuario.xhtml?faces-redirect=true";
+            return "/restricted/user/usuario.xhtml?faces-redirect=true";
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class UsuarioMB implements Serializable{
         System.out.println(usuario.getId());
         this.usuario = new Usuario(usuario.getId(), usuario.getNome(), usuario.getCpf(), usuario.getDataNascimento(), usuario.getEndereco(), usuario.getTelefone(), usuario.getEmail(), usuario.getSenha(), usuario.getMatricula(), usuario.getFuncao());
         inserir = false;
-        return "/restricted/usuario_edit.xhtml?faces-redirect=true";
+        return "/restricted/user/usuario_edit.xhtml?faces-redirect=true";
     }
     
 

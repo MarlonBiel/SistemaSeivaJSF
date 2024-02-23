@@ -1,4 +1,5 @@
 br\edu\ifpr\irati\ads\modelo\Venda.class
+br\edu\ifpr\irati\ads\mb\MensalidadeMB.class
 br\edu\ifpr\irati\ads\modelo\Despesa.class
 br\edu\ifpr\irati\ads\util\PadraoBD.class
 br\edu\ifpr\irati\ads\util\TestesBD.class
@@ -13,6 +14,8 @@ br\edu\ifpr\irati\ads\modelo\Login.class
 br\edu\ifpr\irati\ads\dao\Dao.class
 br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class
 br\edu\ifpr\irati\ads\converter\ProdutoConverter.class
+br\edu\ifpr\irati\ads\modelo\Mensalidade.class
+br\edu\ifpr\irati\ads\converter\MesConverter.class
 br\edu\ifpr\irati\ads\modelo\Contribuicao.class
 br\edu\ifpr\irati\ads\modelo\Evento.class
 br\edu\ifpr\irati\ads\converter\FuncaoConverter.class
@@ -24,4 +27,5 @@ br\edu\ifpr\irati\ads\mb\ContribuicaoMB.class
 br\edu\ifpr\irati\ads\mb\UsuarioMB.class
 br\edu\ifpr\irati\ads\mb\LoginMB.class
 br\edu\ifpr\irati\ads\mb\ProdutoMB.class
+br\edu\ifpr\irati\ads\modelo\Mes.class
 br\edu\ifpr\irati\ads\mb\VendaMB.class
