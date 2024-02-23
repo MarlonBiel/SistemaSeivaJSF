@@ -15,10 +15,6 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 
-/**
- *
- * @author Caio
- */
 
 @Entity
 @Table(name="mensalidade")
@@ -54,73 +50,42 @@ public class Mensalidade implements Serializable{
         this.valor = valor;
     }
 
-    
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the usuario
-     */
     public Usuario getUsuario() {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return the mes
-     */
     public String getMes() {
         return mes;
     }
 
-    /**
-     * @param mes the mes to set
-     */
     public void setMes(String mes) {
         this.mes = mes;
     }
 
-    /**
-     * @return the ano
-     */
     public int getAno() {
         return ano;
     }
 
-    /**
-     * @param ano the ano to set
-     */
     public void setAno(int ano) {
         this.ano = ano;
     }
 
-    /**
-     * @return the valor
-     */
     public double getValor() {
         return valor;
     }
 
-    /**
-     * @param valor the valor to set
-     */
     public void setValor(double valor) {
         this.valor = valor;
     }

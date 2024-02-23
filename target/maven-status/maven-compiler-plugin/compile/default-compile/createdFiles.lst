@@ -12,6 +12,7 @@ br\edu\ifpr\irati\ads\dao\Dao.class
 br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class
 br\edu\ifpr\irati\ads\converter\ProdutoConverter.class
 br\edu\ifpr\irati\ads\modelo\Mensalidade.class
+br\edu\ifpr\irati\ads\converter\MesConverter.class
 br\edu\ifpr\irati\ads\modelo\Contribuicao.class
 br\edu\ifpr\irati\ads\modelo\Evento.class
 br\edu\ifpr\irati\ads\converter\FuncaoConverter.class

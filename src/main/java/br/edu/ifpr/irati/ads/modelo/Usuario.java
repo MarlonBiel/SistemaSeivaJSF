@@ -148,6 +148,7 @@ public class Usuario implements Serializable{
     public void setFuncao(Funcao funcao) {
         this.funcao = funcao;
     }
+    
     @Override
     public int hashCode() {
         int hash = 7;

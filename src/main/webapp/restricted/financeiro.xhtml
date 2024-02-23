@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>SEIVA SYSTEM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/restricted/menus.xhtml" />
+        <p:growl id="mensagem" />
+        <h2>CONTROLE DE FINANCEIRO</h2>
+        <h:form id="formulario">
+
+            <h:panelGroup id="inserir">
+
+                <p:panelGrid columns="2">                            
+                    <h:panelGroup rendered="#{!mensalidadeMB.mensalidades.isEmpty()}">
+                        <p:dataTable var="mensalidade" value="#{mensalidadeMB.mensalidades}">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{mensalidade.id}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Usuario"/>
+                                </f:facet>
+                                <h:outputText value="#{mensalidade.usuario.nome}" />
+                            </p:column>  
+                            <p:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="Mes"/>
+                                </f:facet>
+                                <h:outputText value="#{mensalidade.mes}" />
+                            </p:column>  
+                            <p:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="Ano"/>
+                                </f:facet>
+                                <h:outputText value="#{mensalidade.ano}" />
+                            </p:column>
+                            <p:column>                        
+                                <f:facet name="header">
+                                    <h:outputText value="Valor"/>
+                                </f:facet>
+                                <h:outputText value="#{mensalidade.valor}" />
+                            </p:column> 
+                        </p:dataTable>
+
+                    </h:panelGroup>
+                </p:panelGrid>
+            </h:panelGroup>
+        </h:form>
+        <p:commandLink action="central.xhtml?faces-redirect=true">
+            <p:commandButton value="Voltar"/>
+        </p:commandLink>  
+    </h:body>
+</html>

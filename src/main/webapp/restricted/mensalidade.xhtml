@@ -12,34 +12,33 @@
     </h:head>
     <h:body>
         <ui:include src="/restricted/menus.xhtml" />
-
+        <p:growl id="mensagem" />
         <h2>CONTROLE DE MENSALIDADE</h2>
-        <h5 class="mt-0">Frequentante</h5>
         <h:form id="formulario">
-            
-        <h:panelGroup id="inserir">
-                
-            <p:panelGrid columns="5">                            
+
+            <h:panelGroup id="inserir">
+
+                <p:panelGrid columns="5">                            
 
                     <h:outputText value="Usuario: " />
-                    <p:selectOneMenu value="#{mensalidadeMB.usuario.nome}" id="usuarios"   filter="true" converter="usuarioConverter" filterMatchMode="startsWith" >
-                    <f:selectItems value="#{mensalidadeMB.usuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}" />
+                    <p:selectOneMenu value="#{mensalidadeMB.mensalidade.usuario}" id="usuario"   filter="true" converter="usuarioConverter" filterMatchMode="startsWith" >
+                        <f:selectItems value="#{mensalidadeMB.usuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}" />
                     </p:selectOneMenu>
-                    
+
                     <h:outputText value="Mês " />
-                    <p:selectOneMenu value="#{mensalidadeMB.mes.mes}" id="meses"   filter="true" filterMatchMode="startsWith" >
-                    <f:selectItems value="#{mensalidadeMB.meses}" var="meses" itemLabel="#{meses.mes}" itemValue="#{meses}" />
+                    <p:selectOneMenu value="#{mensalidadeMB.mes}" id="meses" converter="mesConverter"  filter="true" filterMatchMode="startsWith" >
+                        <f:selectItems value="#{mensalidadeMB.meses}" var="meses" itemLabel="#{meses.mes}" itemValue="#{meses}" />
                     </p:selectOneMenu>
-                    
-                    <p:commandButton action="#{mensalidadeMB.salvar()}" value="Registrar Mensalidade" immediate="true"/>
-                
+
+                    <p:commandButton action="#{mensalidadeMB.salvar()}" value="Registrar Mensalidade" update=":mensagem"/>
+
                     <h:outputText value="Ano " />
                     <p:inputText value="#{mensalidadeMB.mensalidade.ano}" size="30" />
-                    
+
                     <h:outputText value="Valor " />
                     <p:inputText value="#{mensalidadeMB.mensalidade.valor}" size="30" />
-                    
-            </p:panelGrid>
+
+                </p:panelGrid>
             </h:panelGroup>
         </h:form>
 
