@@ -13,6 +13,7 @@
         <ui:include src="/restricted/menus.xhtml" />
         <center>
             <h2>VENDAS</h2>
+            <p:growl id="mensagem"/>
             <h:form enctype="multipart/form-data">
 
                 <h:panelGroup>
@@ -77,10 +78,11 @@
                     </p:dataTable>
 
                 </h:panelGroup>
+                <p:commandLink action="central.xhtml?faces-redirect=true">
+                    <p:commandButton value="Voltar"/>
+                </p:commandLink>  
             </h:form>
-            <p:commandLink action="central.xhtml?faces-redirect=true">
-                <p:commandButton value="Voltar"/>
-            </p:commandLink>  
+
         </center>
     </h:body>
 </html>

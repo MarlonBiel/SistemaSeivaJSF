@@ -28,18 +28,23 @@ public class ProdutoVenda implements Serializable{
     private int quantVenda;
     @ManyToOne
     private Venda venda;
+    @Column(name = "valorTotalProduto")
+    private double valorTotalProduto;
 
     public ProdutoVenda() {
         this.id = 0;
         this.produto = new Produto();
         this.quantVenda = 0;
+        this.valorTotalProduto = 0;
     }
 
-    public ProdutoVenda(int id, Produto produto, int quantVenda) {
+    public ProdutoVenda(int id, Produto produto, int quantVenda, double valorTotalProduto) {
         this.id = id;
         this.produto = produto;
         this.quantVenda = quantVenda;
+        this.valorTotalProduto = valorTotalProduto;
     }
+
 
     public Produto getProduto() {
         return produto;
@@ -71,6 +76,14 @@ public class ProdutoVenda implements Serializable{
 
     public void setVenda(Venda venda) {
         this.venda = venda;
+    }
+
+    public double getValorTotalProduto() {
+        return valorTotalProduto;
+    }
+
+    public void setValorTotalProduto(double valorTotalProduto) {
+        this.valorTotalProduto = valorTotalProduto;
     }
     
     

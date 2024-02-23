@@ -21,7 +21,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:dataTable id="tabelaUsuarios" var="usuario" value="#{usuarioMB.usuarios}" style="width: 100%">
                     <f:facet name="header">
                         <h:outputText value="Usuarios"/>
-                        <p:commandButton value="cadastrar usuarios" action="/restricted/usuario_edit.xhtml?faces-redirect=true"/>
+                        <p:commandButton value="cadastrar usuarios" action="/restricted/user/usuario_edit.xhtml?faces-redirect=true" style="margin-left: 83%"/>
                     </f:facet>
                     <p:column>
                         <f:facet name="header">

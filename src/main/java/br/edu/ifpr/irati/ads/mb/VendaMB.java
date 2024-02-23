@@ -65,6 +65,7 @@ public class VendaMB implements Serializable {
         for(ProdutoVenda pv : listaFiltrada){
             valorTotal = valorTotal + (pv.getProduto().getValorVenda() * pv.getQuantVenda());
         }
+        venda.setValorTotal(valorTotal);
         return valorTotal;
     }
 
@@ -102,6 +103,7 @@ public class VendaMB implements Serializable {
     }
 
     public void adicionarProdutoNaVenda() throws PersistenceException {
+        produtoVenda.setValorTotalProduto(produtoVenda.getProduto().getValorVenda()*produtoVenda.getQuantVenda());
         Session session = HibernateUtil.getSessionFactory().openSession();
         produtoVendaDAO = new GenericDAO<>(ProdutoVenda.class, session);
         produtoVendaDAO.salvar(produtoVenda);
@@ -123,7 +125,7 @@ public class VendaMB implements Serializable {
     }
 
     public String botaoAlterar(ProdutoVenda produtoVenda) {
-        this.produtoVenda = new ProdutoVenda(produtoVenda.getId(), produtoVenda.getProduto(), produtoVenda.getQuantVenda());
+        this.produtoVenda = new ProdutoVenda(produtoVenda.getId(), produtoVenda.getProduto(), produtoVenda.getQuantVenda(),produtoVenda.getValorTotalProduto());
         inserir = false;
         return "-";
     }
