@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>SEIVA SYSTEM</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-    <h:body>
-        <ui:include src="/restricted/menus.xhtml" />
-        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
+
+
+    <ui:define name="conteudo">
+
         <h2>CONTROLE DE ESTOQUE</h2>
-        
+
         <h:form id="formulario">
             <h:panelGroup id="inserir">
                 <p:inputText value="#{produtoMB.produto.id}" disabled="true" size="5" type="hidden"/>
                 <p:panelGrid columns="4">                            
-                    
+
                     <h:outputText value="Nome " />
                     <p:inputText value="#{produtoMB.produto.nome}" size="30" />
 
@@ -95,11 +93,13 @@
                 </p:dataTable>
 
             </h:panelGroup>
+            <div>
+                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
+                    <p:commandButton value="Voltar"/>
+                </p:commandLink>
+            </div>
         </h:form>
 
-        <p:commandLink action="central.xhtml?faces-redirect=true">
-            <p:commandButton value="Voltar"/>
-        </p:commandLink>  
 
 
         <script>
@@ -123,5 +123,5 @@
         </script>
 
 
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

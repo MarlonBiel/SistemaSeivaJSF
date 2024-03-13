@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>SEIVA SYSTEM</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-    <h:body>
-        <ui:include src="/restricted/menus.xhtml" />
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      template="/WEB-INF/template/layout.xhtml">
+    
+    
+    <ui:define name="conteudo">
         <h2>CONTROLE DE CONTRIBUICAO</h2>
         <h:form>
             <h:panelGroup>
@@ -37,12 +33,6 @@
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione uma forma de pagamento" />
                         <f:selectItems value="#{contribuicaoMB.formasPgto}" var="formas" itemLabel="#{formas.formaPgto}" itemValue="#{formas}" />
                     </p:selectOneMenu>
-
-                    <h:outputText value="Tipo: " />
-                    <p:selectOneRadio id="tipo" value="#{contribuicaoMB.contribuicao.tipo}" layout="lineDirection">
-                        <f:selectItem itemLabel="Mensalidade" itemValue="Mensalidade"/>
-                        <f:selectItem itemLabel="Contribuição" itemValue="Contribuicao"/>
-                    </p:selectOneRadio>
 
                     <p:commandButton  action="#{contribuicaoMB.salvar}" value="Incluir" update="@form"/>
                     <p:commandButton  action="#{contribuicaoMB.limparTela()}" value="Limpar" update="@form"/>    
@@ -90,11 +80,13 @@
 
             </h:panelGroup>
 
-            <p:commandLink action="central.xhtml?faces-redirect=true">
-                <p:commandButton value="Voltar"/>
-            </p:commandLink>  
+            <div>
+                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
+                    <p:commandButton value="Voltar"/>
+                </p:commandLink>
+            </div>
         </h:form>
 
 
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

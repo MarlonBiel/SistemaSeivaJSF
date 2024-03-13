@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
+
+    <ui:define name="conteudo">
+
+        <p:growl id="mensagem" />
+        <h:form>
+            <div>
+                <form>
+                    <div>
+                        <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
+                            <p:commandButton value="Voltar"/>
+                        </p:commandLink>
+                    </div>
+                </form>
+            </div>
+            <div  class="panel-container">
+                <p:panel header="Trabalhador" styleClass="panel"> 
+                    <h:form>
+                        <p:dataScroller id="tabelaUsuarios" var="usuario" value="#{reuniaoMB.usuarios}"  style="justify-content: space-between;">
+                            <p:column >
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px">
+                                    <p:outputLabel value="#{usuario.nome}" />
+                                    <p:selectBooleanCheckbox value="#{selectBooleanView.value1}"/>
+                                </div>
+                            </p:column>
+
+                        </p:dataScroller>
+                    </h:form>
+                </p:panel>
+                <p:panel header="Frequencia" styleClass="panel">
+                    <div class="panel-freq">
+                        <h:outputText value="Frequentates " />
+                        <p:inputNumber/><br /> <br />
+                        <h:outputText value="Visitantes" />
+                        <p:inputNumber/>
+                    </div>
+                </p:panel>
+                <p:panel styleClass="panel">
+                    <f:facet name="header" >
+                        <div style="display: flex; justify-content: space-between;">
+                            <h:outputText value="Contrubuição" />
+                            <div>
+                                <p:commandButton value="Ver" style="margin: 5px "/>
+                                <p:commandButton value="Cadastrar"/>
+                            </div>
+                        </div>
+                    </f:facet>
+                    
+                    <h:form>
+                        <p:dataScroller id="tabelaContribuicao" var="contribuicao" value="#{reuniaoMB.contribuicoes}"  style="justify-content: space-between;">
+                            <p:column >
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px">
+                                    <p:outputLabel value="#{contribuicao.usuario.nome}" />
+                                    <p:outputLabel value="#{contribuicao.valor}" />
+                                </div>
+                            </p:column>
+
+                        </p:dataScroller>
+                    </h:form>
+
+                    <f:facet name="footer">
+                        <h:outputText value="Total = "/>
+                    </f:facet>
+                </p:panel>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

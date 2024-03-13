@@ -111,4 +111,6 @@ public class UsuarioMB implements Serializable{
     public void setFuncoes(List<Funcao> funcoes) {
         this.funcoes = funcoes;
     }
+    
+    
 }

@@ -9,6 +9,7 @@ import br.edu.ifpr.irati.ads.modelo.Venda;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -35,6 +36,8 @@ public class VendaMB implements Serializable {
     private Produto produto = new Produto();
     private Dao<Produto> produtoDAO;
     private List<Produto> produtos;
+    
+    private FinanceiroMB financeiro;
 
     public VendaMB() throws PersistenceException {
         try {
@@ -74,11 +77,14 @@ public class VendaMB implements Serializable {
             Session session = HibernateUtil.getSessionFactory().openSession();
             vendaDAO = new GenericDAO<>(Venda.class, session);
             venda.setVendaAtual(getListaFiltrada());
+            venda.setData(new Date());
+            venda.setDescricao("Venda - "+ venda.getData().getDay() +"/"+venda.getData().getMonth());
             produtosVendas = new ArrayList<>();
             baixarEstoque();
             if (inserir) {
                 //executar o método inserir do DAO
                 vendaDAO.salvar(venda);
+                //financeiro.addInTransacao(venda.getData(), venda.getDescricao(), 'C', venda.getValorTotal());
             } else {
                 //executar o método alterar do DAO
                 vendaDAO.alterar(venda);

@@ -10,6 +10,7 @@ import br.edu.ifpr.irati.ads.modelo.Mensalidade;
 import br.edu.ifpr.irati.ads.modelo.Mes;
 import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
+import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.modelo.Venda;
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(FormaPgto.class);
             metadataSources.addAnnotatedClass(Mensalidade.class);
             metadataSources.addAnnotatedClass(Mes.class);
+            metadataSources.addAnnotatedClass(Transacao.class);
             Metadata metadata = metadataSources.buildMetadata();
 
             sessionFactory = metadata.getSessionFactoryBuilder().build();

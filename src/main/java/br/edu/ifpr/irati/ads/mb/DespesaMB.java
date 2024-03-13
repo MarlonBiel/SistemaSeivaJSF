@@ -34,6 +34,8 @@ public class DespesaMB implements Serializable {
     private String pathArquivos = "";
     private Dao<FormaPgto> formaPgtoDAO;
     private List<FormaPgto> formasPgto;
+    
+    private FinanceiroMB financeiro;
 
     public DespesaMB() throws PersistenceException {
         try {
@@ -69,6 +71,7 @@ public class DespesaMB implements Serializable {
             if (inserir) {
                 //executar o método inserir do DAO
                 despesaDAO.salvar(despesa);
+                //financeiro.addInTransacao(despesa.getData(), despesa.getDescriminacao(), 'D', despesa.getValor());
             } else {
                 //executar o método alterar do DAO
                 despesaDAO.alterar(despesa);

@@ -1,27 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>SEIVA SYSTEM</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-    <h:body>
-        <ui:include src="/restricted/menus.xhtml" />
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">    
+
+
+    <ui:define name="conteudo">
         <h2>CONTROLE DE USUARIO</h2>
         <h:form>
             <h:panelGroup rendered="#{!usuarioMB.usuarios.isEmpty()}">
                 <p:dataTable id="tabelaUsuarios" var="usuario" value="#{usuarioMB.usuarios}" style="width: 100%">
+
                     <f:facet name="header">
-                        <h:outputText value="Usuarios"/>
-                        <p:commandButton value="cadastrar usuarios" action="/restricted/user/usuario_edit.xhtml?faces-redirect=true" style="margin-left: 83%"/>
+                        <div style="display: flex; justify-content: space-between   ">
+                            <h:outputText value="Usuarios"/>
+                            <p:commandButton value="cadastrar usuarios" action="/restricted/user/usuario_edit.xhtml?faces-redirect=true"/>
+                        </div>
                     </f:facet>
                     <p:column>
                         <f:facet name="header">
@@ -95,9 +91,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:dataTable>
 
             </h:panelGroup>
+
+            <div>
+                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
+                    <p:commandButton value="Voltar"/>
+                </p:commandLink>
+            </div>
+
         </h:form>
-        <p:commandLink action="central.xhtml?faces-redirect=true">
-            <p:commandButton value="Voltar"/>
-        </p:commandLink>  
-    </h:body>
-</html>
+
+    </ui:define>
+</ui:composition>
