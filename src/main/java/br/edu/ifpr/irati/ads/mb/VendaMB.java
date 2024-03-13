@@ -5,6 +5,7 @@ import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
+import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.modelo.Venda;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
@@ -37,6 +38,10 @@ public class VendaMB implements Serializable {
     private Dao<Produto> produtoDAO;
     private List<Produto> produtos;
     
+    
+    private Transacao transacao = new Transacao();
+    private List<Transacao> transacoes;
+    private Dao<Transacao> transacaoDAO;
     private FinanceiroMB financeiro;
 
     public VendaMB() throws PersistenceException {
@@ -81,6 +86,7 @@ public class VendaMB implements Serializable {
             venda.setDescricao("Venda - "+ venda.getData().getDay() +"/"+venda.getData().getMonth());
             produtosVendas = new ArrayList<>();
             baixarEstoque();
+            cadastrarTransacao();
             if (inserir) {
                 //executar o método inserir do DAO
                 vendaDAO.salvar(venda);
@@ -134,6 +140,16 @@ public class VendaMB implements Serializable {
         this.produtoVenda = new ProdutoVenda(produtoVenda.getId(), produtoVenda.getProduto(), produtoVenda.getQuantVenda(),produtoVenda.getValorTotalProduto());
         inserir = false;
         return "-";
+    }
+    
+    public void cadastrarTransacao() throws PersistenceException {
+        char tipo = 'C';
+        transacao = new Transacao(0, venda.getData(), venda.getDescricao(), tipo, venda.getValorTotal());
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        transacaoDAO = new GenericDAO<>(Transacao.class, session);
+        transacaoDAO.salvar(transacao);
+        session.close();
+        transacao = new Transacao();
     }
 
     public Venda getVenda() {

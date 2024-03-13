@@ -8,8 +8,10 @@ import br.edu.ifpr.irati.ads.modelo.Evento;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
@@ -30,8 +32,10 @@ public final class ReuniaoMB implements Serializable {
     private Contribuicao contribuicao = new Contribuicao();
     private List<Contribuicao> contribuicoes;
     private Dao<Contribuicao> contribuicaoDAO;
-    
+
+    @ManagedProperty(value="#{ContribuicaoMB.contribuicaoFiltro}")
     private List<Contribuicao> contribuicaoFiltro;
+    private double totalFiltro;
 
     public ReuniaoMB() throws PersistenceException {
         try {
@@ -68,6 +72,7 @@ public final class ReuniaoMB implements Serializable {
             }
             inserir = true;
             evento = new Evento();
+            contribuicaoFiltro = new ArrayList<>();
             eventos = eventoDAO.buscarTodos();
             session.close();
             return "/restricted/user/usuario.xhtml?faces-redirect=true";
@@ -98,10 +103,6 @@ public final class ReuniaoMB implements Serializable {
         return "/restricted/central.xhtml?faces-redirect=true";
     }
 
-    public void buscarEvento() throws PersistenceException {
-
-    }
-
     public void buscarUsuarios() throws PersistenceException {
         usuario = new Usuario();
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -117,6 +118,7 @@ public final class ReuniaoMB implements Serializable {
         contribuicoes = contribuicaoDAO.buscarTodos();
         session.close();
     }
+    
 
     public Evento getEvento() {
         return evento;
@@ -164,6 +166,22 @@ public final class ReuniaoMB implements Serializable {
 
     public void setContribuicoes(List<Contribuicao> contribuicoes) {
         this.contribuicoes = contribuicoes;
+    }
+
+    public List<Contribuicao> getContribuicaoFiltro() {
+        return contribuicaoFiltro;
+    }
+
+    public void setContribuicaoFiltro(List<Contribuicao> contribuicaoFiltro) {
+        this.contribuicaoFiltro = contribuicaoFiltro;
+    }
+
+    public double getTotalFiltro() {
+        return totalFiltro;
+    }
+
+    public void setTotalFiltro(double totalFiltro) {
+        this.totalFiltro = totalFiltro;
     }
 
 }

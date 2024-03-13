@@ -8,15 +8,12 @@
     <ui:define name="conteudo">
 
         <p:growl id="mensagem" />
+ 
         <h:form>
             <div>
-                <form>
-                    <div>
-                        <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                            <p:commandButton value="Voltar"/>
-                        </p:commandLink>
-                    </div>
-                </form>
+                <p:commandLink >
+                    <p:commandButton value="Finalizar reunião"/>
+                </p:commandLink>
             </div>
             <div  class="panel-container">
                 <p:panel header="Trabalhador" styleClass="panel"> 
@@ -46,13 +43,13 @@
                             <h:outputText value="Contrubuição" />
                             <div>
                                 <p:commandButton value="Ver" style="margin: 5px "/>
-                                <p:commandButton value="Cadastrar"/>
+                                <p:commandButton value="Cadastrar" action="#{contribuicaoMB.botaoSeleciona(true)}"/>
                             </div>
                         </div>
                     </f:facet>
-                    
+
                     <h:form>
-                        <p:dataScroller id="tabelaContribuicao" var="contribuicao" value="#{reuniaoMB.contribuicoes}"  style="justify-content: space-between;">
+                        <p:dataScroller id="tabelaContribuicao" var="contribuicao" value="#{contribuicaoMB.contribuicaoFiltro}"  style="justify-content: space-between;">
                             <p:column >
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 5px">
                                     <p:outputLabel value="#{contribuicao.usuario.nome}" />
@@ -64,7 +61,7 @@
                     </h:form>
 
                     <f:facet name="footer">
-                        <h:outputText value="Total = "/>
+                        <h:outputText value="Total = #{contribuicaoMB.somaContribuicaoFiltro()}"/>
                     </f:facet>
                 </p:panel>
             </div>

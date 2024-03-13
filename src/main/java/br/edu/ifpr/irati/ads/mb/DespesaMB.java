@@ -6,6 +6,7 @@ import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Despesa;
 import br.edu.ifpr.irati.ads.modelo.FormaPgto;
 import br.edu.ifpr.irati.ads.modelo.Produto;
+import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +35,10 @@ public class DespesaMB implements Serializable {
     private String pathArquivos = "";
     private Dao<FormaPgto> formaPgtoDAO;
     private List<FormaPgto> formasPgto;
+    
+    private Transacao transacao = new Transacao();
+    private List<Transacao> transacoes;
+    private Dao<Transacao> transacaoDAO;
     
     private FinanceiroMB financeiro;
 
@@ -68,6 +73,7 @@ public class DespesaMB implements Serializable {
             String extensao = nome.substring(nome.lastIndexOf(".") + 1, nome.length());
             nome = String.valueOf(new Date().getTime()) + "." + extensao;
             despesa.setAnexos(nome);
+            cadastrarTransacao();
             if (inserir) {
                 //executar o método inserir do DAO
                 despesaDAO.salvar(despesa);
@@ -119,6 +125,16 @@ public class DespesaMB implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void cadastrarTransacao() throws PersistenceException {
+        char tipo = 'D';
+        transacao = new Transacao(0, despesa.getData(), despesa.getDescriminacao(), tipo, despesa.getValor());
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        transacaoDAO = new GenericDAO<>(Transacao.class, session);
+        transacaoDAO.salvar(transacao);
+        session.close();
+        transacao = new Transacao();
     }
 
     public Despesa getDespesa() {
