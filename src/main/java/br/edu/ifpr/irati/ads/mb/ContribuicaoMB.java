@@ -12,11 +12,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
 import org.hibernate.Session;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ContribuicaoMB implements Serializable {
 
     private Contribuicao contribuicao = new Contribuicao();
@@ -25,17 +26,20 @@ public class ContribuicaoMB implements Serializable {
     private Dao<Usuario> usuarioDAO;
     private boolean inserir;
     private String usuario;
+    private boolean reuniao;
+    private double totalContribuicaoFiltro;
 
     private Dao<FormaPgto> formaPgtoDAO;
     private List<FormaPgto> formasPgto;
 
     private List<Usuario> listaUsuarios;
     private List<Usuario> listaUsuariosFiltro;
-    
-    
+
     private Transacao transacao = new Transacao();
     private List<Transacao> transacoes;
     private Dao<Transacao> transacaoDAO;
+    
+    private List<Contribuicao> contribuicaoFiltro = new ArrayList<>();
 
     public ContribuicaoMB() throws PersistenceException {
         this.listaUsuariosFiltro = new ArrayList<Usuario>();
@@ -60,13 +64,18 @@ public class ContribuicaoMB implements Serializable {
         System.out.println(contribuicao.getTipo());
     }
 
-    public void salvar() {
+    public String salvar() {
         try {
+            
+            System.out.println(reuniao);
             Session session = HibernateUtil.getSessionFactory().openSession();
             contribuicaoDAO = new GenericDAO<>(Contribuicao.class, session);
-            
-            //cadastrarTransacao();
+            cadastrarTransacao();
             if (inserir) {
+                if(reuniao){
+                    getContribuicaoFiltro().add(contribuicao);
+                    
+                }
                 //executar o método inserir do DAO
                 contribuicaoDAO.salvar(contribuicao);
 
@@ -76,12 +85,20 @@ public class ContribuicaoMB implements Serializable {
                 contribuicaoDAO.alterar(contribuicao);
             }
             inserir = true;
-            //contribuicao = new Contribuicao();
+            contribuicao = new Contribuicao();
             contribuicaos = contribuicaoDAO.buscarTodos();
             session.close();
+            if (reuniao == true) {
+                return "/restricted/meet/reuniao.xhtml?faces-redirect=true";
+            } else {
+                setReuniao(false);
+                return "/restricted/finance/contribuicao.xhtml?faces-redirect=true";
+            }
+
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
+        return "";
     }
 
     public void botaoExcluir(Contribuicao contribuicao) {
@@ -121,9 +138,31 @@ public class ContribuicaoMB implements Serializable {
         }
     }
 
+    public String botaoSeleciona(boolean reuniao) {
+        this.setReuniao(reuniao);
+        return "/restricted/finance/contribuicao_edit.xhtml?faces-redirect=true";
+    }
+    
+    public String botaoVoltar() {
+        if(reuniao){
+            return "/restricted/meet/reuniao.xhtml?faces-redirect=true";
+        }else{
+            return "/restricted/finance/contribuicao_edit.xhtml?faces-redirect=true";
+        }
+    }
+
+    public double somaContribuicaoFiltro(){
+        totalContribuicaoFiltro = 0;
+        for(Contribuicao c :contribuicaoFiltro){
+            totalContribuicaoFiltro = totalContribuicaoFiltro + c.getValor();
+        }
+        return totalContribuicaoFiltro;
+    }
+    
+    
     public void cadastrarTransacao() throws PersistenceException {
         char tipo = 'C';
-        transacao = new Transacao(0, contribuicao.getData(),contribuicao.getUsuario().getNome(), tipo,contribuicao.getValor());
+        transacao = new Transacao(0, contribuicao.getData(), contribuicao.getUsuario().getNome(), tipo, contribuicao.getValor());
         Session session = HibernateUtil.getSessionFactory().openSession();
         transacaoDAO = new GenericDAO<>(Transacao.class, session);
         transacaoDAO.salvar(transacao);
@@ -192,6 +231,30 @@ public class ContribuicaoMB implements Serializable {
 
     public void setFormasPgto(List<FormaPgto> formasPgto) {
         this.formasPgto = formasPgto;
+    }
+
+    public List<Contribuicao> getContribuicaoFiltro() {
+        return contribuicaoFiltro;
+    }
+
+    public void setContribuicaoFiltro(List<Contribuicao> contribuicaoFiltro) {
+        this.contribuicaoFiltro = contribuicaoFiltro;
+    }
+
+    public double getTotalContribuicaoFiltro() {
+        return totalContribuicaoFiltro;
+    }
+
+    public void setTotalContribuicaoFiltro(double totalContribuicaoFiltro) {
+        this.totalContribuicaoFiltro = totalContribuicaoFiltro;
+    }
+    
+        public boolean isReuniao() {
+        return reuniao;
+    }
+
+    public void setReuniao(boolean reuniao) {
+        this.reuniao = reuniao;
     }
 
 }

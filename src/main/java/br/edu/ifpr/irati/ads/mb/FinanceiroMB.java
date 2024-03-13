@@ -28,18 +28,6 @@ public class FinanceiroMB implements Serializable {
         session.close();
     }
 
-    public void addInTransacao(Transacao transacao) throws PersistenceException {
-        System.out.println(transacao.getData());
-        System.out.println(transacao.getDescricao());
-        System.out.println(transacao.getTipo());
-        System.out.println(transacao.getValor());
-        //Session session = HibernateUtil.getSessionFactory().openSession();
-        //transacaoDAO = new GenericDAO<>(Transacao.class, session);
-        //transacaoDAO.salvar(transacao);
-        //session.close();
-        //transacao = new Transacao();
-    }
-
     public Transacao getTransacao() {
         return transacao;
     }
