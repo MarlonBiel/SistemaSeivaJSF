@@ -1,62 +1,111 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="/WEB-INF/template/layout.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
 
     <ui:define name="conteudo">
+
         <p:growl id="mensagem" />
-        <h2>CONTROLE DE FINANCEIRO</h2>
-        <h:form id="formulario">
-
-            <h:panelGroup id="inserir">
-
-                <p:panelGrid columns="2">                            
-                    <h:panelGroup rendered="#{!mensalidadeMB.mensalidades.isEmpty()}">
-                        <p:dataTable var="mensalidade" value="#{mensalidadeMB.mensalidades}">
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Id"/>
-                                </f:facet>
-                                <h:outputText value="#{mensalidade.id}" />
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Usuario"/>
-                                </f:facet>
-                                <h:outputText value="#{mensalidade.usuario.nome}" />
-                            </p:column>  
-                            <p:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Mes"/>
-                                </f:facet>
-                                <h:outputText value="#{mensalidade.mes}" />
-                            </p:column>  
-                            <p:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Ano"/>
-                                </f:facet>
-                                <h:outputText value="#{mensalidade.ano}" />
-                            </p:column>
-                            <p:column>                        
-                                <f:facet name="header">
-                                    <h:outputText value="Valor"/>
-                                </f:facet>
-                                <h:outputText value="#{mensalidade.valor}" />
-                            </p:column> 
-                        </p:dataTable>
-
-                    </h:panelGroup>
-                </p:panelGrid>
-            </h:panelGroup>
+        <h:form>
             <div>
-                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
+                <form>
+                    <div>
+                        <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
+                            <p:commandButton value="Voltar"/>
+                        </p:commandLink>
+                    </div>
+                </form>
+            </div>
+            <div style="display: flex; justify-content: center;">
+
+                <p:panel header="Mensalidade" styleClass="panel">
+                    <f:facet name="header" >
+                        <div style="display: flex; justify-content: space-between;">
+                            <h:outputText value="Mensalidade" />
+                            <p:commandLink action="/restricted/finance/mensalidade.xhtml?faces-redirect=true">
+                                <p:commandButton value="Ver"/>
+                            </p:commandLink>
+                        </div>
+                    </f:facet>
+                    <div class="panel-freq">
+                        <h:panelGroup rendered="#{!mensalidadeMB.mensalidades.isEmpty()}">
+                            <p:dataTable var="mensalidade" value="#{mensalidadeMB.mensalidades}" style="width: 100%">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.id}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descriminação"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.usuario.nome}" />
+                                </p:column>  
+                                <p:column>                        
+                                    <f:facet name="header">
+                                        <h:outputText value="Data"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.mes}" />
+                                </p:column>  
+                                <p:column>                        
+                                    <f:facet name="header">
+                                        <h:outputText value="Valor"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.ano}" />
+                                </p:column>
+                                <p:column>                        
+                                    <f:facet name="header">
+                                        <h:outputText value="Forma Pgto"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.valor}" />
+                                </p:column> 
+
+                            </p:dataTable>
+
+                        </h:panelGroup>
+                    </div>
+                </p:panel>
+                <p:panel header="Contribuição" styleClass="panel">
+                    <f:facet name="header" >
+                        <div style="display: flex; justify-content: space-between;">
+                            <h:outputText value="Contrubuição" />
+                            <p:commandLink action="/restricted/finance/contribuicao.xhtml?faces-redirect=true">
+                                <p:commandButton value="Ver"/>
+                            </p:commandLink>
+                        </div>
+                    </f:facet>
+                    <div class="panel-freq">
+                        <h:panelGroup rendered="#{!contribuicaoMB.contribuicaos.isEmpty()}">
+                            <p:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" style="width: 100%">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Data"/>
+                                    </f:facet>
+                                    <h:outputText value="#{contribuicao.data}">
+                                        <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>                        
+                                    <f:facet name="header">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                    <h:outputText value="#{contribuicao.usuario.nome}" />
+                                </p:column> 
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Valor"/>
+                                    </f:facet>
+                                    <h:outputText value="#{contribuicao.valor}" />
+                                </p:column>  
+                            </p:dataTable>
+
+                        </h:panelGroup>
+                    </div>
+                </p:panel>
+
             </div>
         </h:form>
     </ui:define>
