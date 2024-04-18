@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="/WEB-INF/template/layout.xhtml">
-    
-    
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
+
+
     <ui:define name="conteudo">
         <h2>CONTROLE DE USUARIO</h2>
         <p:messages id="messages" showDetail="true" closable="true">
             <p:autoUpdate/>
         </p:messages>
+
         <h:form id="cadastrar">
             <h:panelGroup id="Dados">
                 <p:inputText value="#{usuarioMB.usuario.id}" disabled="true" size="5" type="hidden"/>
@@ -54,14 +55,13 @@
                 <p:commandButton  action="#{usuarioMB.limparTela()}" value="Limpar" update="@form"/>  
 
             </h:panelGroup>
-             
+
         </h:form>
-        
+
         <h:form id="voltar">
-            <p:commandLink action="/restricted/user/usuario.xhtml?faces-redirect=true">
+            <p:commandLink action="#{usuarioMB.botaoVoltar(true)}">
                 <p:commandButton value="Voltar" style="margin: 5px"/>
             </p:commandLink> 
         </h:form>
-
     </ui:define>
 </ui:composition>

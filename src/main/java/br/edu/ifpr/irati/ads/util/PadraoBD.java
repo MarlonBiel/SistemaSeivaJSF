@@ -10,6 +10,7 @@ import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.FormaPgto;
 import br.edu.ifpr.irati.ads.modelo.Funcao;
 import br.edu.ifpr.irati.ads.modelo.Mes;
+import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,21 +54,21 @@ public class PadraoBD {
         
         
         Dao<FormaPgto> formaPgtoDAO = new GenericDAO<>(FormaPgto.class, session);
-        FormaPgto p1 = new FormaPgto(0, "Dinheiro");
-        FormaPgto p2 = new FormaPgto(0, "PIX");
-        FormaPgto p3 = new FormaPgto(0, "Cartão de debito");
-        FormaPgto p4 = new FormaPgto(0, "Cartão de crédito");
+        FormaPgto fp1 = new FormaPgto(0, "Dinheiro");
+        FormaPgto fp2 = new FormaPgto(0, "PIX");
+        FormaPgto fp3 = new FormaPgto(0, "Cartão de debito");
+        FormaPgto fp4 = new FormaPgto(0, "Cartão de crédito");
 
-        formaPgtoDAO.salvar(p1);
-        formaPgtoDAO.salvar(p2);
-        formaPgtoDAO.salvar(p3);
-        formaPgtoDAO.salvar(p4);
+        formaPgtoDAO.salvar(fp1);
+        formaPgtoDAO.salvar(fp2);
+        formaPgtoDAO.salvar(fp3);
+        formaPgtoDAO.salvar(fp4);
 
         List<FormaPgto> formasPgtos = new ArrayList<>();
-        formasPgtos.add(p1);
-        formasPgtos.add(p2);
-        formasPgtos.add(p3);
-        formasPgtos.add(p4);
+        formasPgtos.add(fp1);
+        formasPgtos.add(fp2);
+        formasPgtos.add(fp3);
+        formasPgtos.add(fp4);
         
         
         Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);
@@ -106,5 +107,13 @@ public class PadraoBD {
         mesDAO.salvar(m11);
         mesDAO.salvar(m12);
 
+        Dao<Produto> produtoDAO = new GenericDAO<>(Produto.class, session);
+        Produto p1 = new Produto(0, "Livro1", 101, 51, 11, 51);
+        Produto p2 = new Produto(0, "Livro2", 102, 52, 12, 52);
+        Produto p3 = new Produto(0, "Livro3", 103, 53, 13, 53);
+        produtoDAO.salvar(p1);
+        produtoDAO.salvar(p2);
+        produtoDAO.salvar(p3);
+        
     }
 }

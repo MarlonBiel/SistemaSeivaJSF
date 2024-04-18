@@ -12,22 +12,24 @@
         <p:growl id="mensagem" />
         <h2>CAIXA</h2>
         <h:form id="formulario">
-            
+
             <p:dataTable var="despesas" value="#{financeiroMB.transacoes}">
                 <p:column headerText="Data">
-                    #{despesas.data}
+                    <h:outputText value="#{despesas.data}">
+                        <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="Descrição">
-                    #{despesas.descricao}
+                    <h:outputText value="#{despesas.descricao}" />
                 </p:column>
                 <p:column headerText="Tipo">
-                    #{despesas.tipo}
+                    <h:outputText value="#{despesas.tipo}" />
                 </p:column>
                 <p:column headerText="Valor">
-                    #{despesas.valor}
+                    <h:outputText value="#{despesas.valor}" />
                 </p:column>
             </p:dataTable>
-            
+
             <div>
                 <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
                     <p:commandButton value="Voltar"/>

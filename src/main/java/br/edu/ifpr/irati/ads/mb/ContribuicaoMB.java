@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
 import org.hibernate.Session;
 
 @ManagedBean
@@ -38,7 +37,7 @@ public class ContribuicaoMB implements Serializable {
     private Transacao transacao = new Transacao();
     private List<Transacao> transacoes;
     private Dao<Transacao> transacaoDAO;
-    
+
     private List<Contribuicao> contribuicaoFiltro = new ArrayList<>();
 
     public ContribuicaoMB() throws PersistenceException {
@@ -66,15 +65,15 @@ public class ContribuicaoMB implements Serializable {
 
     public String salvar() {
         try {
-            
+
             System.out.println(reuniao);
             Session session = HibernateUtil.getSessionFactory().openSession();
             contribuicaoDAO = new GenericDAO<>(Contribuicao.class, session);
             cadastrarTransacao();
             if (inserir) {
-                if(reuniao){
+                if (reuniao) {
                     getContribuicaoFiltro().add(contribuicao);
-                    
+
                 }
                 //executar o método inserir do DAO
                 contribuicaoDAO.salvar(contribuicao);
@@ -127,7 +126,7 @@ public class ContribuicaoMB implements Serializable {
         System.out.println(contribuicao.getId());
         this.contribuicao = new Contribuicao(contribuicao.getId(), contribuicao.getUsuario(), contribuicao.getValor(), contribuicao.getData(), contribuicao.getFormaContribuicao(), contribuicao.getTipo());
         inserir = false;
-        return "-";
+        return "/restricted/finance/contribuicao_edit.xhtml?faces-redirect=true";
     }
 
     public void localizarUsuario(String nomeUsuario) {
@@ -138,28 +137,32 @@ public class ContribuicaoMB implements Serializable {
         }
     }
 
-    public String botaoSeleciona(boolean reuniao) {
+    public String botaoAcessoCadastro(boolean reuniao) {
+        this.contribuicao = new Contribuicao();
         this.setReuniao(reuniao);
         return "/restricted/finance/contribuicao_edit.xhtml?faces-redirect=true";
     }
-    
-    public String botaoVoltar() {
-        if(reuniao){
-            return "/restricted/meet/reuniao.xhtml?faces-redirect=true";
-        }else{
-            return "/restricted/finance/contribuicao_edit.xhtml?faces-redirect=true";
+
+    public String botaoVoltar(boolean flagTelaEdit) {
+        this.contribuicao = new Contribuicao();
+        if (flagTelaEdit) {
+            if (reuniao) {
+                return "/restricted/meet/reuniao.xhtml?faces-redirect=true";
+            } else {
+                return "/restricted/finance/contribuicao.xhtml?faces-redirect=true";
+            }
         }
+        return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
     }
 
-    public double somaContribuicaoFiltro(){
+    public double somaContribuicaoFiltro() {
         totalContribuicaoFiltro = 0;
-        for(Contribuicao c :contribuicaoFiltro){
+        for (Contribuicao c : contribuicaoFiltro) {
             totalContribuicaoFiltro = totalContribuicaoFiltro + c.getValor();
         }
         return totalContribuicaoFiltro;
     }
-    
-    
+
     public void cadastrarTransacao() throws PersistenceException {
         char tipo = 'C';
         transacao = new Transacao(0, contribuicao.getData(), contribuicao.getUsuario().getNome(), tipo, contribuicao.getValor());
@@ -248,8 +251,8 @@ public class ContribuicaoMB implements Serializable {
     public void setTotalContribuicaoFiltro(double totalContribuicaoFiltro) {
         this.totalContribuicaoFiltro = totalContribuicaoFiltro;
     }
-    
-        public boolean isReuniao() {
+
+    public boolean isReuniao() {
         return reuniao;
     }
 

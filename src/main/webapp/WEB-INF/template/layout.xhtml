@@ -3,23 +3,15 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <title><ui:insert name="titulo" /> </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"></link>
 
-
         <style>
-            .sidebar-expanded .ui-sidebar-content {
-                display: block !important;
-            }
-
-            .sidebar-collapsed .ui-sidebar-content {
-                display: none !important;
-            }
-
             .panel-container {
                 display: flex;
                 justify-content: space-between;
@@ -32,81 +24,60 @@
                 display: grid;
                 justify-content: center;
             }
+
+            .sidebar{
+                position:fixed;
+                top: 61.1px;
+                left: 0;
+                height: 100%;
+                width: 200px;
+                background-color: #f8f9fa;
+                border:1px;
+                border-color: #dee2e6;
+            }
+
+            #conteudo{
+                margin-left: 200px;
+            }
+
         </style>
     </h:head>
 
     <h:body>
         <div class="layout-wrapper" id="navBar">
             <h:form>
-                <header>
-                    <p:menubar>
-                        <p:menuitem icon="pi pi-bars" onclick="PF('sidebar').show();" />
-                        <p:menuitem value="Sistema Seiva" action="/restricted/central.xhtml?faces-redirect=true"/>
-                        <p:submenu label="#{loginMB.usuario.nome}" style="float: right;">
-                            <p:menuitem value="Conta" icon="pi pi-fw pi-user" action="#{usuarioMB.botaoAlterar(loginMB.usuario)}"/>
-                            <p:menuitem value="Logout" icon="pi pi-fw pi-power-off" action="#{loginMB.logout()}"/>
-                        </p:submenu>
-                    </p:menubar>
-                </header>
-                <p:sidebar id="sidebar" widgetVar="sidebar" class="position-fixed">
-                    <h2>Opções</h2>
+                <p:growl id="messages" showDetail="true"/>
+                <div class="card" >
+                    <header>
+                        <p:menubar>
+                            <p:menuitem value="Sistema Seiva" action="/restricted/central.xhtml?faces-redirect=true"/>
+                            <p:submenu label="#{loginMB.usuario.nome}" style="float: right;">
+                                <p:menuitem value="Conta" icon="pi pi-fw pi-user" action="#{usuarioMB.botaoAlterar(loginMB.usuario)}"/>
+                                <p:menuitem value="Logout" icon="pi pi-fw pi-power-off" action="#{loginMB.logout()}"/>
+                            </p:submenu>
+                        </p:menubar>
 
-                    <div>
-                        <h:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                            <p:commandButton value="Home" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/user/usuario.xhtml?faces-redirect=true">
-                            <p:commandButton value="Usuarios" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/finance/despesa.xhtml?faces-redirect=true">
-                            <p:commandButton value="Despesa" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/stock/produto.xhtml?faces-redirect=true">
-                            <p:commandButton value="Produto" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/finance/contribuicao.xhtml?faces-redirect=true">
-                            <p:commandButton value="Contribuicao" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/finance/venda.xhtml?faces-redirect=true">
-                            <p:commandButton value="Venda" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/finance/mensalidade.xhtml?faces-redirect=true">
-                            <p:commandButton value="Mensalidade" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/finance/financeiro.xhtml?faces-redirect=true">
-                            <p:commandButton value="Financeiro" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/meet/reuniao.xhtml?faces-redirect=true">
-                            <p:commandButton value="Reunião" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                    <div>
-                        <h:commandLink action="/restricted/finance/caixa.xhtml?faces-redirect=true">
-                            <p:commandButton value="Caixa" style="background-color: forestgreen; border: forestgreen; margin: 5px"/>
-                        </h:commandLink>
-                    </div>
-                </p:sidebar>
+                        <nav class="sidebar">
+                            <p:menu class="menuSideBar" style="background-color: #f8f9fa; border: 0px">
+                                <p:menuitem value="Usuarios" action="/restricted/user/usuario.xhtml?faces-redirect=true" icon="pi pi-user"/>
+                                <p:menuitem value="Produtos" action="/restricted/stock/produto.xhtml?faces-redirect=true" icon="pi pi-inbox"/>
+                                <p:menuitem value="Vendas" action="/restricted/finance/venda.xhtml?faces-redirect=true" icon="pi pi-shopping-bag"/>
+                                <p:menuitem value="Financeiro" action="/restricted/finance/financeiro.xhtml?faces-redirect=true" icon="pi pi-dollar"/>
+                                <p:menuitem value="Reunião" action="/restricted/meet/evento.xhtml?faces-redirect=true" icon="pi pi-users"/>
+                                <p:menuitem value="Caixa" action="/restricted/finance/caixa.xhtml?faces-redirect=true" icon="pi pi-money-bill"/>
+                            </p:menu>
+                        </nav>
+                    </header>
+
+
+                </div>  
             </h:form>
         </div>
-        <div id="conteudo">
-            <ui:insert name="conteudo" />
-        </div>
+        <center>
+            <div id="conteudo">
+                <ui:insert name="conteudo" />
+            </div>
+        </center>   
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     </h:body>

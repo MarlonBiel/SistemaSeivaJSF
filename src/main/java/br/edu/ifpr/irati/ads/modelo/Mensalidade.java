@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -24,8 +25,8 @@ public class Mensalidade implements Serializable{
     @OneToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     private Usuario usuario;
-    @Column(name="mes", nullable = false, length = 100)
-    private String mes;
+    @ManyToOne
+    private Mes mes;
     @Column(name="ano", nullable = false)
     private int ano;
     @Column(name = "valor")
@@ -34,12 +35,12 @@ public class Mensalidade implements Serializable{
     public Mensalidade() {
         this.id = 0;
         this.usuario = new Usuario();
-        this.mes = "";
+        this.mes = new Mes();
         this.ano = 2024;
         this.valor = 0.0;
     }
 
-    public Mensalidade(int id, Usuario usuario, String mes, int ano, double valor) {
+    public Mensalidade(int id, Usuario usuario, Mes mes, int ano, double valor) {
         this.id = id;
         this.usuario = usuario;
         this.mes = mes;
@@ -63,11 +64,11 @@ public class Mensalidade implements Serializable{
         this.usuario = usuario;
     }
 
-    public String getMes() {
+    public Mes getMes() {
         return mes;
     }
 
-    public void setMes(String mes) {
+    public void setMes(Mes mes) {
         this.mes = mes;
     }
 

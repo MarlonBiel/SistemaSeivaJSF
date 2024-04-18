@@ -16,75 +16,49 @@
                     <f:facet name="header">
                         <div style="display: flex; justify-content: space-between   ">
                             <h:outputText value="Usuarios"/>
-                            <p:commandButton value="cadastrar usuarios" action="/restricted/user/usuario_edit.xhtml?faces-redirect=true"/>
+                            <p:commandButton value="cadastrar usuarios" action="#{usuarioMB.botaoAcessoCadastro()}"/>
                         </div>
                     </f:facet>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.id}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome"/>
-                        </f:facet>
+
+                    <p:column headerText="Nome">
                         <h:outputText value="#{usuario.nome}" />
-                    </p:column>  
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Cpf"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="CPF">                        
                         <h:outputText value="#{usuario.cpf}" />
-                    </p:column>  
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Nascimento"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="Nascimento">                        
                         <h:outputText value="#{usuario.dataNascimento}">
                             <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
                         </h:outputText>
                     </p:column>
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Endereco"/>
-                        </f:facet>
+
+                    <p:column headerText="Endereço">                        
                         <h:outputText value="#{usuario.endereco}" />
-                    </p:column> 
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Telefone"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="Telefone">                        
                         <h:outputText value="#{usuario.telefone}" />
-                    </p:column> 
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="Email">                        
                         <h:outputText value="#{usuario.email}" />
-                    </p:column> 
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Matricula"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="Matricula">                        
                         <h:outputText value="#{usuario.matricula}" />
-                    </p:column> 
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Funcao"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="Função">                        
                         <h:outputText value="#{usuario.funcao.funcao}" />
-                    </p:column> 
-                    <p:column> 
-                        <f:facet name="header">
-                            <h:outputText value="Alterar"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="Alterar"> 
                         <p:commandButton action="#{usuarioMB.botaoAlterar(usuario)}" value="Alterar" update="@form" />
-                    </p:column>  
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Deletar"/>
-                        </f:facet>
+                    </p:column>
+
+                    <p:column headerText="Deletar">
                         <p:commandButton action="#{usuarioMB.botaoExcluir(usuario)}" value="Deletar" update="@form" />
                     </p:column>  
 
@@ -93,9 +67,7 @@
             </h:panelGroup>
 
             <div>
-                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
+                <p:commandButton value="Voltar" action="#{usuarioMB.botaoVoltar(false)}"/>
             </div>
 
         </h:form>

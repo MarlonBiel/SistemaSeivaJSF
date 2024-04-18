@@ -1,3 +1,4 @@
+br\edu\ifpr\irati\ads\mb\EventoMB.class
 br\edu\ifpr\irati\ads\modelo\Venda.class
 br\edu\ifpr\irati\ads\mb\MensalidadeMB.class
 br\edu\ifpr\irati\ads\mb\FinanceiroMB.class
@@ -11,7 +12,6 @@ br\edu\ifpr\irati\ads\exception\PersistenceException.class
 br\edu\ifpr\irati\ads\modelo\Produto.class
 br\edu\ifpr\irati\ads\modelo\Usuario.class
 br\edu\ifpr\irati\ads\mb\DespesaMB.class
-br\edu\ifpr\irati\ads\mb\ReuniaoMB.class
 br\edu\ifpr\irati\ads\modelo\Login.class
 br\edu\ifpr\irati\ads\dao\Dao.class
 br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class

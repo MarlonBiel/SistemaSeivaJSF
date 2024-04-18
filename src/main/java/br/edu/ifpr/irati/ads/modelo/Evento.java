@@ -35,12 +35,14 @@ public class Evento implements Serializable{
     private String descricao;
     @Column(name="quantidadeFrequentantes", nullable = false)
     private int quantidadeFrequentantes;
+    @Column(name="quantidadeVisitantes", nullable = false)
+    private int quantidadeVisitantes;
     @OneToMany(cascade = CascadeType.ALL) //onetomany
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<Usuario> usuarios;
-    @OneToOne
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "freqTrabalhadores_id", referencedColumnName = "id")
-    private Usuario freqTrabalhadores;
+    private List<Usuario> freqTrabalhadores;
 
     public Evento() {
         super();
@@ -49,10 +51,10 @@ public class Evento implements Serializable{
         this.descricao = "";
         this.quantidadeFrequentantes = 0;
         this.usuarios = new ArrayList<>();
-        this.freqTrabalhadores = new Usuario();
+        this.freqTrabalhadores = new ArrayList<>();
     }
 
-    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, List<Usuario> usuarios, Usuario freqTrabalhadores) {
+    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, List<Usuario> usuarios, List<Usuario> freqTrabalhadores) {
         this.id = id;
         this.data = data;
         this.descricao = descricao;
@@ -102,12 +104,20 @@ public class Evento implements Serializable{
         this.usuarios = usuarios;
     }
 
-    public Usuario getFreqTrabalhadores() {
+    public List<Usuario> getFreqTrabalhadores() {
         return freqTrabalhadores;
     }
 
-    public void setFreqTrabalhadores(Usuario freqTrabalhadores) {
+    public void setFreqTrabalhadores(List<Usuario> freqTrabalhadores) {
         this.freqTrabalhadores = freqTrabalhadores;
+    }
+
+    public int getQuantidadeVisitantes() {
+        return quantidadeVisitantes;
+    }
+
+    public void setQuantidadeVisitantes(int quantidadeVisitantes) {
+        this.quantidadeVisitantes = quantidadeVisitantes;
     }
     
     
