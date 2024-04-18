@@ -1,17 +1,35 @@
-br\edu\ifpr\irati\ads\mb\EventoMB.class
+<<<<<<< Updated upstream
+=======
+br\edu\ifpr\irati\ads\converters\FuncaoConverter.class
+br\edu\ifpr\irati\ads\dao\Dao.class
+br\edu\ifpr\irati\ads\converters\FormaPgtoConverter.class
+br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class
+>>>>>>> Stashed changes
 br\edu\ifpr\irati\ads\modelo\Venda.class
 br\edu\ifpr\irati\ads\mb\MensalidadeMB.class
 br\edu\ifpr\irati\ads\mb\FinanceiroMB.class
 br\edu\ifpr\irati\ads\modelo\Despesa.class
+<<<<<<< Updated upstream
 br\edu\ifpr\irati\ads\util\PadraoBD.class
 br\edu\ifpr\irati\ads\util\TestesBD.class
 br\edu\ifpr\irati\ads\converter\UsuarioConverter.class
 br\edu\ifpr\irati\ads\filter\LoginFilter.class
+=======
+br\edu\ifpr\irati\ads\modelo\Contribuicao.class
+br\edu\ifpr\irati\ads\modelo\Evento.class
+br\edu\ifpr\irati\ads\util\TestesBD.class
+br\edu\ifpr\irati\ads\dao\GenericDAO.class
+br\edu\ifpr\irati\ads\modelo\FormaPgto.class
+br\edu\ifpr\irati\ads\modelo\Funcao.class
+br\edu\ifpr\irati\ads\mb\ContribuicaoMB.class
+br\edu\ifpr\irati\ads\mb\UsuarioMB.class
+>>>>>>> Stashed changes
 br\edu\ifpr\irati\ads\util\HibernateUtil.class
 br\edu\ifpr\irati\ads\exception\PersistenceException.class
 br\edu\ifpr\irati\ads\modelo\Produto.class
 br\edu\ifpr\irati\ads\modelo\Usuario.class
 br\edu\ifpr\irati\ads\mb\DespesaMB.class
+br\edu\ifpr\irati\ads\mb\ReuniaoMB.class
 br\edu\ifpr\irati\ads\modelo\Login.class
 br\edu\ifpr\irati\ads\dao\Dao.class
 br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class
