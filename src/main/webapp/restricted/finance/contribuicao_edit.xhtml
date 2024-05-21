@@ -8,15 +8,14 @@
 
     <ui:define name="conteudo">
         <center>
-            <h2>CONTROLE DE CONTRIBUICAO</h2>
-            <p>#{contribuicaoMB.reuniao}</p>
+            <h2>Cadastrar contribuição</h2>
             <h:form>
                 <h:panelGroup>
                     <p:inputText value="#{contribuicaoMB.contribuicao.id}" type="hidden" disabled="true" size="5"/>
 
                     <p:panelGrid columns="4">                            
 
-                        <h:outputText value="Usuario: " />
+                        <h:outputText value="Usuário: " />
                         <p:selectOneMenu value="#{contribuicaoMB.contribuicao.usuario}" id="usuario" converter="usuarioConverter"  filter="true" filterMatchMode="startsWith" >
                             <f:selectItem noSelectionOption="true" itemLabel="Selecione um usuario" />
                             <f:selectItems value="#{contribuicaoMB.listaUsuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}"/>

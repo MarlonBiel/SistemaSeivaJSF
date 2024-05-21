@@ -12,14 +12,14 @@
     <ui:define name="conteudo">
         <center>
         <p:growl id="mensagem" />
-        <h2>CONTROLE DE MENSALIDADE</h2>
+        <h2>Cadastrar mensalidade</h2>
         <h:form id="formulario">
 
             <h:panelGroup id="inserir">
 
                 <p:panelGrid columns="5">                            
 
-                    <h:outputText value="Usuario: " />
+                    <h:outputText value="Usuário: " />
                     <p:selectOneMenu value="#{mensalidadeMB.mensalidade.usuario}" id="usuario"   filter="true" converter="usuarioConverter" filterMatchMode="startsWith" >
                         <f:selectItems value="#{mensalidadeMB.usuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}" />
                     </p:selectOneMenu>

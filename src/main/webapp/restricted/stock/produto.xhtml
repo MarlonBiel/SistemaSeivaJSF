@@ -10,13 +10,11 @@
 
 
     <ui:define name="conteudo">
-
-        <h2>CONTROLE DE ESTOQUE</h2>
-
         <h:form id="formulario">
             <p:dataTable var="produto" value="#{produtoMB.produtos}">
                 <f:facet name="header">
                     <div style="display: flex; justify-content: space-between   ">
+                        <p:commandButton value="Voltar" action="#{produtoMB.botaoVoltar(false)}" />
                         <h:outputText value="Produtos"/>
                         <p:commandButton value="cadastrar produtos" action="/restricted/stock/produto_edit.xhtml?faces-redirect=true"/>
                     </div>
@@ -52,11 +50,6 @@
 
             </p:dataTable>
 
-            <div>
-                <p:commandLink action="#{produtoMB.botaoVoltar(false)}">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
 
 

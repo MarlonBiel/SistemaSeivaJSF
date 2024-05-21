@@ -31,7 +31,7 @@
                             </p:column>
                             -->
                             <p:column>
-                                <f:facet name="header">Nome</f:facet>
+                                <f:facet name="header">Usuário</f:facet>
                                     #{usuario.nome}
                             </p:column>
                             <p:column>
@@ -45,9 +45,9 @@
                 </p:panel>
 
                 <!--Painel de Frequencia-->
-                <p:panel header="Frequencia" styleClass="panel">
+                <p:panel header="Frequência" styleClass="panel">
                     <div class="panel-freq">
-                        <h:outputText value="Frequentates " />
+                        <h:outputText value="Frequentantes " />
                         <p:inputNumber value="#{eventoMB.evento.quantidadeFrequentantes}" minValue="1" decimalPlaces="0"/><br /> <br />
                         <h:outputText value="Visitantes" />
                         <p:inputNumber value="#{eventoMB.evento.quantidadeVisitantes}" minValue="1" decimalPlaces="0"/>
@@ -58,7 +58,7 @@
                 <p:panel styleClass="panel">
                     <f:facet name="header" >
                         <div style="display: flex; justify-content: space-between;">
-                            <h:outputText value="Contrubuição" />
+                            <h:outputText value="Contribuições" />
                             <div>
                                 <p:commandButton value="Ver" style="margin: 5px "/>
                                 <p:commandButton value="Cadastrar" action="#{contribuicaoMB.botaoAcessoCadastro(true)}"/>
