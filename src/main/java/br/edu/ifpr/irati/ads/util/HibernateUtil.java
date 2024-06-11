@@ -2,6 +2,7 @@
 
 
 import br.edu.ifpr.irati.ads.modelo.Contribuicao;
+import br.edu.ifpr.irati.ads.modelo.ContribuicaoEvento;
 import br.edu.ifpr.irati.ads.modelo.Despesa;
 import br.edu.ifpr.irati.ads.modelo.Evento;
 import br.edu.ifpr.irati.ads.modelo.FormaPgto;
@@ -12,6 +13,7 @@ import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
 import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
+import br.edu.ifpr.irati.ads.modelo.UsuarioEvento;
 import br.edu.ifpr.irati.ads.modelo.Venda;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +57,8 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(Mensalidade.class);
             metadataSources.addAnnotatedClass(Mes.class);
             metadataSources.addAnnotatedClass(Transacao.class);
+            metadataSources.addAnnotatedClass(ContribuicaoEvento.class);
+            metadataSources.addAnnotatedClass(UsuarioEvento.class);
             Metadata metadata = metadataSources.buildMetadata();
 
             sessionFactory = metadata.getSessionFactoryBuilder().build();
