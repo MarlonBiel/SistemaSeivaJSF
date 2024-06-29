@@ -4,6 +4,7 @@ import br.edu.ifpr.irati.ads.dao.Dao;
 import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Transacao;
+import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Date;
@@ -46,6 +47,10 @@ public class FinanceiroMB implements Serializable {
 
     public void setTransacoes(List<Transacao> transacoes) {
         this.transacoes = transacoes;
+    }
+    
+    public String botaoVoltar() {
+        return "/restricted/central.xhtml?faces-redirect=true";
     }
 
 }

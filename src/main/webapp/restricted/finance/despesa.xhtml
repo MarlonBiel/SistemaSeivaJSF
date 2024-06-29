@@ -15,6 +15,7 @@
 
                 <f:facet name="header">
                     <div style="display: flex; justify-content: space-between   ">
+                        <p:commandButton value="Voltar" action="#{despesaMB.botaoVoltar(false)}" />
                         <h:outputText value="Depesas"/>
                         <p:commandButton value="cadastrar despesa" action="#{despesaMB.botaoAcessoCadastro()}"/>
                     </div>
@@ -56,12 +57,6 @@
 
             </p:dataTable>
 
-
-            <div>
-                <p:commandLink action="#{despesaMB.botaoVoltar(false)}">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
     </ui:define>
 </ui:composition>

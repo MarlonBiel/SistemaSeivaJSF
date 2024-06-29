@@ -10,10 +10,15 @@
 
     <ui:define name="conteudo">
         <p:growl id="mensagem" />
-        <h2>CAIXA</h2>
         <h:form id="formulario">
 
             <p:dataTable var="despesas" value="#{financeiroMB.transacoes}">
+                <f:facet name="header">
+                    <div style="display: flex; justify-content: space-between   ">
+                        <h:outputText value="Caixa"/>
+                        <p:commandButton value="Voltar" action="#{financeiroMB.botaoVoltar()}"/>
+                    </div>
+                </f:facet>
                 <p:column headerText="Data">
                     <h:outputText value="#{despesas.data}">
                         <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>

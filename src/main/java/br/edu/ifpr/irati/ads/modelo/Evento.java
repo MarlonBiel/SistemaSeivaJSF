@@ -37,12 +37,14 @@ public class Evento implements Serializable{
     private int quantidadeFrequentantes;
     @Column(name="quantidadeVisitantes", nullable = false)
     private int quantidadeVisitantes;
-    @OneToMany(cascade = CascadeType.ALL) //onetomany
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private List<Usuario> usuarios;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "freqTrabalhadores_id", referencedColumnName = "id")
-    private List<Usuario> freqTrabalhadores;
+    
+    @OneToMany
+    @JoinColumn(name = "Usuario_id", referencedColumnName = "id")
+    private List<UsuarioEvento> usuariosEvento;
+    
+    @OneToMany
+    @JoinColumn(name = "Contribuicao_id", referencedColumnName = "id")
+    private List<ContribuicaoEvento> contribuicoesEvento;
 
     public Evento() {
         super();
@@ -50,17 +52,17 @@ public class Evento implements Serializable{
         this.data = new Date();
         this.descricao = "";
         this.quantidadeFrequentantes = 0;
-        this.usuarios = new ArrayList<>();
-        this.freqTrabalhadores = new ArrayList<>();
+        this.usuariosEvento = new ArrayList<>();
+        this.contribuicoesEvento = new ArrayList<>();
     }
 
-    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, List<Usuario> usuarios, List<Usuario> freqTrabalhadores) {
+    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, List<Usuario> usuarios, List<UsuarioEvento> usuariosEvento, List<ContribuicaoEvento> contribuicoesEvento) {
         this.id = id;
         this.data = data;
         this.descricao = descricao;
         this.quantidadeFrequentantes = quantidadeFrequentantes;
-        this.usuarios = usuarios;
-        this.freqTrabalhadores = freqTrabalhadores;
+        this.usuariosEvento = usuariosEvento;
+        this.contribuicoesEvento = contribuicoesEvento;
     }
 
     
@@ -96,28 +98,28 @@ public class Evento implements Serializable{
         this.quantidadeFrequentantes = quantidadeFrequentantes;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public List<Usuario> getFreqTrabalhadores() {
-        return freqTrabalhadores;
-    }
-
-    public void setFreqTrabalhadores(List<Usuario> freqTrabalhadores) {
-        this.freqTrabalhadores = freqTrabalhadores;
-    }
-
     public int getQuantidadeVisitantes() {
         return quantidadeVisitantes;
     }
 
     public void setQuantidadeVisitantes(int quantidadeVisitantes) {
         this.quantidadeVisitantes = quantidadeVisitantes;
+    }
+
+    public List<UsuarioEvento> getUsuariosEvento() {
+        return usuariosEvento;
+    }
+
+    public void setUsuariosEvento(List<UsuarioEvento> usuariosEvento) {
+        this.usuariosEvento = usuariosEvento;
+    }
+
+    public List<ContribuicaoEvento> getContribuicoesEvento() {
+        return contribuicoesEvento;
+    }
+
+    public void setContribuicoesEvento(List<ContribuicaoEvento> contribuicoesEvento) {
+        this.contribuicoesEvento = contribuicoesEvento;
     }
     
     

@@ -11,7 +11,7 @@
 
     <ui:define name="conteudo">
         <center>
-            <h2>CONTROLE DE ESTOQUE</h2>
+            <h2>Cadastro de produtos</h2>
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate/>
             </p:messages>
@@ -45,9 +45,7 @@
             </h:form>     
             <h:form>
                 <div>
-                    <p:commandLink action="#{produtoMB.botaoVoltar(true)}">
-                        <p:commandButton value="Voltar"/>
-                    </p:commandLink>
+                    <p:commandButton value="Voltar" action="#{usuarioMB.botaoVoltar(true)}"/>
                 </div>
             </h:form>  
         </center>

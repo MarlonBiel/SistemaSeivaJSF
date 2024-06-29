@@ -8,13 +8,12 @@
 
 
     <ui:define name="conteudo">
-        <h2>CONTROLE DE USUARIO</h2>
         <h:form>
             <h:panelGroup rendered="#{!usuarioMB.usuarios.isEmpty()}">
                 <p:dataTable id="tabelaUsuarios" var="usuario" value="#{usuarioMB.usuarios}" style="width: 100%">
-
                     <f:facet name="header">
                         <div style="display: flex; justify-content: space-between   ">
+                            <p:commandButton value="Voltar" action="#{usuarioMB.botaoVoltar(false)}"/>
                             <h:outputText value="Usuarios"/>
                             <p:commandButton value="cadastrar usuarios" action="#{usuarioMB.botaoAcessoCadastro()}"/>
                         </div>
@@ -42,11 +41,11 @@
                         <h:outputText value="#{usuario.telefone}" />
                     </p:column>
 
-                    <p:column headerText="Email">                        
+                    <p:column headerText="e-mail">                        
                         <h:outputText value="#{usuario.email}" />
                     </p:column>
 
-                    <p:column headerText="Matricula">                        
+                    <p:column headerText="Mátricula">                        
                         <h:outputText value="#{usuario.matricula}" />
                     </p:column>
 
@@ -66,9 +65,7 @@
 
             </h:panelGroup>
 
-            <div>
-                <p:commandButton value="Voltar" action="#{usuarioMB.botaoVoltar(false)}"/>
-            </div>
+
 
         </h:form>
 

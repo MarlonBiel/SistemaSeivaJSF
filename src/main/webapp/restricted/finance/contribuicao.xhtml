@@ -7,14 +7,14 @@
     
     
     <ui:define name="conteudo">
-        <h2>CONTROLE DE CONTRIBUICAO</h2>
         <h:form>
             <h:panelGroup >
                 <p:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" style="width: 100%">
                     
                     <f:facet name="header">
                         <div style="display: flex; justify-content: space-between   ">
-                            <h:outputText value="Usuarios"/>
+                            <p:commandButton value="Voltar" action="#{contribuicaoMB.botaoVoltar(false)}" />
+                            <h:outputText value="Contribuições"/>
                             <p:commandButton value="cadastrar contribuição" action="#{contribuicaoMB.botaoAcessoCadastro(false)}"/>
                         </div>
                     </f:facet>
@@ -25,7 +25,7 @@
                         </h:outputText>
                     </p:column>
                     
-                    <p:column headerText="Nome">                        
+                    <p:column headerText="Usuário">                        
                         <h:outputText value="#{contribuicao.usuario.nome}" />
                     </p:column> 
                     
@@ -46,13 +46,7 @@
 
             </h:panelGroup>
 
-            <div>
-                <p:commandLink action="#{contribuicaoMB.botaoVoltar(false)}">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
-
-
+        
     </ui:define>
 </ui:composition>

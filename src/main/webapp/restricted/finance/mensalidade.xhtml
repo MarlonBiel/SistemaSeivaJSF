@@ -7,13 +7,13 @@
     
     
     <ui:define name="conteudo">
-        <h2>CONTROLE DE MENSALIDADES</h2>
         <h:form>
             <h:panelGroup >
                 <p:dataTable var="mensalidade" value="#{mensalidadeMB.mensalidades}" style="width: 100%">
                     
                     <f:facet name="header">
                         <div style="display: flex; justify-content: space-between   ">
+                            <p:commandButton value="Voltar" action="#{mensalidadeMB.botaoVoltar(false)}" />
                             <h:outputText value="Mensalidades"/>
                             <p:commandButton value="cadastrar mensalidade" action="#{mensalidadeMB.botaoAcessoCadastro()}"/>
                         </div>
@@ -23,7 +23,7 @@
                         <h:outputText value="#{mensalidade.mes.mes}" />
                     </p:column>
                     
-                    <p:column headerText="Nome">                        
+                    <p:column headerText="Usuário">                        
                         <h:outputText value="#{mensalidade.usuario.nome}" />
                     </p:column> 
                     
@@ -44,11 +44,6 @@
 
             </h:panelGroup>
 
-            <div>
-                <p:commandLink action="#{mensalidadeMB.botaoVoltar(false)}">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
 
 
