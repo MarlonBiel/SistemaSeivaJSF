@@ -8,16 +8,15 @@ import br.edu.ifpr.irati.ads.modelo.Mes;
 import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.io.Serializable;    
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class MensalidadeMB implements Serializable {
 
     private Mensalidade mensalidade;
@@ -100,7 +99,7 @@ public class MensalidadeMB implements Serializable {
         System.out.println(mensalidade.getId());
         this.mensalidade = new Mensalidade(mensalidade.getId(), mensalidade.getUsuario(), mensalidade.getMes(), mensalidade.getAno(), mensalidade.getValor());
         inserir = false;
-        return "-";
+        return "/restricted/finance/mensalidade_edit.xhtml?faces-redirect=true";
     }
 
     public void cadastrarTransacao() throws PersistenceException {
@@ -112,6 +111,19 @@ public class MensalidadeMB implements Serializable {
         transacaoDAO.salvar(transacao);
         session.close();
         transacao = new Transacao();
+    }
+    
+    public String botaoAcessoCadastro() {
+        this.mensalidade = new Mensalidade();
+        return "/restricted/finance/mensalidade_edit.xhtml?faces-redirect=true";
+    }
+
+    public String botaoVoltar(boolean flagTelaEdit) {
+        this.mensalidade = new Mensalidade();
+        if(flagTelaEdit){
+            return "/restricted/finance/mensalidade.xhtml?faces-redirect=true";
+        }
+        return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
     }
 
     public Mensalidade getMensalidade() {

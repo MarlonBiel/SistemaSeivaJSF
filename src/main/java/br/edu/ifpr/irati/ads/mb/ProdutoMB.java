@@ -8,12 +8,12 @@ import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ProdutoMB implements Serializable{
     private Produto produto = new Produto();
     private List<Produto> produtos;
@@ -75,7 +75,20 @@ public class ProdutoMB implements Serializable{
         System.out.println(produto.getId());
         this.produto = new Produto(produto.getId(), produto.getNome(), produto.getQuantEstoque(), produto.getValor(), produto.getIan(), produto.getValorVenda());
         inserir = false;
-        return "-";
+        return "/restricted/stock/produto_edit.xhtml?faces-redirect=true";
+    }
+    
+    public String botaoAcessoCadastro() {
+        this.produto = new Produto();
+        return "/restricted/stock/produto_edit.xhtml?faces-redirect=true";
+    }
+
+    public String botaoVoltar(boolean flagTelaEdit) {
+        this.produto = new Produto();
+        if(flagTelaEdit){
+            return "/restricted/stock/produto.xhtml?faces-redirect=true";
+        }
+        return "/restricted/central.xhtml?faces-redirect=true";
     }
 
     public Produto getProduto() {

@@ -11,105 +11,52 @@
     <ui:define name="conteudo">
         <h2>CONTROLE DE DESPESA</h2>
         <h:form enctype="multipart/form-data">
-            <h:panelGroup>
-                <p:inputText value="#{despesaMB.despesa.id}" disabled="true" size="5" type="hidden"/>
-                <p:panelGrid columns="4">                            
+            <p:dataTable var="despesa" value="#{despesaMB.despesas}" style="width: 100%">
 
-                    <h:outputText value="Descriminação: " />
-                    <p:inputText value="#{despesaMB.despesa.descriminacao}" size="30" id="descriminacao"/>
+                <f:facet name="header">
+                    <div style="display: flex; justify-content: space-between   ">
+                        <p:commandButton value="Voltar" action="#{despesaMB.botaoVoltar(false)}" />
+                        <h:outputText value="Depesas"/>
+                        <p:commandButton value="cadastrar despesa" action="#{despesaMB.botaoAcessoCadastro()}"/>
+                    </div>
+                </f:facet>
 
-                    <h:outputText value="Data: " />
-                    <p:calendar value="#{despesaMB.despesa.data}" size="30" maxlength="10" mask="99/99/9999">
+                <p:column headerText="Descriminação">
+                    <h:outputText value="#{despesa.descriminacao}" />
+                </p:column>  
+
+                <p:column headerText="Data">                        
+                    <h:outputText value="#{despesa.data}" >
                         <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
-                    </p:calendar>
+                    </h:outputText>
+                </p:column>  
 
-                    <h:outputText value="Valor:" />
-                    <p:inputNumber value="#{despesaMB.despesa.valor}" size="30" id="valor" maxlength="14"/> 
+                <p:column headerText="Valor">                        
+                    <h:outputText value="#{despesa.valor}" />
+                </p:column>
 
-                    <h:outputText value="Forma de pagamento: " />
-                    <p:selectOneMenu value="#{despesaMB.despesa.formaPagamento}" id="formapgto" converter="formaPgtoConverter">
-                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma forma de pagamento" />
-                        <f:selectItems value="#{despesaMB.formasPgto}" var="formas" itemLabel="#{formas.formaPgto}" itemValue="#{formas}" />
-                    </p:selectOneMenu>
+                <p:column headerText="Forma de Pagamento">                        
+                    <h:outputText value="#{despesa.formaPagamento.formaPgto}" />
+                </p:column> 
 
-                    <h:outputText value="Obs.: " />
-                    <p:inputText value="#{despesaMB.despesa.observacao}" size="30" id="obs"/>
+                <p:column headerText="Observação">                        
+                    <h:outputText value="#{despesa.observacao}" />
+                </p:column> 
 
-                    <h:outputText value="Anexos: " />
-                    <h:inputFile value="#{despesaMB.anexo}" id="anexo"/>
+                <p:column headerText="Anexo">                        
+                    <h:outputText value="#{despesa.anexos}" />
+                </p:column> 
 
-                </p:panelGrid>
-                <p:commandButton  action="#{despesaMB.salvar()}" value="Incluir" update="@form"/>
-                <p:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" update="@form"/>   
-            </h:panelGroup>
-            <h:panelGroup rendered="#{!despesaMB.despesas.isEmpty()}">
-                <p:dataTable var="despesa" value="#{despesaMB.despesas}" style="width: 100%">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>
-                        <h:outputText value="#{despesa.id}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Descriminação"/>
-                        </f:facet>
-                        <h:outputText value="#{despesa.descriminacao}" />
-                    </p:column>  
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Data"/>
-                        </f:facet>
-                        <h:outputText value="#{despesa.data}" >
-                            <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
-                        </h:outputText>
-                    </p:column>  
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Valor"/>
-                        </f:facet>
-                        <h:outputText value="#{despesa.valor}" />
-                    </p:column>
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Forma Pgto"/>
-                        </f:facet>
-                        <h:outputText value="#{despesa.formaPagamento.formaPgto}" />
-                    </p:column> 
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Obs."/>
-                        </f:facet>
-                        <h:outputText value="#{despesa.observacao}" />
-                    </p:column> 
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Anexo"/>
-                        </f:facet>
-                        <h:outputText value="#{despesa.anexos}" />
-                    </p:column> 
+                <p:column headerText="Alterar">
+                    <p:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" update="@form" />
+                </p:column> 
 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Alterar"/>
-                        </f:facet>
-                        <p:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" update="@form" />
-                    </p:column>  
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Deletar"/>
-                        </f:facet>
-                        <p:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" update="@form" />
-                    </p:column>  
+                <p:column headerText="Deletar">
+                    <p:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" update="@form" />
+                </p:column>  
 
-                </p:dataTable>
+            </p:dataTable>
 
-            </h:panelGroup>
-            <div>
-                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
     </ui:define>
 </ui:composition>

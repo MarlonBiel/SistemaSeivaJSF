@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
+
+
+    <ui:define name="conteudo">
+        <center>
+            <h2>Cadastrar despesa</h2>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <h:form id="cadastrar" enctype="multipart/form-data">
+                <h:panelGroup id="dados">
+                    <p:inputText value="#{despesaMB.despesa.id}" disabled="true" size="5" type="hidden"/>
+                    <p:panelGrid columns="4">                            
+
+                        <h:outputText value="Descriminação: " />
+                        <p:inputText value="#{despesaMB.despesa.descriminacao}" required="true" size="30" id="descriminacao"/>
+
+                        <h:outputText value="Data: " />
+                        <p:calendar value="#{despesaMB.despesa.data}" size="30" maxlength="10" mask="99/99/9999">
+                            <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                        </p:calendar>
+
+                        <h:outputText value="Valor:" />
+                        <p:inputNumber value="#{despesaMB.despesa.valor}" size="30" id="valor" maxlength="14" required="true" /> 
+
+                        <h:outputText value="Forma de pagamento: " />
+                        <p:selectOneMenu value="#{despesaMB.despesa.formaPagamento}" id="formapgto" converter="formaPgtoConverter">
+                            <f:selectItem noSelectionOption="true" itemLabel="Selecione uma forma de pagamento" />
+                            <f:selectItems value="#{despesaMB.formasPgto}" var="formas" itemLabel="#{formas.formaPgto}" itemValue="#{formas}" />
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Obs.: " />
+                        <p:inputText value="#{despesaMB.despesa.observacao}" size="30" id="obs"/>
+
+                        <h:outputText value="Anexos: " />
+                        <h:inputFile value="#{despesaMB.anexo}" required="true" id="anexo"/>
+
+                    </p:panelGrid>
+                    <p:commandButton  action="#{despesaMB.salvar()}" style="margin: 5px 5px 5px 0px" value="Incluir" update="@form"/>
+                    <p:commandButton  action="#{despesaMB.limparTela()}" value="Limpar" update="@form"/>   
+                </h:panelGroup>
+
+
+            </h:form>
+            <h:form>
+                <div>
+                    <p:commandLink action="#{despesaMB.botaoVoltar(true)}">
+                        <p:commandButton value="Voltar" style="margin: 5px"/>
+                    </p:commandLink>
+                </div>
+            </h:form>
+        </center>
+    </ui:define>
+</ui:composition>

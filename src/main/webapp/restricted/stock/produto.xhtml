@@ -10,94 +10,46 @@
 
 
     <ui:define name="conteudo">
-
-        <h2>CONTROLE DE ESTOQUE</h2>
-
         <h:form id="formulario">
-            <h:panelGroup id="inserir">
-                <p:inputText value="#{produtoMB.produto.id}" disabled="true" size="5" type="hidden"/>
-                <p:panelGrid columns="4">                            
+            <p:dataTable var="produto" value="#{produtoMB.produtos}">
+                <f:facet name="header">
+                    <div style="display: flex; justify-content: space-between   ">
+                        <p:commandButton value="Voltar" action="#{produtoMB.botaoVoltar(false)}" />
+                        <h:outputText value="Produtos"/>
+                        <p:commandButton value="cadastrar produtos" action="/restricted/stock/produto_edit.xhtml?faces-redirect=true"/>
+                    </div>
+                </f:facet>
 
-                    <h:outputText value="Nome " />
-                    <p:inputText value="#{produtoMB.produto.nome}" size="30" />
+                <p:column headerText="Produto">
+                    <h:outputText value="#{produto.nome}" />
+                </p:column> 
 
-                    <h:outputText value="QuantidadeEstoque: " />
-                    <p:inputText value="#{produtoMB.produto.quantEstoque}" size="30"/>
+                <p:column headerText="Quantidade">                        
+                    <h:outputText value="#{produto.quantEstoque}" />
+                </p:column>
 
-                    <h:outputText value="Valor:" />
-                    <p:inputText value="#{produtoMB.produto.valor}" size="30" onkeypress="mascara(this, valor);"/>
+                <p:column headerText="Valor">                        
+                    <h:outputText value="#{produto.valor}" />
+                </p:column>
 
-                    <h:outputText value="Ian: " />
-                    <p:inputText value="#{produtoMB.produto.ian}" size="30"/>
+                <p:column headerText="Ian">                        
+                    <h:outputText value="#{produto.ian}" />
+                </p:column> 
 
-                    <h:outputText value="Valor Venda: " />
-                    <p:inputText value="#{produtoMB.produto.valorVenda}" size="30" maxlength="14" onkeypress="mascara(this, valor);"/>
+                <p:column headerText="Valor de venda">                        
+                    <h:outputText value="#{produto.valorVenda}" />
+                </p:column>
 
-                </p:panelGrid>
+                <p:column headerText="Alterar">
+                    <p:commandButton action="#{produtoMB.botaoAlterar(produto)}" value="Alterar" update="@form"/>
+                </p:column> 
 
-                <p:commandButton  action="#{produtoMB.salvar}" style="margin: 5px 5px 5px 0px" value="Incluir" update="@form"/>
-                <p:commandButton  action="#{produtoMB.limparTela()}" value="Limpar" update="@form"/> 
+                <p:column headerText="Deletar">
+                    <p:commandButton action="#{produtoMB.botaoExcluir(produto)}" value="Deletar" update="@form"/>
+                </p:column>  
 
-            </h:panelGroup>
-            <h:panelGroup rendered="#{!produtoMB.produtos.isEmpty()}">
-                <p:dataTable var="produto" value="#{produtoMB.produtos}">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>
-                        <h:outputText value="#{produto.id}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome"/>
-                        </f:facet>
-                        <h:outputText value="#{produto.nome}" />
-                    </p:column>  
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Qtd"/>
-                        </f:facet>
-                        <h:outputText value="#{produto.quantEstoque}" />
-                    </p:column>  
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Valor"/>
-                        </f:facet>
-                        <h:outputText value="#{produto.valor}" />
-                    </p:column>
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Ian"/>
-                        </f:facet>
-                        <h:outputText value="#{produto.ian}" />
-                    </p:column> 
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value="Valor Venda"/>
-                        </f:facet>
-                        <h:outputText value="#{produto.valorVenda}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Alterar"/>
-                        </f:facet>
-                        <p:commandButton action="#{produtoMB.botaoAlterar(produto)}" value="Alterar" update="@form"/>
-                    </p:column>  
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Deletar"/>
-                        </f:facet>
-                        <p:commandButton action="#{produtoMB.botaoExcluir(produto)}" value="Deletar" update="@form"/>
-                    </p:column>  
+            </p:dataTable>
 
-                </p:dataTable>
-
-            </h:panelGroup>
-            <div>
-                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
 
 

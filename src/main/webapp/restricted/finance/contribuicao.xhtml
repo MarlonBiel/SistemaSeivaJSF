@@ -7,50 +7,38 @@
     
     
     <ui:define name="conteudo">
-        <h2>CONTROLE DE CONTRIBUICAO</h2>
         <h:form>
             <h:panelGroup >
                 <p:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" style="width: 100%">
                     
                     <f:facet name="header">
                         <div style="display: flex; justify-content: space-between   ">
-                            <h:outputText value="Usuarios"/>
-                            <p:commandButton value="cadastrar contribuição" action="#{contribuicaoMB.botaoSeleciona(false)}"/>
+                            <p:commandButton value="Voltar" action="#{contribuicaoMB.botaoVoltar(false)}" />
+                            <h:outputText value="Contribuições"/>
+                            <p:commandButton value="cadastrar contribuição" action="#{contribuicaoMB.botaoAcessoCadastro(false)}"/>
                         </div>
                     </f:facet>
                     
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Data"/>
-                        </f:facet>
+                    <p:column headerText="Data">
                         <h:outputText value="#{contribuicao.data}">
                             <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
                         </h:outputText>
                     </p:column>
-                    <p:column>                        
-                        <f:facet name="header">
-                            <h:outputText value=""/>
-                        </f:facet>
+                    
+                    <p:column headerText="Usuário">                        
                         <h:outputText value="#{contribuicao.usuario.nome}" />
                     </p:column> 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Valor"/>
-                        </f:facet>
+                    
+                    <p:column headerText="Valor">
                         <h:outputText value="#{contribuicao.valor}" />
                     </p:column>  
 
 
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Alterar"/>
-                        </f:facet>
+                    <p:column headerText="Alterar">
                         <p:commandButton action="#{contribuicaoMB.botaoAlterar(contribuicao)}" value="Alterar" update="@form" />
                     </p:column>  
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Deletar"/>
-                        </f:facet>
+                    
+                    <p:column headerText="Deletar">
                         <p:commandButton action="#{contribuicaoMB.botaoExcluir(contribuicao)}" value="Deletar" update="@form" />
                     </p:column>  
 
@@ -58,13 +46,7 @@
 
             </h:panelGroup>
 
-            <div>
-                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
-
-
+        
     </ui:define>
 </ui:composition>

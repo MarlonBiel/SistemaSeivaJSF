@@ -16,15 +16,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.hibernate.Session;
 import javax.servlet.http.Part;
-import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class DespesaMB implements Serializable {
 
     private Despesa despesa = new Despesa();
@@ -110,7 +109,7 @@ public class DespesaMB implements Serializable {
         System.out.println(despesa.getId());
         this.despesa = new Despesa(despesa.getId(), despesa.getDescriminacao(), despesa.getData(), despesa.getValor(), despesa.getFormaPagamento(), despesa.getObservacao(), despesa.getAnexos());
         inserir = false;
-        return "-";
+        return "/restricted/finance/despesa_edit.xhtml?faces-redirect=true";
     }
     
     public void upload(String novoNome) {
@@ -135,6 +134,19 @@ public class DespesaMB implements Serializable {
         transacaoDAO.salvar(transacao);
         session.close();
         transacao = new Transacao();
+    }
+    
+    public String botaoAcessoCadastro() {
+        this.despesa = new Despesa();
+        return "/restricted/finance/despesa_edit.xhtml?faces-redirect=true";
+    }
+
+    public String botaoVoltar(boolean flagTelaEdit) {
+        this.despesa = new Despesa();
+        if(flagTelaEdit){
+            return "/restricted/finance/despesa.xhtml?faces-redirect=true";
+        }
+        return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
     }
 
     public Despesa getDespesa() {
