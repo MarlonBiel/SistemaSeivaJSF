@@ -11,9 +11,9 @@
 
         <h:form enctype="multipart/form-data">
             <div align="right" style="margin: 10px 50px">
-                <p:inputText value="#{eventoMB.evento.id}" disabled="true" size="5"/>
+
                 <p:commandLink >
-                    <p:commandButton value="Finalizar reunião" action="#{eventoMB.configItensSalvar(contribuicaoMB.contribuicaoFiltro)}"/>
+                    <p:commandButton value="Finalizar reunião" action="#{eventoMB.salvar(contribuicaoMB.contribuicaoFiltro)}"/>
                 </p:commandLink>
             </div>
 

@@ -1,17 +1,23 @@
 package br.edu.ifpr.irati.ads.modelo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -147,6 +153,7 @@ public class Usuario implements Serializable {
         this.funcao = funcao;
     }
 
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -167,5 +174,4 @@ public class Usuario implements Serializable {
         final Usuario other = (Usuario) obj;
         return this.id == other.id;
     }
-
 }

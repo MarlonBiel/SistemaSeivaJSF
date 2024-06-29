@@ -1,4 +1,3 @@
-
 package br.edu.ifpr.irati.ads.modelo;
 
 import jakarta.persistence.CascadeType;
@@ -8,9 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -20,52 +19,61 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 @Entity
-@Table(name="evento")
-public class Evento implements Serializable{
+@Table(name = "evento")
+public class Evento implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-evento")
-    @SequenceGenerator(name = "seq-evento", 
+    @SequenceGenerator(name = "seq-evento",
             sequenceName = "EVENTO_SEQ", allocationSize = 1, initialValue = 1)
     private int id;
     @Temporal(value = TemporalType.DATE)
     private Date data;
-    @Column(name="descricao", nullable = false, length = 100)
+    @Column(name = "descricao", nullable = false, length = 100)
     private String descricao;
-    @Column(name="quantidadeFrequentantes", nullable = false)
+    @Column(name = "quantidadeFrequentantes", nullable = false)
     private int quantidadeFrequentantes;
-    @Column(name="quantidadeVisitantes", nullable = false)
+    @Column(name = "quantidadeVisitantes", nullable = false)
     private int quantidadeVisitantes;
-    
-    @OneToMany
-    @JoinColumn(name = "Usuario_id", referencedColumnName = "id")
-    private List<UsuarioEvento> usuariosEvento;
-    
-    @OneToMany
-    @JoinColumn(name = "Contribuicao_id", referencedColumnName = "id")
-    private List<ContribuicaoEvento> contribuicoesEvento;
 
+    @ManyToMany
+    @JoinTable(
+            name = "UsuarioEvento",
+            joinColumns = @JoinColumn(name = "evento_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
+    private List<Usuario> usuarios;
+
+//    @OneToMany
+//    @JoinColumn(name = "Evento_id", referencedColumnName = "id")
+//    private List<UsuarioEvento> usuarioEvento;
+//    
+//    @OneToMany
+//    @JoinColumn(name = "Evento_id", referencedColumnName = "id")
+//    private List<ContribuicaoEvento> contribuicaoEvento;
     public Evento() {
-        super();
         this.id = 0;
         this.data = new Date();
         this.descricao = "";
         this.quantidadeFrequentantes = 0;
-        this.usuariosEvento = new ArrayList<>();
-        this.contribuicoesEvento = new ArrayList<>();
+        this.quantidadeVisitantes = 0;
+        this.usuarios = new ArrayList<>();
+//        this.usuarioEvento = new ArrayList<>();
+//        this.contribuicaoEvento = new ArrayList<>();
     }
 
-    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, List<Usuario> usuarios, List<UsuarioEvento> usuariosEvento, List<ContribuicaoEvento> contribuicoesEvento) {
+    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, int quantidadeVisitantes, List<Usuario> usuarios) {
         this.id = id;
         this.data = data;
         this.descricao = descricao;
         this.quantidadeFrequentantes = quantidadeFrequentantes;
-        this.usuariosEvento = usuariosEvento;
-        this.contribuicoesEvento = contribuicoesEvento;
+        this.quantidadeVisitantes = quantidadeVisitantes;
+        this.usuarios = usuarios;
+//        this.usuarioEvento = usuarioEvento;
+//        this.contribuicaoEvento = contribuicaoEvento;
     }
 
-    
     public int getId() {
         return id;
     }
@@ -106,21 +114,27 @@ public class Evento implements Serializable{
         this.quantidadeVisitantes = quantidadeVisitantes;
     }
 
-    public List<UsuarioEvento> getUsuariosEvento() {
-        return usuariosEvento;
+//    public List<UsuarioEvento> getUsuarioEvento() {
+//        return usuarioEvento;
+//    }
+//
+//    public void setUsuarioEvento(List<UsuarioEvento> usuarioEvento) {
+//        this.usuarioEvento = usuarioEvento;
+//    }
+//
+//    public List<ContribuicaoEvento> getContribuicaoEvento() {
+//        return contribuicaoEvento;
+//    }
+//
+//    public void setContribuicaoEvento(List<ContribuicaoEvento> contribuicaoEvento) {
+//        this.contribuicaoEvento = contribuicaoEvento;
+//    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsuariosEvento(List<UsuarioEvento> usuariosEvento) {
-        this.usuariosEvento = usuariosEvento;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
-
-    public List<ContribuicaoEvento> getContribuicoesEvento() {
-        return contribuicoesEvento;
-    }
-
-    public void setContribuicoesEvento(List<ContribuicaoEvento> contribuicoesEvento) {
-        this.contribuicoesEvento = contribuicoesEvento;
-    }
-    
-    
 }

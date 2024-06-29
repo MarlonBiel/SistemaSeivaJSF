@@ -4,7 +4,6 @@ import br.edu.ifpr.irati.ads.dao.Dao;
 import br.edu.ifpr.irati.ads.dao.GenericDAO;
 import br.edu.ifpr.irati.ads.exception.PersistenceException;
 import br.edu.ifpr.irati.ads.modelo.Contribuicao;
-import br.edu.ifpr.irati.ads.modelo.ContribuicaoEvento;
 import br.edu.ifpr.irati.ads.modelo.FormaPgto;
 import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
@@ -38,10 +37,6 @@ public class ContribuicaoMB implements Serializable {
     private Transacao transacao = new Transacao();
     private List<Transacao> transacoes;
     private Dao<Transacao> transacaoDAO;
-
-    private ContribuicaoEvento contribuicaoEvento;
-    private List<ContribuicaoEvento> contribuicoesEvento;
-    private Dao<ContribuicaoEvento> contribuicaoEventoDAO;
 
     private List<Contribuicao> contribuicaoFiltro = new ArrayList<>();
 
@@ -263,30 +258,6 @@ public class ContribuicaoMB implements Serializable {
 
     public void setReuniao(boolean reuniao) {
         this.reuniao = reuniao;
-    }
-
-    public ContribuicaoEvento getContribuicaoEvento() {
-        return contribuicaoEvento;
-    }
-
-    public void setContribuicaoEvento(ContribuicaoEvento contribuicaoEvento) {
-        this.contribuicaoEvento = contribuicaoEvento;
-    }
-
-    public List<ContribuicaoEvento> getContribuicoesEvento() {
-        return contribuicoesEvento;
-    }
-
-    public void setContribuicoesEvento(List<ContribuicaoEvento> contribuicoesEvento) {
-        this.contribuicoesEvento = contribuicoesEvento;
-    }
-
-    public Dao<ContribuicaoEvento> getContribuicaoEventoDAO() {
-        return contribuicaoEventoDAO;
-    }
-
-    public void setContribuicaoEventoDAO(Dao<ContribuicaoEvento> contribuicaoEventoDAO) {
-        this.contribuicaoEventoDAO = contribuicaoEventoDAO;
     }
 
 }

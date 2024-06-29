@@ -64,7 +64,7 @@ public class DespesaMB implements Serializable {
         setDespesa(new Despesa());
     }
 
-    public void salvar() {
+    public String salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             despesaDAO = new GenericDAO<>(Despesa.class, session);
@@ -86,9 +86,11 @@ public class DespesaMB implements Serializable {
             despesa = new Despesa();
             despesas = despesaDAO.buscarTodos();
             session.close();
+            return "/restricted/finance/despesa.xhtml?faces-redirect=true";
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
+        return "";
     }
 
     public void botaoExcluir(Despesa despesa) {

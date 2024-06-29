@@ -9,6 +9,7 @@ import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.modelo.Venda;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class VendaMB implements Serializable {
     private boolean inserir;
     private int estoque;
     private double valorTotal;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
 
     private ProdutoVenda produtoVenda = new ProdutoVenda();
     private Dao<ProdutoVenda> produtoVendaDAO;
@@ -37,8 +39,7 @@ public class VendaMB implements Serializable {
     private Produto produto = new Produto();
     private Dao<Produto> produtoDAO;
     private List<Produto> produtos;
-    
-    
+
     private Transacao transacao = new Transacao();
     private List<Transacao> transacoes;
     private Dao<Transacao> transacaoDAO;
@@ -65,12 +66,12 @@ public class VendaMB implements Serializable {
         listaFiltrada = new ArrayList<>();
         getListaProdutosVendasFiltrada();
     }
-    
+
     public double valorTotalVenda() throws PersistenceException {
         listaFiltrada = new ArrayList<>();
         valorTotal = 0;
         getListaProdutosVendasFiltrada();
-        for(ProdutoVenda pv : listaFiltrada){
+        for (ProdutoVenda pv : listaFiltrada) {
             valorTotal = valorTotal + (pv.getProduto().getValorVenda() * pv.getQuantVenda());
         }
         venda.setValorTotal(valorTotal);
@@ -83,7 +84,7 @@ public class VendaMB implements Serializable {
             vendaDAO = new GenericDAO<>(Venda.class, session);
             venda.setVendaAtual(getListaFiltrada());
             venda.setData(new Date());
-            venda.setDescricao("Venda - "+ venda.getData().getDay() +"/"+venda.getData().getMonth());
+            venda.setDescricao("Venda - " + sdf.format(venda.getData()));
             produtosVendas = new ArrayList<>();
             baixarEstoque();
             cadastrarTransacao();
@@ -115,7 +116,7 @@ public class VendaMB implements Serializable {
     }
 
     public void adicionarProdutoNaVenda() throws PersistenceException {
-        produtoVenda.setValorTotalProduto(produtoVenda.getProduto().getValorVenda()*produtoVenda.getQuantVenda());
+        produtoVenda.setValorTotalProduto(produtoVenda.getProduto().getValorVenda() * produtoVenda.getQuantVenda());
         Session session = HibernateUtil.getSessionFactory().openSession();
         produtoVendaDAO = new GenericDAO<>(ProdutoVenda.class, session);
         produtoVendaDAO.salvar(produtoVenda);
@@ -137,11 +138,11 @@ public class VendaMB implements Serializable {
     }
 
     public String botaoAlterar(ProdutoVenda produtoVenda) {
-        this.produtoVenda = new ProdutoVenda(produtoVenda.getId(), produtoVenda.getProduto(), produtoVenda.getQuantVenda(),produtoVenda.getValorTotalProduto());
+        this.produtoVenda = new ProdutoVenda(produtoVenda.getId(), produtoVenda.getProduto(), produtoVenda.getQuantVenda(), produtoVenda.getValorTotalProduto());
         inserir = false;
         return "-";
     }
-    
+
     public void cadastrarTransacao() throws PersistenceException {
         char tipo = 'C';
         transacao = new Transacao(0, venda.getData(), venda.getDescricao(), tipo, venda.getValorTotal());
@@ -182,18 +183,31 @@ public class VendaMB implements Serializable {
     public List<ProdutoVenda> getProdutosVendas() throws PersistenceException {
         return listaFiltrada;
     }
-    
-    public void getListaProdutosVendasFiltrada() throws PersistenceException{
+
+    public void getListaProdutosVendasFiltrada() throws PersistenceException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         produtoVendaDAO = new GenericDAO<>(ProdutoVenda.class, session);
         produtosVendas = produtoVendaDAO.buscarTodos();
-        for(ProdutoVenda pv : produtosVendas){
-            if(pv.getVenda() == null){
+        for (ProdutoVenda pv : produtosVendas) {
+            if (pv.getVenda() == null) {
                 listaFiltrada.add(pv);
                 nomeProduto = pv.getProduto().toString();
                 System.out.println(pv.getProduto().getNome());
             }
         }
+    }
+    
+    public String botaoAcessoCadastro() {
+        this.venda = new Venda();
+        return "/restricted/finance/venda.xhtml?faces-redirect=true";
+    }
+
+    public String botaoVoltar(boolean flagTelaEdit) {
+        this.venda = new Venda();
+        if (flagTelaEdit) {
+            return "/restricted/finance/venda.xhtml?faces-redirect=true";
+        }
+        return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
     }
 
     public void setProdutosVendas(List<ProdutoVenda> produtosVendas) {

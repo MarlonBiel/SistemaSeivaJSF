@@ -2,7 +2,6 @@
 
 
 import br.edu.ifpr.irati.ads.modelo.Contribuicao;
-import br.edu.ifpr.irati.ads.modelo.ContribuicaoEvento;
 import br.edu.ifpr.irati.ads.modelo.Despesa;
 import br.edu.ifpr.irati.ads.modelo.Evento;
 import br.edu.ifpr.irati.ads.modelo.FormaPgto;
@@ -13,7 +12,6 @@ import br.edu.ifpr.irati.ads.modelo.Produto;
 import br.edu.ifpr.irati.ads.modelo.ProdutoVenda;
 import br.edu.ifpr.irati.ads.modelo.Transacao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
-import br.edu.ifpr.irati.ads.modelo.UsuarioEvento;
 import br.edu.ifpr.irati.ads.modelo.Venda;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +47,6 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(Despesa.class);
             metadataSources.addAnnotatedClass(Produto.class);
             metadataSources.addAnnotatedClass(Contribuicao.class);
-            metadataSources.addAnnotatedClass(Evento.class);
             metadataSources.addAnnotatedClass(ProdutoVenda.class);
             metadataSources.addAnnotatedClass(Venda.class);
             metadataSources.addAnnotatedClass(Funcao.class);
@@ -57,8 +54,7 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(Mensalidade.class);
             metadataSources.addAnnotatedClass(Mes.class);
             metadataSources.addAnnotatedClass(Transacao.class);
-            metadataSources.addAnnotatedClass(ContribuicaoEvento.class);
-            metadataSources.addAnnotatedClass(UsuarioEvento.class);
+            metadataSources.addAnnotatedClass(Evento.class);
             Metadata metadata = metadataSources.buildMetadata();
 
             sessionFactory = metadata.getSessionFactoryBuilder().build();

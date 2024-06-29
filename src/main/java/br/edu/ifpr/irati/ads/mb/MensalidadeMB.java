@@ -54,7 +54,7 @@ public class MensalidadeMB implements Serializable {
         }
     }
 
-    public void salvar() {
+    public String salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             mensalidadeDAO = new GenericDAO<>(Mensalidade.class, session);
@@ -71,9 +71,11 @@ public class MensalidadeMB implements Serializable {
             mensalidade = new Mensalidade();
             mensalidades = mensalidadeDAO.buscarTodos();
             session.close();
+            return "/restricted/finance/mensalidade.xhtml?faces-redirect=true";
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
+        return "";
     }
 
     public void limparTela() {

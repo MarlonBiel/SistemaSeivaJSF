@@ -37,7 +37,7 @@ public class ProdutoMB implements Serializable{
     public void limparTela() {
         setProduto(new Produto());
     }
-    public void salvar() {
+    public String salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             produtoDAO = new GenericDAO<>(Produto.class, session);
@@ -53,9 +53,11 @@ public class ProdutoMB implements Serializable{
             produto = new Produto();
             produtos = produtoDAO.buscarTodos();
             session.close();
+            return "/restricted/stock/produto.xhtml?faces-redirect=true";
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
+        return "";
     }
     public void botaoExcluir(Produto produto) {
         try {

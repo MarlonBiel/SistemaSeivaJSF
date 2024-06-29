@@ -71,15 +71,11 @@ public class Produto implements Serializable{
     public void setQuantEstoque(int quantEstoque) {
         this.quantEstoque = quantEstoque;
     }
-
-    /**
-     * @return the valor
-     */
+    
     public double getValor() {
         return valor;
     }
-
-
+    
     public void setValor(double valor) {
         this.valor = valor;
     }
