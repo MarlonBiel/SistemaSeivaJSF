@@ -28,7 +28,7 @@
                             </p:commandLink>
                         </div>
                     </f:facet>
-                    <p:dataTable var="mensalidade" value="#{mensalidadeMB.mensalidades}" style="width: 100%">
+                    <p:dataTable var="mensalidade" value="#{mensalidadeMB.mensalidades}" style="width: 100%" scrollable="true" scrollHeight="250">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
@@ -61,7 +61,7 @@
                             </p:commandLink>
                         </div>
                     </f:facet>
-                    <p:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" style="width: 100%">
+                    <p:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" style="width: 100%" scrollable="true" scrollHeight="250">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Data"/>
@@ -89,14 +89,14 @@
                 <!--Painel Despesas-->
                 <p:panel header="Despesas" styleClass="panel">
                     <f:facet name="header" >
-                        <div style="display: flex; justify-content: space-between;">
+                        <div style="display: flex; justify-content: space-between;" >
                             <h:outputText value="Despesas" />
                             <p:commandLink action="/restricted/finance/despesa.xhtml?faces-redirect=true">
                                 <p:commandButton value="Ver"/>
                             </p:commandLink>
                         </div>
                     </f:facet>
-                    <p:dataTable var="despesa" value="#{despesaMB.despesas}" style="width: 100%">
+                    <p:dataTable var="despesa" value="#{despesaMB.despesas}" style="width: 100%" scrollable="true" scrollHeight="250">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Data"/>

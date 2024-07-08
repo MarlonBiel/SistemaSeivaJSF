@@ -1,5 +1,4 @@
 br\edu\ifpr\irati\ads\mb\EventoMB.class
-br\edu\ifpr\irati\ads\modelo\ContribuicaoEvento.class
 br\edu\ifpr\irati\ads\modelo\Venda.class
 br\edu\ifpr\irati\ads\mb\MensalidadeMB.class
 br\edu\ifpr\irati\ads\mb\FinanceiroMB.class
@@ -19,7 +18,6 @@ br\edu\ifpr\irati\ads\modelo\ProdutoVenda.class
 br\edu\ifpr\irati\ads\converter\ProdutoConverter.class
 br\edu\ifpr\irati\ads\modelo\Mensalidade.class
 br\edu\ifpr\irati\ads\converter\MesConverter.class
-br\edu\ifpr\irati\ads\modelo\UsuarioEvento.class
 br\edu\ifpr\irati\ads\modelo\Contribuicao.class
 br\edu\ifpr\irati\ads\modelo\Evento.class
 br\edu\ifpr\irati\ads\modelo\Transacao.class

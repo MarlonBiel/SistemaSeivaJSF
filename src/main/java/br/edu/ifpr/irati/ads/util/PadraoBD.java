@@ -72,8 +72,8 @@ public class PadraoBD {
         
         
         Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);
-        Usuario a1 = new Usuario(0, "Marlon Ruan Da Costa Biel", "115.404.899-30", new Date(2002,05,15), "Rua Benedito de Morais, 885", "(42) 98435-8621", "marlonruan43@gmail.com", "Cme101513", 0, f1);
-        Usuario a2 = new Usuario(0, "Admin", "133.208.629-28", new Date(2003,10,02), "Rua Pedro Chooma, 410", "(42) 99128-8087", "caiorwendre@gmail.com", "150210", 0, f1);
+        Usuario a1 = new Usuario(0, "Marlon Ruan Da Costa Biel", "115.404.899-30", new Date(2002,05,15), "Rua Benedito de Morais, 885", "(42) 98435-8621", "marlonruan43@gmail.com", "Cme101513", 0, f1, new Date(), null);
+        Usuario a2 = new Usuario(0, "Admin", "133.208.629-28", new Date(2003,10,02), "Rua Pedro Chooma, 410", "(42) 99128-8087", "caiorwendre@gmail.com", "150210", 0, f1, new Date(), null);
         
         usuarioDAO.salvar(a1);
         usuarioDAO.salvar(a2);

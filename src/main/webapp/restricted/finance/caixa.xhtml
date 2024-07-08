@@ -9,16 +9,47 @@
                 template="/WEB-INF/template/layout.xhtml">
 
     <ui:define name="conteudo">
-        <p:growl id="mensagem" />
         <h:form id="formulario">
-
-            <p:dataTable var="despesas" value="#{financeiroMB.transacoes}">
+            <p:messages id="messages"/>
+            <p:dataTable id="tbl" var="despesas" value="#{financeiroMB.transacoesFiltrada}" allowUnsorting="true" sortMode="single">
+                
                 <f:facet name="header">
                     <div style="display: flex; justify-content: space-between   ">
-                        <h:outputText value="Caixa"/>
-                        <p:commandButton value="Voltar" action="#{financeiroMB.botaoVoltar()}"/>
+                        <div>
+                            <h:outputLabel value="Data inicial:" for="dataInicial" />
+                            <p:calendar id="dataInicial" value="#{financeiroMB.dataInicial}" showButtonPanel="true" style="margin-right: 4px"/>
+                            
+                            <h:outputLabel value="Data Final:" for="dataFinal" />
+                            <p:calendar id="dataFinal" value="#{financeiroMB.dataFinal}" showButtonPanel="true"/>
+                            
+                            <p:commandButton value="Filtrar" action="#{financeiroMB.atualizarTransacoes()}" styleClass="mr-2 mb-2" update="@form"/>
+                            
+                        </div>
+                        <div>
+                            <p:commandButton value="XLS" styleClass="mr-2 mb-2">
+                                <p:dataExporter type="xls" target="tbl" fileName="Caixa"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="XLSX" styleClass="mr-2 mb-2">
+                                <p:dataExporter type="xlsxstream" target="tbl" fileName="Caixa"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="PDF" styleClass="mr-2 mb-2">
+                                <p:dataExporter type="pdf" target="tbl" fileName="Caixa"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="CSV" styleClass="mr-2 mb-2">
+                                <p:dataExporter type="csv" target="tbl" fileName="Caixa" />
+                            </p:commandButton>
+
+                            <p:commandButton value="XML" styleClass="mr-2 mb-2">
+                                <p:dataExporter type="xml" target="tbl" fileName="Caixa"/>
+                            </p:commandButton>
+
+                        </div>
                     </div>
                 </f:facet>
+
                 <p:column headerText="Data">
                     <h:outputText value="#{despesas.data}">
                         <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
@@ -35,11 +66,6 @@
                 </p:column>
             </p:dataTable>
 
-            <div>
-                <p:commandLink action="/restricted/central.xhtml?faces-redirect=true">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
         </h:form>
     </ui:define>
 </ui:composition>

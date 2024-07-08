@@ -54,6 +54,8 @@ public class VendaMB implements Serializable {
             Session session = HibernateUtil.getSessionFactory().openSession();
             produtoDAO = new GenericDAO<>(Produto.class, session);
             produtos = produtoDAO.buscarTodos();
+            vendaDAO = new GenericDAO<>(Venda.class, session);
+            vendas = vendaDAO.buscarTodos();
 
             inserir = true;
             session.close();
@@ -205,7 +207,7 @@ public class VendaMB implements Serializable {
     public String botaoVoltar(boolean flagTelaEdit) {
         this.venda = new Venda();
         if (flagTelaEdit) {
-            return "/restricted/finance/venda.xhtml?faces-redirect=true";
+            return "/restricted/finance/list_vendas.xhtml?faces-redirect=true";
         }
         return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
     }

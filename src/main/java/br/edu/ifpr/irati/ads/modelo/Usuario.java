@@ -46,6 +46,10 @@ public class Usuario implements Serializable {
     private int matricula;
     @ManyToOne
     private Funcao funcao;
+    @Temporal(value = TemporalType.DATE)
+    private Date dataCriacao;
+    @Temporal(value = TemporalType.DATE)
+    private Date dataExclusao;
 
     public Usuario() {
         this.id = 0;
@@ -58,9 +62,11 @@ public class Usuario implements Serializable {
         this.senha = "";
         this.matricula = 0;
         this.funcao = new Funcao();
+        this.dataCriacao = new Date();
+        this.dataExclusao = null;
     }
 
-    public Usuario(int id, String nome, String cpf, Date dataNascimento, String endereco, String telefone, String email, String senha, int matricula, Funcao funcao) {
+    public Usuario(int id, String nome, String cpf, Date dataNascimento, String endereco, String telefone, String email, String senha, int matricula, Funcao funcao, Date dataCriacao, Date dataExclusao) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -71,6 +77,8 @@ public class Usuario implements Serializable {
         this.senha = senha;
         this.matricula = matricula;
         this.funcao = funcao;
+        this.dataCriacao = dataCriacao;
+        this.dataExclusao = dataExclusao;
     }
 
     public int getId() {
@@ -173,5 +181,21 @@ public class Usuario implements Serializable {
         }
         final Usuario other = (Usuario) obj;
         return this.id == other.id;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCricao(Date dataCricao) {
+        this.dataCriacao = dataCricao;
+    }
+
+    public Date getDataExclusao() {
+        return dataExclusao;
+    }
+
+    public void setDataExclusao(Date dataExclusao) {
+        this.dataExclusao = dataExclusao;
     }
 }

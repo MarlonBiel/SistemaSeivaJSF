@@ -46,7 +46,7 @@ public class TestesBD {
         funcaoDAO.salvar(f4);
         
         Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class, session);
-        Usuario a1 = new Usuario(0, "Admin", "000.000.000-00", null, "", "(00)00000-0000", "admin@seiva.com", "123", 0, f4);
+        Usuario a1 = new Usuario(0, "Admin", "000.000.000-00", null, "", "(00)00000-0000", "admin@seiva.com", "123", 0, f4, new Date(), null);
         usuarioDAO.salvar(a1);
         
         Dao<Produto> produtoDAO = new GenericDAO<>(Produto.class, session);

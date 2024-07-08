@@ -7,7 +7,9 @@ import br.edu.ifpr.irati.ads.modelo.Funcao;
 import br.edu.ifpr.irati.ads.modelo.Usuario;
 import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
@@ -17,7 +19,9 @@ import org.hibernate.Session;
 public class UsuarioMB implements Serializable {
 
     private Usuario usuario = new Usuario();
+    private Usuario usuarioExistent = new Usuario();
     private List<Usuario> usuarios;
+    private List<Usuario> usuariosCompleto;
     private Dao<Usuario> usuarioDAO;
     private boolean inserir;
     private Dao<Funcao> funcaoDAO;
@@ -28,27 +32,39 @@ public class UsuarioMB implements Serializable {
             usuario = new Usuario();
             Session session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
-            usuarios = usuarioDAO.buscarTodos();
+            atualizarList();
 
             inserir = true;
             session.close();
-            limparTela();
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void limparTela() {
-        setUsuario(new Usuario());
+    public void atualizarList() throws PersistenceException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        usuarioDAO = new GenericDAO<>(Usuario.class, session);
+        usuariosCompleto = usuarioDAO.buscarTodos();
+        usuarios = usuariosCompleto.stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
+        session.close();
     }
 
     public String salvar() {
         try {
+            atualizarList();
             Session session = HibernateUtil.getSessionFactory().openSession();
-            usuarioDAO = new GenericDAO<>(Usuario.class, session);
-
-            if (inserir) {
+            usuarioDAO = new GenericDAO<>(Usuario.class, session);          
+            for(Usuario u : usuariosCompleto){
+                if(u.getCpf().contains(usuario.getCpf())){
+                    inserir = false;
+                    usuario.setId(u.getId());
+                    usuario.setDataCricao(u.getDataCriacao());
+                    usuario.setDataExclusao(null);
+                }
+            }
+            if (inserir) {   
                 //executar o método inserir do DAO
+                usuario.setDataCricao(new Date());
                 usuarioDAO.salvar(usuario);
             } else {
                 //executar o método alterar do DAO
@@ -56,7 +72,8 @@ public class UsuarioMB implements Serializable {
             }
             inserir = true;
             usuario = new Usuario();
-            usuarios = usuarioDAO.buscarTodos();
+            atualizarList();
+
             session.close();
             return "/restricted/user/usuario.xhtml?faces-redirect=true";
         } catch (PersistenceException ex) {
@@ -69,9 +86,11 @@ public class UsuarioMB implements Serializable {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
-            usuarioDAO.excluir(usuario);
+            usuario.setDataExclusao(new Date());
+            usuarioDAO.alterar(usuario);
+            //usuarioDAO.excluir(usuario);
             this.usuario = new Usuario();
-            usuarios = usuarioDAO.buscarTodos();
+            atualizarList();
             inserir = true;
             session.close();
         } catch (PersistenceException ex) {
@@ -81,7 +100,7 @@ public class UsuarioMB implements Serializable {
 
     public String botaoAlterar(Usuario usuario) {
         System.out.println(usuario.getId());
-        this.usuario = new Usuario(usuario.getId(), usuario.getNome(), usuario.getCpf(), usuario.getDataNascimento(), usuario.getEndereco(), usuario.getTelefone(), usuario.getEmail(), usuario.getSenha(), usuario.getMatricula(), usuario.getFuncao());
+        this.usuario = new Usuario(usuario.getId(), usuario.getNome(), usuario.getCpf(), usuario.getDataNascimento(), usuario.getEndereco(), usuario.getTelefone(), usuario.getEmail(), usuario.getSenha(), usuario.getMatricula(), usuario.getFuncao(), usuario.getDataCriacao(), usuario.getDataExclusao());
         inserir = false;
         return "/restricted/user/usuario_edit.xhtml?faces-redirect=true";
     }
@@ -93,7 +112,7 @@ public class UsuarioMB implements Serializable {
 
     public String botaoVoltar(boolean flagTelaEdit) {
         this.usuario = new Usuario();
-        if(flagTelaEdit){
+        if (flagTelaEdit) {
             return "/restricted/user/usuario.xhtml?faces-redirect=true";
         }
         return "/restricted/central.xhtml?faces-redirect=true";

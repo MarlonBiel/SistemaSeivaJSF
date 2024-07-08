@@ -40,6 +40,7 @@
                 margin-left: 200px;
             }
 
+
         </style>
     </h:head>
 
@@ -49,7 +50,7 @@
                 <p:growl id="messages" showDetail="true"/>
                 <div class="card" >
                     <header>
-                        <p:menubar>
+                        <p:menubar class="menuBar">
                             <p:menuitem value="Sistema Seiva" action="/restricted/central.xhtml?faces-redirect=true"/>
                             <p:submenu label="#{loginMB.usuario.nome}" style="float: right;">
                                 <p:menuitem value="Conta" icon="pi pi-fw pi-user" action="#{usuarioMB.botaoAlterar(loginMB.usuario)}"/>
@@ -68,8 +69,6 @@
                             </p:menu>
                         </nav>
                     </header>
-
-
                 </div>  
             </h:form>
         </div>
