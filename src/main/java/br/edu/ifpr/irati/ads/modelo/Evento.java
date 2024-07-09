@@ -44,14 +44,19 @@ public class Evento implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private List<Usuario> usuarios;
+    @Column(name = "totalFrequentes", nullable = false)
+    private int totalFrequentes;
 
-//    @OneToMany
-//    @JoinColumn(name = "Evento_id", referencedColumnName = "id")
-//    private List<UsuarioEvento> usuarioEvento;
-//    
-//    @OneToMany
-//    @JoinColumn(name = "Evento_id", referencedColumnName = "id")
-//    private List<ContribuicaoEvento> contribuicaoEvento;
+    @ManyToMany
+    @JoinTable(
+            name = "ContribuicaoEvento",
+            joinColumns = @JoinColumn(name = "evento_id"),
+            inverseJoinColumns = @JoinColumn(name = "contribuicao_id")
+    )
+    private List<Contribuicao> contribuicoes;
+    @Column(name = "totalContribuicao", nullable = false)
+    private double totalContribuicoes;
+    
     public Evento() {
         this.id = 0;
         this.data = new Date();
@@ -59,19 +64,18 @@ public class Evento implements Serializable {
         this.quantidadeFrequentantes = 0;
         this.quantidadeVisitantes = 0;
         this.usuarios = new ArrayList<>();
-//        this.usuarioEvento = new ArrayList<>();
-//        this.contribuicaoEvento = new ArrayList<>();
+        this.contribuicoes = new ArrayList<>();
+
     }
 
-    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, int quantidadeVisitantes, List<Usuario> usuarios) {
+    public Evento(int id, Date data, String descricao, int quantidadeFrequentantes, int quantidadeVisitantes, List<Usuario> usuarios, List<Contribuicao> contribuicoes) {
         this.id = id;
         this.data = data;
         this.descricao = descricao;
         this.quantidadeFrequentantes = quantidadeFrequentantes;
         this.quantidadeVisitantes = quantidadeVisitantes;
         this.usuarios = usuarios;
-//        this.usuarioEvento = usuarioEvento;
-//        this.contribuicaoEvento = contribuicaoEvento;
+        this.contribuicoes = contribuicoes;
     }
 
     public int getId() {
@@ -114,27 +118,35 @@ public class Evento implements Serializable {
         this.quantidadeVisitantes = quantidadeVisitantes;
     }
 
-//    public List<UsuarioEvento> getUsuarioEvento() {
-//        return usuarioEvento;
-//    }
-//
-//    public void setUsuarioEvento(List<UsuarioEvento> usuarioEvento) {
-//        this.usuarioEvento = usuarioEvento;
-//    }
-//
-//    public List<ContribuicaoEvento> getContribuicaoEvento() {
-//        return contribuicaoEvento;
-//    }
-//
-//    public void setContribuicaoEvento(List<ContribuicaoEvento> contribuicaoEvento) {
-//        this.contribuicaoEvento = contribuicaoEvento;
-//    }
-
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public List<Contribuicao> getContribuicoes() {
+        return contribuicoes;
+    }
+
+    public void setContribuicoes(List<Contribuicao> contribuicoes) {
+        this.contribuicoes = contribuicoes;
+    }
+
+    public int getTotalFrequentes() {
+        return totalFrequentes;
+    }
+
+    public void setTotalFrequentes(int totalFrequentes) {
+        this.totalFrequentes = totalFrequentes;
+    }
+
+    public double getTotalContribuicoes() {
+        return totalContribuicoes;
+    }
+
+    public void setTotalContribuicoes(double totalContribuicoes) {
+        this.totalContribuicoes = totalContribuicoes;
     }
 }

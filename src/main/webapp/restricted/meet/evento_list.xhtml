@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
+
+
+    <ui:define name="conteudo">
+        <h:form >
+            <h:panelGroup >
+                <p:dataTable var="evento" value="#{eventoMB.eventos}" style="width: 100%">
+
+                    <f:facet name="header">
+                        <div style="display: flex; justify-content: space-between   ">
+                            <p:commandButton value="Voltar" action="#{eventoMB.botaoVoltar(false)}" />
+                            <h:outputText value="Reuniões"/>
+                            <p:commandButton value="Iniciar evento" action="#{eventoMB.botaoIniciarEvento()}"/>
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="Data">
+                        <h:outputText value="#{evento.data}">
+                            <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Descrição">                        
+                        <h:outputText value="#{evento.descricao}" />
+                    </p:column> 
+
+                    <p:column headerText="Detalhes">
+                        <p:commandButton value="Ver"
+                                         actionListener="#{eventoMB.setEventoSelecionado(evento)}"
+                                         oncomplete="PF('dlgDetalhes').show();" update="@form" />
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:dialog id="detalhes" header="Detalhes do Evento" widgetVar="dlgDetalhes" modal="true" closable="true" resizable="false">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Data: " />
+                        <h:outputText value="#{eventoMB.eventoSelecionado.data}">
+                            <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
+                        </h:outputText>
+
+                        <h:outputLabel value="Descrição: " />  
+                        <h:outputText value="#{eventoMB.eventoSelecionado.descricao}" />
+                        
+                        <h:outputLabel value="Frequentantes: " />  
+                        <h:outputText value="#{eventoMB.eventoSelecionado.totalFrequentes}" />
+                        
+                        <h:outputLabel value="Contribuições " />  
+                        <h:outputText value="#{eventoMB.eventoSelecionado.totalContribuicoes}" />
+
+
+                    </h:panelGrid>
+                </p:dialog>
+
+            </h:panelGroup>
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

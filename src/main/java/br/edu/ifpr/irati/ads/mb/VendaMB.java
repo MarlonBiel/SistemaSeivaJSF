@@ -207,9 +207,9 @@ public class VendaMB implements Serializable {
     public String botaoVoltar(boolean flagTelaEdit) {
         this.venda = new Venda();
         if (flagTelaEdit) {
-            return "/restricted/finance/list_vendas.xhtml?faces-redirect=true";
+            return "/restricted/meet/list_vendas.xhtml?faces-redirect=true";
         }
-        return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
+        return "/restricted/central.xhtml?faces-redirect=true";
     }
 
     public void setProdutosVendas(List<ProdutoVenda> produtosVendas) {

@@ -25,10 +25,12 @@ public final class EventoMB implements Serializable {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     private Evento evento = new Evento();
+    private Evento eventoSelecionado;
     private List<Evento> eventos;
     private Dao<Evento> eventoDAO;
     private Date data;
-    private int quantidadeTotal;
+    private double quantidadeTotalContribuicao = 0;
+    private int quantidadeTotalUsuarios = 0;
 
     private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
@@ -81,7 +83,7 @@ public final class EventoMB implements Serializable {
             contribuicaoFiltro = new ArrayList<>();
             eventos = eventoDAO.buscarTodos();
             session.close();
-            return "/restricted/central?faces-redirect=true";
+            return "/restricted/meet/evento_list?faces-redirect=true";
         } catch (PersistenceException ex) {
             ex.printStackTrace();
         }
@@ -127,17 +129,34 @@ public final class EventoMB implements Serializable {
 
     public void configItensSalvar(List<Contribuicao> contribuicoes) throws PersistenceException {
         //addUserToEvent();
-        quantidadeTotal = evento.getQuantidadeFrequentantes() + evento.getQuantidadeVisitantes() + usuariosPresentes.size();
+
         evento.setData(data);
         sdf.format(data);
         evento.setDescricao("Reunião dia " + sdf.format(data));
         evento.setUsuarios(usuariosPresentes);
+        evento.setContribuicoes(contribuicoes);
+        evento.setTotalFrequentes(evento.getQuantidadeFrequentantes() + evento.getQuantidadeVisitantes() + usuariosPresentes.size());
+        for (Contribuicao c : contribuicoes) {
+            quantidadeTotalContribuicao = quantidadeTotalContribuicao + c.getValor();
+        }
+        evento.setTotalContribuicoes(quantidadeTotalContribuicao);
+        quantidadeTotalContribuicao  = 0;
+
     }
 
-    public void listasFiltradas() throws PersistenceException{
-       
+    public String botaoVoltar(boolean flagTelaEdit) {
+        this.evento = new Evento();
+        if (flagTelaEdit) {
+            return "/restricted/finance/evento_list.xhtml?faces-redirect=true";
+        }
+        return "/restricted/finance/central.xhtml?faces-redirect=true";
     }
-    
+
+    public String botaoIniciarEvento() {
+        this.evento = new Evento();
+        return "/restricted/meet/evento.xhtml?faces-redirect=true";
+    }
+
     public void setSelectedItems(List<Usuario> selectedUsuario) {
         this.usuariosPresentes = selectedUsuario;
     }
@@ -212,6 +231,14 @@ public final class EventoMB implements Serializable {
 
     public void setUsuariosPresentes(List<Usuario> usuariosPresentes) {
         this.usuariosPresentes = usuariosPresentes;
+    }
+
+    public Evento getEventoSelecionado() {
+        return eventoSelecionado;
+    }
+
+    public void setEventoSelecionado(Evento eventoSelecionado) {
+        this.eventoSelecionado = eventoSelecionado;
     }
 
 }
