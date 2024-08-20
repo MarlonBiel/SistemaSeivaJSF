@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
 
 @ManagedBean
 @SessionScoped
@@ -53,7 +54,8 @@ public class UsuarioMB implements Serializable {
         try {
             atualizarList();
             Session session = HibernateUtil.getSessionFactory().openSession();
-            usuarioDAO = new GenericDAO<>(Usuario.class, session);          
+            usuarioDAO = new GenericDAO<>(Usuario.class, session);
+            
             for(Usuario u : usuariosCompleto){
                 if(u.getCpf().contains(usuario.getCpf())){
                     inserir = false;
@@ -62,6 +64,9 @@ public class UsuarioMB implements Serializable {
                     usuario.setDataExclusao(null);
                 }
             }
+            
+            String senhaCriptografada = BCrypt.hashpw(usuario.getSenha(), BCrypt.gensalt());
+            usuario.setSenha(senhaCriptografada);
             if (inserir) {   
                 //executar o método inserir do DAO
                 usuario.setDataCricao(new Date());
@@ -81,7 +86,7 @@ public class UsuarioMB implements Serializable {
         }
         return "";
     }
-
+    
     public void botaoExcluir(Usuario usuario) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();

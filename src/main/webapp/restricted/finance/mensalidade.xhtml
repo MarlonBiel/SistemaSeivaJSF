@@ -1,16 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="/WEB-INF/template/layout.xhtml">
-    
-    
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
+
+
     <ui:define name="conteudo">
         <h:form>
             <h:panelGroup >
                 <p:dataTable var="mensalidade" value="#{mensalidadeMB.mensalidades}" style="width: 100%">
-                    
+
                     <f:facet name="header">
                         <div style="display: flex; justify-content: space-between   ">
                             <p:commandButton value="Voltar" action="#{mensalidadeMB.botaoVoltar(false)}" />
@@ -18,25 +18,27 @@
                             <p:commandButton value="cadastrar mensalidade" action="#{mensalidadeMB.botaoAcessoCadastro()}"/>
                         </div>
                     </f:facet>
-                    
+
                     <p:column headerText="Mês">
                         <h:outputText value="#{mensalidade.mes.mes}" />
                     </p:column>
-                    
+
                     <p:column headerText="Usuário">                        
                         <h:outputText value="#{mensalidade.usuario.nome}" />
                     </p:column> 
-                    
+
                     <p:column headerText="Valor">
-                        <h:outputText value="#{mensalidade.valor}" />
+                        <h:outputText value="#{mensalidade.valor}">
+                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                        </h:outputText>
                     </p:column>  
 
 
-                    <p:column headerText="Alterar">
+                    <p:column headerText="Alterar" rendered="#{loginMB.usuario.funcao.id == 1}">
                         <p:commandButton action="#{mensalidadeMB.botaoAlterar(mensalidade)}" value="Alterar" update="@form" />
                     </p:column> 
-                    
-                    <p:column headerText="Deletar">
+
+                    <p:column headerText="Deletar" rendered="#{loginMB.usuario.funcao.id == 1}">
                         <p:commandButton action="#{mensalidadeMB.botaoExcluir(mensalidade)}" value="Deletar" update="@form" />
                     </p:column>  
 

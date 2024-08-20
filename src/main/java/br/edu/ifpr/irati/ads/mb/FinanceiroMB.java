@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -28,6 +29,7 @@ public class FinanceiroMB implements Serializable {
     private Date dataInicial;
     private Date dataFinal;
     private String errorMessage;
+    private Locale locale = new Locale("pt", "BR");
 
     public FinanceiroMB() throws PersistenceException {
         transacao = new Transacao();
@@ -112,6 +114,10 @@ public class FinanceiroMB implements Serializable {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public Locale getLocale() {
+        return locale;
     }
 
 }

@@ -12,18 +12,18 @@
         <h:form id="formulario">
             <p:messages id="messages"/>
             <p:dataTable id="tbl" var="despesas" value="#{financeiroMB.transacoesFiltrada}" allowUnsorting="true" sortMode="single">
-                
+
                 <f:facet name="header">
                     <div style="display: flex; justify-content: space-between   ">
                         <div>
                             <h:outputLabel value="Data inicial:" for="dataInicial" />
-                            <p:calendar id="dataInicial" value="#{financeiroMB.dataInicial}" showButtonPanel="true" style="margin-right: 4px"/>
-                            
+                            <p:calendar id="dataInicial" value="#{financeiroMB.dataInicial}" locale="pt_BR" showButtonPanel="true" style="margin-right: 4px"/>
+
                             <h:outputLabel value="Data Final:" for="dataFinal" />
-                            <p:calendar id="dataFinal" value="#{financeiroMB.dataFinal}" showButtonPanel="true"/>
-                            
+                            <p:calendar id="dataFinal" value="#{financeiroMB.dataFinal}" locale="pt_BR" showButtonPanel="true"/>
+
                             <p:commandButton value="Filtrar" action="#{financeiroMB.atualizarTransacoes()}" styleClass="mr-2 mb-2" update="@form"/>
-                            
+
                         </div>
                         <div>
                             <p:commandButton value="XLS" styleClass="mr-2 mb-2">
@@ -62,7 +62,9 @@
                     <h:outputText value="#{despesas.tipo}" />
                 </p:column>
                 <p:column headerText="Valor">
-                    <h:outputText value="#{despesas.valor}" />
+                    <h:outputText value="#{despesas.valor}">
+                        <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                    </h:outputText>
                 </p:column>
             </p:dataTable>
 

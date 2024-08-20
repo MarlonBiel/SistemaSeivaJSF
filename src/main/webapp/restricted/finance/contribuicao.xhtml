@@ -1,16 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="/WEB-INF/template/layout.xhtml">
-    
-    
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/template/layout.xhtml">
+
+
     <ui:define name="conteudo">
         <h:form>
             <h:panelGroup >
                 <p:dataTable var="contribuicao" value="#{contribuicaoMB.contribuicaos}" style="width: 100%">
-                    
+
                     <f:facet name="header">
                         <div style="display: flex; justify-content: space-between   ">
                             <p:commandButton value="Voltar" action="#{contribuicaoMB.botaoVoltar(false)}" />
@@ -18,27 +18,29 @@
                             <p:commandButton value="cadastrar contribuição" action="#{contribuicaoMB.botaoAcessoCadastro(false)}"/>
                         </div>
                     </f:facet>
-                    
+
                     <p:column headerText="Data">
                         <h:outputText value="#{contribuicao.data}">
                             <f:convertDateTime pattern = "dd/MM/yyyy" timeZone="GMT-3"/>
                         </h:outputText>
                     </p:column>
-                    
+
                     <p:column headerText="Usuário">                        
                         <h:outputText value="#{contribuicao.usuario.nome}" />
                     </p:column> 
-                    
+
                     <p:column headerText="Valor">
-                        <h:outputText value="#{contribuicao.valor}" />
+                        <h:outputText value="#{contribuicao.valor}">
+                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                        </h:outputText>
                     </p:column>  
 
 
-                    <p:column headerText="Alterar">
+                    <p:column headerText="Alterar" rendered="#{loginMB.usuario.funcao.id == 1}">
                         <p:commandButton action="#{contribuicaoMB.botaoAlterar(contribuicao)}" value="Alterar" update="@form" />
                     </p:column>  
-                    
-                    <p:column headerText="Deletar">
+
+                    <p:column headerText="Deletar" rendered="#{loginMB.usuario.funcao.id == 1}">
                         <p:commandButton action="#{contribuicaoMB.botaoExcluir(contribuicao)}" value="Deletar" update="@form" />
                     </p:column>  
 
@@ -47,6 +49,6 @@
             </h:panelGroup>
 
         </h:form>
-        
+
     </ui:define>
 </ui:composition>

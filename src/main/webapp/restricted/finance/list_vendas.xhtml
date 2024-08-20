@@ -30,7 +30,9 @@
                     </p:column> 
 
                     <p:column headerText="Valor">
-                        <h:outputText value="#{venda.valorTotal}" />
+                        <h:outputText value="#{venda.valorTotal}">
+                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                        </h:outputText>
                     </p:column>  
 
                 </p:dataTable>

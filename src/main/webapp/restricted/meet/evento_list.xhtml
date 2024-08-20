@@ -46,12 +46,14 @@
 
                         <h:outputLabel value="Descrição: " />  
                         <h:outputText value="#{eventoMB.eventoSelecionado.descricao}" />
-                        
+
                         <h:outputLabel value="Frequentantes: " />  
                         <h:outputText value="#{eventoMB.eventoSelecionado.totalFrequentes}" />
-                        
+
                         <h:outputLabel value="Contribuições " />  
-                        <h:outputText value="#{eventoMB.eventoSelecionado.totalContribuicoes}" />
+                        <h:outputText value="#{eventoMB.eventoSelecionado.totalContribuicoes}">
+                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                        </h:outputText>
 
 
                     </h:panelGrid>

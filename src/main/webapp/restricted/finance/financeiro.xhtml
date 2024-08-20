@@ -45,7 +45,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Valor"/>
                             </f:facet>
-                            <h:outputText value="#{mensalidade.valor}" />
+                            <h:outputText value="#{mensalidade.valor}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                            </h:outputText>
                         </p:column> 
                     </p:dataTable>
 
@@ -80,7 +82,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Valor"/>
                             </f:facet>
-                            <h:outputText value="#{contribuicao.valor}" />
+                            <h:outputText value="#{contribuicao.valor}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                            </h:outputText>
                         </p:column>  
                     </p:dataTable>
 
@@ -115,7 +119,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Valor"/>
                             </f:facet>
-                            <h:outputText value="#{despesa.valor}" />
+                            <h:outputText value="#{despesa.valor}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                            </h:outputText>
                         </p:column>  
                     </p:dataTable>
 

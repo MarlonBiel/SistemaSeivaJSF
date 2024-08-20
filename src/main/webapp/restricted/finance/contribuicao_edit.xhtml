@@ -8,7 +8,6 @@
 
     <ui:define name="conteudo">
         <center>
-            <p>#{contribuicaoMB.reuniao}</p>
             <h2>Cadastrar contribuição</h2>
             <h:form>
                 <h:panelGroup>
@@ -23,7 +22,7 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Valor:" />
-                        <p:inputText value="#{contribuicaoMB.contribuicao.valor}" size="30" required="true" id="cpf" maxlength="14"/>
+                        <p:inputNumber value="#{contribuicaoMB.contribuicao.valor}" size="30" required="true" maxlength="14"/>
 
                         <h:outputText value="Data: " />
                         <p:calendar value="#{contribuicaoMB.contribuicao.data}" size="30" maxlength="14">

@@ -37,14 +37,16 @@
                 </p:column> 
 
                 <p:column headerText="Valor de venda">                        
-                    <h:outputText value="#{produto.valorVenda}" />
+                    <h:outputText value="#{produto.valorVenda}">
+                        <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                    </h:outputText>
                 </p:column>
 
-                <p:column headerText="Alterar">
+                <p:column headerText="Alterar" rendered="#{loginMB.usuario.funcao.id == 1}">
                     <p:commandButton action="#{produtoMB.botaoAlterar(produto)}" value="Alterar" update="@form"/>
                 </p:column> 
 
-                <p:column headerText="Deletar">
+                <p:column headerText="Deletar" rendered="#{loginMB.usuario.funcao.id == 1}">
                     <p:commandButton action="#{produtoMB.botaoExcluir(produto)}" value="Deletar" update="@form"/>
                 </p:column>  
 

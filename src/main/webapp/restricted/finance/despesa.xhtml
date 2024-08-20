@@ -9,7 +9,6 @@
 
 
     <ui:define name="conteudo">
-        <h2>CONTROLE DE DESPESA</h2>
         <h:form enctype="multipart/form-data">
             <p:dataTable var="despesa" value="#{despesaMB.despesas}" style="width: 100%">
 
@@ -32,7 +31,9 @@
                 </p:column>  
 
                 <p:column headerText="Valor">                        
-                    <h:outputText value="#{despesa.valor}" />
+                    <h:outputText value="#{despesa.valor}" >
+                        <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                    </h:outputText>
                 </p:column>
 
                 <p:column headerText="Forma de Pagamento">                        
@@ -47,11 +48,11 @@
                     <h:outputText value="#{despesa.anexos}" />
                 </p:column> 
 
-                <p:column headerText="Alterar">
+                <p:column headerText="Alterar" rendered="#{loginMB.usuario.funcao.id == 1}">
                     <p:commandButton action="#{despesaMB.botaoAlterar(despesa)}" value="Alterar" update="@form" />
                 </p:column> 
 
-                <p:column headerText="Deletar">
+                <p:column headerText="Deletar" rendered="#{loginMB.usuario.funcao.id == 1}">
                     <p:commandButton action="#{despesaMB.botaoExcluir(despesa)}" value="Deletar" update="@form" />
                 </p:column>  
 

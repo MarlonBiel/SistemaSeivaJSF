@@ -45,21 +45,20 @@
                         <h:outputText value="#{usuario.email}" />
                     </p:column>
 
-                    <p:column headerText="Mátricula">                        
+                    <p:column headerText="Matrícula">                        
                         <h:outputText value="#{usuario.matricula}" />
                     </p:column>
 
                     <p:column headerText="Função">                        
                         <h:outputText value="#{usuario.funcao.funcao}" />
                     </p:column>
-
-                    <p:column headerText="Alterar"> 
-                        <p:commandButton action="#{usuarioMB.botaoAlterar(usuario)}" value="Alterar" update="@form" />
+                    <p:column headerText="Alterar" rendered="#{loginMB.usuario.funcao.id == 1}"> 
+                        <p:commandButton action="#{usuarioMB.botaoAlterar(usuario)}" value="Alterar" update="@form"/>
                     </p:column>
 
-                    <p:column headerText="Deletar">
-                        <p:commandButton action="#{usuarioMB.botaoExcluir(usuario)}" value="Deletar" update="@form" />
-                    </p:column>  
+                    <p:column headerText="Deletar" rendered="#{loginMB.usuario.funcao.id == 1}">
+                        <p:commandButton action="#{usuarioMB.botaoExcluir(usuario)}" value="Deletar" update="@form"/>
+                    </p:column>
 
                 </p:dataTable>
 

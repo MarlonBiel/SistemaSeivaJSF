@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Named
 @SessionScoped
@@ -28,7 +29,7 @@ public class LoginMB implements Serializable {
         usuarioDAO = new GenericDAO<>(Usuario.class, session);
         usuarios = usuarioDAO.buscarTodos();
         for (Usuario u : usuarios) {
-            if (email.equals(u.getEmail()) && senha.equals(u.getSenha())) {
+            if (email.equals(u.getEmail()) && verificarSenha(senha, u.getSenha())) {
                 usuario = u;
                 return "/restricted/central.xhtml?faces-redirect=true";
             }
@@ -38,6 +39,10 @@ public class LoginMB implements Serializable {
         return "";
     }
 
+    public boolean verificarSenha(String senhaInformada, String senhaCriptografada){
+        return BCrypt.checkpw(senhaInformada, senhaCriptografada);
+    }
+    
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         setUsuario(null);

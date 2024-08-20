@@ -10,7 +10,7 @@
 
     <ui:define name="conteudo">
         <center>
-            <h2>VENDAS</h2>
+            <h2>Vendas</h2>
             <p:growl id="mensagem"/>
             <h:form enctype="multipart/form-data">
 
@@ -60,7 +60,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Valor"/>
                             </f:facet>
-                            <h:outputText value="#{venda.produto.valorVenda * venda.quantVenda}" />
+                            <h:outputText value="#{venda.produto.valorVenda * venda.quantVenda}">
+                                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                            </h:outputText>    
                         </p:column>
 
                         <p:column>

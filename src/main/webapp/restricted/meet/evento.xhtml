@@ -76,7 +76,9 @@
                             <p:column >
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 5px">
                                     <p:outputLabel value="#{contribuicao.usuario.nome}" />
-                                    <p:outputLabel value="R$#{contribuicao.valor}" />
+                                    <p:outputLabel value="R$#{contribuicao.valor}">
+                                        <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                                    </p:outputLabel>
                                 </div>
                             </p:column>
 
