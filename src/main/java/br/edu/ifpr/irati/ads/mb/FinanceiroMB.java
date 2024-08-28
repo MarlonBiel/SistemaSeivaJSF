@@ -51,7 +51,7 @@ public class FinanceiroMB implements Serializable {
         session.close();
 
         if (dataFinal != null && dataInicial != null) {
-            transacoesFiltrada = transacoes.stream().filter(transacao -> !transacao.getData().after(dataInicial) && !transacao.getData().before(dataFinal)).sorted((i1, i2) -> i1.getData().compareTo(i2.getData())).collect(Collectors.toList());
+            transacoesFiltrada = transacoes.stream().filter(transacao -> !transacao.getData().before(dataInicial) && !transacao.getData().after(dataFinal)).sorted((i1, i2) -> i1.getData().compareTo(i2.getData())).collect(Collectors.toList());
 
             if (transacoesFiltrada.isEmpty()) {
                 setErrorMessage("Nenhuma transação encontrada neste periodo");
