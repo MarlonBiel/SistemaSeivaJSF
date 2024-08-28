@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ComponentSystemEvent;
 import org.hibernate.Session;
 
 @ManagedBean(name = "eventoMB")
@@ -118,6 +119,10 @@ public final class EventoMB implements Serializable {
         usuarioDAO = new GenericDAO<>(Usuario.class, session);
         usuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
         session.close();
+    }
+    
+    public void atualizarListaUsuarios(ComponentSystemEvent event) throws PersistenceException{
+        buscarUsuarios();
     }
 
     public void buscarContribuicoes() throws PersistenceException {

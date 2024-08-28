@@ -11,41 +11,43 @@
 
     <ui:define name="conteudo">
         <center>
-        <p:growl id="mensagem" />
-        <h2>Cadastrar mensalidade</h2>
-        <h:form id="formulario">
+            <p:growl id="mensagem" />
+            <h2>Cadastrar mensalidade</h2>
+            <h:form id="formulario">
 
-            <h:panelGroup id="inserir">
+                <h:panelGroup id="inserir">
 
-                <p:panelGrid columns="5">                            
+                    <p:panelGrid columns="5">                            
+                        <f:metadata>
+                            <f:event type="preRenderView" listener="#{mensalidadeMB.atualizarListaUsuarios}" />
+                        </f:metadata>
+                        <h:outputText value="Usuário: " />
+                        <p:selectOneMenu value="#{mensalidadeMB.mensalidade.usuario}" id="usuario"   filter="true" converter="usuarioConverter" filterMatchMode="startsWith" >
+                            <f:selectItems value="#{mensalidadeMB.usuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}" />
+                        </p:selectOneMenu>
 
-                    <h:outputText value="Usuário: " />
-                    <p:selectOneMenu value="#{mensalidadeMB.mensalidade.usuario}" id="usuario"   filter="true" converter="usuarioConverter" filterMatchMode="startsWith" >
-                        <f:selectItems value="#{mensalidadeMB.usuarios}" var="usuarios" itemLabel="#{usuarios.nome}" itemValue="#{usuarios}" />
-                    </p:selectOneMenu>
+                        <h:outputText value="Mês " />
+                        <p:selectOneMenu value="#{mensalidadeMB.mensalidade.mes}" id="meses" converter="mesConverter"  filter="true" filterMatchMode="startsWith" >
+                            <f:selectItems value="#{mensalidadeMB.meses}" var="meses" itemLabel="#{meses.mes}" itemValue="#{meses}" />
+                        </p:selectOneMenu>
 
-                    <h:outputText value="Mês " />
-                    <p:selectOneMenu value="#{mensalidadeMB.mensalidade.mes}" id="meses" converter="mesConverter"  filter="true" filterMatchMode="startsWith" >
-                        <f:selectItems value="#{mensalidadeMB.meses}" var="meses" itemLabel="#{meses.mes}" itemValue="#{meses}" />
-                    </p:selectOneMenu>
+                        <p:commandButton action="#{mensalidadeMB.salvar()}" value="Registrar Mensalidade" update=":mensagem"/>
 
-                    <p:commandButton action="#{mensalidadeMB.salvar()}" value="Registrar Mensalidade" update=":mensagem"/>
+                        <h:outputText value="Ano " />
+                        <p:inputText value="#{mensalidadeMB.mensalidade.ano}" size="30" />
 
-                    <h:outputText value="Ano " />
-                    <p:inputText value="#{mensalidadeMB.mensalidade.ano}" size="30" />
+                        <h:outputText value="Valor " />
+                        <p:inputNumber value="#{mensalidadeMB.mensalidade.valor}" size="30" />
 
-                    <h:outputText value="Valor " />
-                    <p:inputNumber value="#{mensalidadeMB.mensalidade.valor}" size="30" />
+                    </p:panelGrid>
+                </h:panelGroup>
 
-                </p:panelGrid>
-            </h:panelGroup>
-
-            <div>
-                <p:commandLink action="#{mensalidadeMB.botaoVoltar(true)}">
-                    <p:commandButton value="Voltar"/>
-                </p:commandLink>
-            </div>
-        </h:form>
+                <div>
+                    <p:commandLink action="#{mensalidadeMB.botaoVoltar(true)}">
+                        <p:commandButton value="Voltar"/>
+                    </p:commandLink>
+                </div>
+            </h:form>
         </center>
     </ui:define>
 </ui:composition>

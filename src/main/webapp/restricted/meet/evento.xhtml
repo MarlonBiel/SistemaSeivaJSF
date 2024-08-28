@@ -21,6 +21,9 @@
 
                 <!--Painel de trabalhadores-->
                 <p:panel header="Trabalhador" styleClass="panel"> 
+                    <f:metadata>
+                        <f:event type="preRenderView" listener="#{eventoMB.atualizarListaUsuarios}" />
+                    </f:metadata>
                     <h:form>
                         <p:dataTable id="tabelaUsuarios" var="usuario" value="#{eventoMB.usuarios}" selection="#{eventoMB.usuariosPresentes}" rowKey="#{usuario.id}" >
                             <!--

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ComponentSystemEvent;
 import org.hibernate.Session;
 
 @ManagedBean
@@ -45,8 +46,7 @@ public class MensalidadeMB implements Serializable {
             mensalidades = mensalidadeDAO.buscarTodos();
             mesDAO = new GenericDAO<>(Mes.class, session);
             meses = mesDAO.buscarTodos();
-            usuarioDAO = new GenericDAO<>(Usuario.class, session);
-            usuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
+            carregarUsuarios();
             inserir = true;
             session.close();
             limparTela();
@@ -127,6 +127,17 @@ public class MensalidadeMB implements Serializable {
             return "/restricted/finance/mensalidade.xhtml?faces-redirect=true";
         }
         return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
+    }
+    
+    public void carregarUsuarios() throws PersistenceException{
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        usuarioDAO = new GenericDAO<>(Usuario.class, session);
+        usuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
+        
+    }
+    
+    public void atualizarListaUsuarios(ComponentSystemEvent event) throws PersistenceException{
+        carregarUsuarios();
     }
 
     public Mensalidade getMensalidade() {

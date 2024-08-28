@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ComponentSystemEvent;
 import org.hibernate.Session;
 
 @ManagedBean
@@ -47,11 +48,10 @@ public class ContribuicaoMB implements Serializable {
     public ContribuicaoMB() throws PersistenceException {
         this.listaUsuariosFiltro = new ArrayList<Usuario>();
         try {
+            carregarUsuarios();
             Session session = HibernateUtil.getSessionFactory().openSession();
             contribuicaoDAO = new GenericDAO<>(Contribuicao.class, session);
-            usuarioDAO = new GenericDAO<>(Usuario.class, session);
             contribuicaos = contribuicaoDAO.buscarTodos();
-            listaUsuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
             usuario = "";
             inserir = true;
             session.close();
@@ -131,6 +131,17 @@ public class ContribuicaoMB implements Serializable {
         this.contribuicao = new Contribuicao(contribuicao.getId(), contribuicao.getUsuario(), contribuicao.getValor(), contribuicao.getData(), contribuicao.getFormaContribuicao(), contribuicao.getTipo());
         inserir = false;
         return "/restricted/finance/contribuicao_edit.xhtml?faces-redirect=true";
+    }
+    
+    public void carregarUsuarios() throws PersistenceException{
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        usuarioDAO = new GenericDAO<>(Usuario.class, session);
+        listaUsuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
+        
+    }
+    
+    public void atualizarListaUsuarios(ComponentSystemEvent event) throws PersistenceException{
+        carregarUsuarios();
     }
 
     public void localizarUsuario(String nomeUsuario) {
