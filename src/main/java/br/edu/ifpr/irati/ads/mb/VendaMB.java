@@ -80,7 +80,7 @@ public class VendaMB implements Serializable {
         return valorTotal;
     }
 
-    public void realziarVenda() {
+    public String realziarVenda() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             vendaDAO = new GenericDAO<>(Venda.class, session);
@@ -101,8 +101,10 @@ public class VendaMB implements Serializable {
             atualizaLista();
             inserir = true;
             session.close();
+            return "/restricted/finance/list_vendas.xhtml?faces-redirect=true";
         } catch (PersistenceException ex) {
             ex.printStackTrace();
+            return "";
         }
     }
 

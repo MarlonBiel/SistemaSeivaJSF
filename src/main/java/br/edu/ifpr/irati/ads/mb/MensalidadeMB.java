@@ -11,6 +11,7 @@ import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;    
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
@@ -45,7 +46,7 @@ public class MensalidadeMB implements Serializable {
             mesDAO = new GenericDAO<>(Mes.class, session);
             meses = mesDAO.buscarTodos();
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
-            usuarios = usuarioDAO.buscarTodos();
+            usuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
             inserir = true;
             session.close();
             limparTela();

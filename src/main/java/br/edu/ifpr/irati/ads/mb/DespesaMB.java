@@ -69,19 +69,21 @@ public class DespesaMB implements Serializable {
             Session session = HibernateUtil.getSessionFactory().openSession();
             despesaDAO = new GenericDAO<>(Despesa.class, session);
             String nome = anexo.getSubmittedFileName();
-            String extensao = nome.substring(nome.lastIndexOf(".") + 1, nome.length());
-            nome = String.valueOf(new Date().getTime()) + "." + extensao;
+            //String extensao = nome.substring(nome.lastIndexOf(".") + 1, nome.length());
+            //nome = String.valueOf(new Date().getTime()) + "." + extensao;
             despesa.setAnexos(nome);
-            cadastrarTransacao();
+            
             if (inserir) {
                 //executar o método inserir do DAO
                 despesaDAO.salvar(despesa);
+                System.out.println("Arquivos serão salvos em: " + pathArquivos);
                 //financeiro.addInTransacao(despesa.getData(), despesa.getDescriminacao(), 'D', despesa.getValor());
             } else {
                 //executar o método alterar do DAO
                 despesaDAO.alterar(despesa);
             }
             upload(nome);
+            cadastrarTransacao();
             inserir =true;
             despesa = new Despesa();
             despesas = despesaDAO.buscarTodos();

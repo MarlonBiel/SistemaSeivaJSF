@@ -11,7 +11,9 @@ import br.edu.ifpr.irati.ads.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
@@ -39,6 +41,8 @@ public class ContribuicaoMB implements Serializable {
     private Dao<Transacao> transacaoDAO;
 
     private List<Contribuicao> contribuicaoFiltro = new ArrayList<>();
+    @ManagedProperty(value = "#{eventoMB}")
+    private EventoMB eventoMB;
 
     public ContribuicaoMB() throws PersistenceException {
         this.listaUsuariosFiltro = new ArrayList<Usuario>();
@@ -47,7 +51,7 @@ public class ContribuicaoMB implements Serializable {
             contribuicaoDAO = new GenericDAO<>(Contribuicao.class, session);
             usuarioDAO = new GenericDAO<>(Usuario.class, session);
             contribuicaos = contribuicaoDAO.buscarTodos();
-            listaUsuarios = usuarioDAO.buscarTodos();
+            listaUsuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
             usuario = "";
             inserir = true;
             session.close();
@@ -75,7 +79,7 @@ public class ContribuicaoMB implements Serializable {
                 contribuicaoDAO.salvar(contribuicao);
                 
                 if (reuniao) {
-                    getContribuicaoFiltro().add(contribuicao);
+                    eventoMB.getEvento().getContribuicoes().add(contribuicao);
                 }
                 
                 //finanaceiro.addInTransacao(contribuicao.getData(), contribuicao.getFormaContribuicao().getFormaPgto(),'C', contribuicao.getValor());
@@ -88,7 +92,7 @@ public class ContribuicaoMB implements Serializable {
             contribuicaos = contribuicaoDAO.buscarTodos();
             session.close();
             if (reuniao == true) {
-                return "/restricted/meet/reuniao.xhtml?faces-redirect=true";
+                return "/restricted/meet/evento.xhtml?faces-redirect=true";
             } else {
                 setReuniao(false);
                 return "/restricted/finance/contribuicao.xhtml?faces-redirect=true";
@@ -153,14 +157,6 @@ public class ContribuicaoMB implements Serializable {
             }
         }
         return "/restricted/finance/financeiro.xhtml?faces-redirect=true";
-    }
-
-    public double somaContribuicaoFiltro() {
-        totalContribuicaoFiltro = 0;
-        for (Contribuicao c : contribuicaoFiltro) {
-            totalContribuicaoFiltro = totalContribuicaoFiltro + c.getValor();
-        }
-        return totalContribuicaoFiltro;
     }
 
     public void cadastrarTransacao() throws PersistenceException {
@@ -258,6 +254,14 @@ public class ContribuicaoMB implements Serializable {
 
     public void setReuniao(boolean reuniao) {
         this.reuniao = reuniao;
+    }
+
+    public EventoMB getEventoMB() {
+        return eventoMB;
+    }
+
+    public void setEventoMB(EventoMB eventoMB) {
+        this.eventoMB = eventoMB;
     }
 
 }

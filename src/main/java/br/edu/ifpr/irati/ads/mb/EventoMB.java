@@ -12,12 +12,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
-@ManagedBean
+@ManagedBean(name = "eventoMB")
 @SessionScoped
 public final class EventoMB implements Serializable {
 
@@ -41,13 +42,13 @@ public final class EventoMB implements Serializable {
     private List<Contribuicao> contribuicoes;
     private Dao<Contribuicao> contribuicaoDAO;
 
-    @ManagedProperty(value = "#{ContribuicaoMB.contribuicaoFiltro}")
     private List<Contribuicao> contribuicaoFiltro;
     private double totalFiltro;
 
     public EventoMB() throws PersistenceException {
         try {
             evento = new Evento();
+            contribuicaoFiltro = new ArrayList<>();
             Session session = HibernateUtil.getSessionFactory().openSession();
             eventoDAO = new GenericDAO<>(Evento.class, session);
             eventos = eventoDAO.buscarTodos();
@@ -66,11 +67,11 @@ public final class EventoMB implements Serializable {
         setUsuario(new Usuario());
     }
 
-    public String salvar(List<Contribuicao> contribuicoes) {
+    public String salvar() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             eventoDAO = new GenericDAO<>(Evento.class, session);
-            configItensSalvar(contribuicoes);
+            configItensSalvar();
             if (inserir) {
                 //executar o método inserir do DAO
                 eventoDAO.salvar(evento);
@@ -115,7 +116,7 @@ public final class EventoMB implements Serializable {
         usuario = new Usuario();
         Session session = HibernateUtil.getSessionFactory().openSession();
         usuarioDAO = new GenericDAO<>(Usuario.class, session);
-        usuarios = usuarioDAO.buscarTodos();
+        usuarios = usuarioDAO.buscarTodos().stream().filter(usuario -> usuario.getDataExclusao() == null).collect(Collectors.toList());
         session.close();
     }
 
@@ -127,20 +128,24 @@ public final class EventoMB implements Serializable {
         session.close();
     }
 
-    public void configItensSalvar(List<Contribuicao> contribuicoes) throws PersistenceException {
-        //addUserToEvent();
+    public double somaContribuicaoFiltro() {
+        quantidadeTotalContribuicao = 0;
+        for (Contribuicao c : evento.getContribuicoes()) {
+            quantidadeTotalContribuicao = quantidadeTotalContribuicao + c.getValor();
+        }
+        evento.setTotalContribuicoes(quantidadeTotalContribuicao);
+        quantidadeTotalContribuicao = 0;
+        return evento.getTotalContribuicoes();
+    }
 
+    public void configItensSalvar() throws PersistenceException {
+        //addUserToEvent();
         evento.setData(data);
         sdf.format(data);
         evento.setDescricao("Reunião dia " + sdf.format(data));
         evento.setUsuarios(usuariosPresentes);
-        evento.setContribuicoes(contribuicoes);
         evento.setTotalFrequentes(evento.getQuantidadeFrequentantes() + evento.getQuantidadeVisitantes() + usuariosPresentes.size());
-        for (Contribuicao c : contribuicoes) {
-            quantidadeTotalContribuicao = quantidadeTotalContribuicao + c.getValor();
-        }
-        evento.setTotalContribuicoes(quantidadeTotalContribuicao);
-        quantidadeTotalContribuicao  = 0;
+        quantidadeTotalContribuicao = 0;
 
     }
 

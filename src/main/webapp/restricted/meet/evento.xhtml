@@ -13,7 +13,7 @@
             <div align="right" style="margin: 10px 50px">
 
                 <p:commandLink >
-                    <p:commandButton value="Finalizar reunião" action="#{eventoMB.salvar(contribuicaoMB.contribuicaoFiltro)}"/>
+                    <p:commandButton value="Finalizar reunião" action="#{eventoMB.salvar()}"/>
                 </p:commandLink>
             </div>
 
@@ -72,7 +72,7 @@
                     </f:facet>
 
                     <h:form>
-                        <p:dataScroller id="tabelaContribuicao" var="contribuicao" value="#{contribuicaoMB.contribuicaoFiltro}"  style="justify-content: space-between;">
+                        <p:dataScroller id="tabelaContribuicao" var="contribuicao" value="#{eventoMB.evento.contribuicoes}"  style="justify-content: space-between;">
                             <p:column >
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 5px">
                                     <p:outputLabel value="#{contribuicao.usuario.nome}" />
@@ -86,7 +86,7 @@
                     </h:form>
 
                     <f:facet name="footer">
-                        <h:outputText value="Total = R$#{contribuicaoMB.somaContribuicaoFiltro()}"/>
+                        <h:outputText value="Total = R$#{eventoMB.somaContribuicaoFiltro()}"/>
                     </f:facet>
                 </p:panel>
             </div>
